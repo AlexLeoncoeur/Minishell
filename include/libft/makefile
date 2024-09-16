@@ -1,3 +1,14 @@
+MAGENTA = \033[35;1m
+YELLOW  = \033[33;1m
+GREEN   = \033[32;1m
+WHITE   = \033[37;1m
+RESET   = \033[0m
+GRAY 	= \033[0;90m
+BLUE    = \033[34;1m
+CYAN    = \033[37;1m
+BOLD	= \033[1m
+RED		= \033[31;1m
+
 CFILES = ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_tolower.c ft_toupper.c ft_isprint.c \
 ft_isdigit.c ft_isascii.c ft_isalpha.c ft_isalnum.c ft_memcmp.c ft_bzero.c ft_memchr.c ft_memcpy.c \
 ft_memmove.c ft_memset.c ft_strchr.c ft_strrchr.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c \
@@ -14,12 +25,13 @@ CC = gcc
 NAME = libft.a
 CFLAGS = -Wall -Werror -Wextra
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@
 all: $(NAME)
-$(NAME): $(OFILES)
+$(NAME): compiling $(OFILES)
 	@ ar rcs $(NAME) $(OFILES)
 
 clean:
+	@ echo "$(RED)Cleaning Libft ... $(RESET)"
 	@ rm -f $(OFILES)
 
 fclean: clean
@@ -29,5 +41,8 @@ re: fclean all
 
 bonus: all $(BONUS_OFILES)
 	@ ar rcs $(NAME) $(BONUS_OFILES)
+
+compiling:
+	@ echo "$(GREEN)Compiling Libft ...$(RESET)"
 
 .PHONY: all clean fclean re bonus

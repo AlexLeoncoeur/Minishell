@@ -6,11 +6,11 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:27:14 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 16:12:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:18:10 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_here_doc(int *pipefd, char **argv)
 {

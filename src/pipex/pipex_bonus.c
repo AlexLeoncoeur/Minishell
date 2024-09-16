@@ -6,11 +6,11 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 16:12:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:17:58 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
 {

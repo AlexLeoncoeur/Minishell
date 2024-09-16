@@ -6,11 +6,11 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 16:12:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:18:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_arg_list	*ft_define_lst(int argc, char **argv, char **envp)
 {
