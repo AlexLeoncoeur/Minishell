@@ -6,9 +6,12 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/10 16:34:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:33:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	ft_echo(void)
+{
+}

@@ -16,15 +16,18 @@ RED		= \033[31;1m
 CFILES = \
 
 BUILT_IN_CFILES = 
+PIPEX_CFILES = 
 
 # DIRECTORIES 
 SRC_DIR = src/
 BUILT_IN_SRC_DIR = src/built_ins/
+PIPEX_SRC_DIR = src/pipex/
 OBJ_DIR = objs/
 
 # OBJECTS
 OFILES = $(addprefix $(OBJ_DIR), $(CFILES:.c=.o))
 BUILT-IN_OFILES = $(addprefix $(OBJ_DIR)built-ins/, $(BUILT_IN_CFILES:.c=.o))
+PIPEX_OFILES = $(addprefix $(OBJ_DIR)pipex/, $(PIPEX_CFILES:.c=.o))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
@@ -97,4 +100,4 @@ re: fclean all
 compiling:
 	@ echo "$(MAGENTA)Compiling Project: $(RESET)"
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus compiling
