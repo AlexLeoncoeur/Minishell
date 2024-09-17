@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 11:34:06 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:33:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ int			ft_check_heredoc(char **argv);
 /* ------------------------ pipex/last_cmd ------------------------ */
 
 void		ft_do_last_cmd(t_arg_list *lst, int fd);
+
+/* ------------------------ built-ins/echo------------------------ */
+
+void		ft_echo(char **matrix);
 
 #endif

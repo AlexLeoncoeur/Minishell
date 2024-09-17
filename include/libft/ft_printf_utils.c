@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:22:34 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/05/10 16:33:52 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:42:09 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_putchar(char c, int *printed_words)
+void	ft_printf_putchar(char c, int *printed_words)
 {
 	if (*printed_words == -1)
 		return ;
@@ -22,19 +22,19 @@ void	ft_putchar(char c, int *printed_words)
 		*printed_words = -1;
 }
 
-void	ft_putstr(char *str, int *p_w)
+void	ft_printf_putstr(char *str, int *p_w)
 {
 	int	i;
 
 	i = 0;
 	if (str == NULL)
 	{
-		ft_putstr("(null)", p_w);
+		ft_printf_putstr("(null)", p_w);
 		return ;
 	}
 	while (str[i] != '\0')
 	{
-		ft_putchar(str[i], p_w);
+		ft_printf_putchar(str[i], p_w);
 		i++;
 	}
 }
@@ -44,7 +44,7 @@ void	ft_printf_putnbr_dec(long int nb, int *p_w)
 	if (nb < 0)
 	{
 		nb *= -1;
-		ft_putchar('-', p_w);
+		ft_printf_putchar('-', p_w);
 		ft_printf_putnbr_dec(nb, p_w);
 	}
 	else if (nb > 9)
@@ -54,7 +54,7 @@ void	ft_printf_putnbr_dec(long int nb, int *p_w)
 	}
 	else
 	{
-		ft_putchar(nb + '0', p_w);
+		ft_printf_putchar(nb + '0', p_w);
 	}
 }
 
@@ -73,6 +73,6 @@ void	ft_printf_putnbr_hexa(unsigned long long nb, char c, int *p_w)
 	}
 	else
 	{
-		ft_putchar(set[nb], p_w);
+		ft_printf_putchar(set[nb], p_w);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:16:36 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/05/22 15:31:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:56:16 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <stdarg.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -52,6 +53,8 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int nb, int fd);
 void		ft_bzero(void *s, size_t n);
+void		ft_putstr(char *str);
+void		ft_putchar(char c);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_substr(char const *s, unsigned int start, size_t len);
@@ -75,5 +78,12 @@ void		ft_lstadd_back(t_list **lst, t_list	*new);
 
 char		*get_next_line(int fd);
 int			ft_is_in_str(const char *s, int c);
+
+/* void		ft_printf_putnbr_hexa(unsigned long long nb, char c, int *p_w);
+void		ft_printf_putnbr_dec(long int nb, int *p_w);
+void		ft_printf_putstr(char *str, int *p_w);
+void		ft_printf_putchar(char c, int *printed_words);
+void		ft_type_filter(char c, va_list *list, int *p_w);
+int			ft_printf(char const *str, ...); */
 
 #endif

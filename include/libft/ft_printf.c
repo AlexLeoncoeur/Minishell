@@ -6,20 +6,20 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 10:34:23 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/05/10 16:33:58 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:52:33 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_type_filter(char c, va_list *list, int *p_w)
 {
 	if (c == 'c')
-		ft_putchar(va_arg(*list, int), p_w);
+		ft_printf_putchar(va_arg(*list, int), p_w);
 	else if (c == 's')
-		ft_putstr(va_arg(*list, char *), p_w);
+		ft_printf_putchar(va_arg(*list, char *), p_w);
 	else if (c == '%')
-		ft_putchar('%', p_w);
+		ft_printf_putchar('%', p_w);
 	else if (c == 'd' || c == 'i')
 		ft_printf_putnbr_dec(va_arg(*list, int), p_w);
 	else if (c == 'u')
@@ -30,13 +30,13 @@ void	ft_type_filter(char c, va_list *list, int *p_w)
 		ft_printf_putnbr_hexa(va_arg(*list, unsigned int), 'X', p_w);
 	else if (c == 'p')
 	{
-		ft_putstr("0x", p_w);
+		ft_printf_putstr("0x", p_w);
 		ft_printf_putnbr_hexa(va_arg(*list, unsigned long long), 'x', p_w);
 	}
 	else
 	{
-		ft_putchar('%', p_w);
-		ft_putchar(c, p_w);
+		ft_printf_putchar('%', p_w);
+		ft_printf_putchar(c, p_w);
 	}
 }
 
@@ -57,7 +57,7 @@ int	ft_printf(char const *str, ...)
 			i++;
 		}
 		else if (str[i])
-			ft_putchar(str[i], &printed_words);
+			ft_printf_putchar(str[i], &printed_words);
 		if (printed_words == -1)
 			break ;
 		i++;
