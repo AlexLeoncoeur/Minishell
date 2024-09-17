@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 13:47:22 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:21:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	main(int argc, char **argv, char **envp)
 	t_arg_list	*lst;
 
 	if (ft_strncmp(argv[1], "echo\0", 5) == 0)
-		ft_echo(argv);
+	{
+		ft_echo(&argv[2]);
+		return (0);
+	}
 	fd = ft_check_heredoc(argv);
 	if (fd == -1)
 		exit(1);

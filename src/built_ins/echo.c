@@ -6,11 +6,31 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 13:53:31 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:23:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	ft_flag_skip(char *str, int *flag)
+{
+	int	i;
+
+	i = 2;
+	if (!str)
+		return (0);
+	if ((str[0] && str[0] == '-') && (str[1] && str[1] == 'n'))
+	{
+		while (str[i] == 'n')
+			i++;
+		if (str[i] == '\0')
+		{
+			*flag = 1;
+			return (1);
+		}
+	}
+	return (0);
+}
 
 void	ft_echo(char **matrix)
 {
@@ -21,22 +41,14 @@ void	ft_echo(char **matrix)
 	flag = 0;
 	i = 0;
 	j = 0;
-	if (matrix[0][0] == '-' && matrix[0][1] == 'n')
-		flag = 1;
-	while (matrix[i][0] == '-' && matrix[i][1] == 'n')
+	while (ft_flag_skip(matrix[i], &flag) == 1)
+		i++;
+	while (matrix[i])
 	{
-		while (matrix[i][j] == 'n')
-			j++;
-		if (matrix[i][j])
-			break ;
+		ft_putstr(matrix[i]);
+		ft_putchar(' ');
 		i++;
 	}
-	j = 0;
-	while (matrix[i][j])
-	{
-		ft_putstr_fd(matrix[i], STDOUT_FILENO);
-		i++;
-	}
-	if (flag == 1)
+	if (flag == 0)
 		ft_putchar('\n');
 }
