@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 16:12:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:34:06 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ typedef struct s_arg_list
 	char				**argv;
 	char				**flags;
 	char				**envp;
-	struct s_arg_list	*next;
 
 }	t_arg_list;
+
+/* ------------------------ pipex/pipex_bonus ------------------------ */
+
+char		*ft_pathfinder(t_arg_list *lst, int pos);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
@@ -39,5 +42,9 @@ void		ft_free(char **str);
 void		ft_here_doc(int *pipefd, char **argv);
 int			ft_openfile(char **argv, int argc);
 int			ft_check_heredoc(char **argv);
+
+/* ------------------------ pipex/last_cmd ------------------------ */
+
+void		ft_do_last_cmd(t_arg_list *lst, int fd);
 
 #endif

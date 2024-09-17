@@ -16,7 +16,7 @@ RED		= \033[31;1m
 CFILES = \
 
 BUILT_IN_CFILES = echo.c
-PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c
+PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c last_cmd.c
 
 # DIRECTORIES 
 SRC_DIR = src/
@@ -40,31 +40,6 @@ $(OBJ_DIR)pipex/%.o: $(PIPEX_SRC_DIR)%.c
 
 $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/built_ins/
-	@ $(CC) $(CFLAGS) -c $< -o $@
-
-#---------- BONUS ----------#
-
-# FILES 
-BONUS_CFILES = \
-
-BONUS_ORDER_CFILES = 
-
-# DIRECTORIES
-BONUS_SRC_DIR = bonus/
-BONUS_ORDER_SRC_DIR = bonus/order_cmd/
-BONUS_OBJ_DIR = bonus/objs/
-
-# OBJECTS
-BONUS_OFILES = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_CFILES:.c=.o))
-BONUS_ORDER_OFILES = $(addprefix $(BONUS_OBJ_DIR)order_cmd/, $(BONUS_ORDER_CFILES:.c=.o))
-
-$(BONUS_OBJ_DIR)%.o: $(BONUS_SRC_DIR)%.c
-	@ mkdir -p $(BONUS_OBJ_DIR)
-	@ echo "$(CYAN)Compiling File: $(RESET)$(notdir $<)"
-	@ $(CC) $(CFLAGS) -c $< -o $@
-
-$(BONUS_OBJ_DIR)order_cmd/%.o: $(BONUS_ORDER_SRC_DIR)%.c
-	@ mkdir -p $(BONUS_OBJ_DIR)/order_cmd/
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 

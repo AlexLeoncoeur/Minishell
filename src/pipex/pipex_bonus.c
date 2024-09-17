@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 18:17:58 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:42:10 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
 	return (free(endl), NULL);
 }
 
-static char	*ft_pathfinder(t_arg_list *lst, int pos)
+char	*ft_pathfinder(t_arg_list *lst, int pos)
 {
 	char	**d_paths;
 	char	*path;
@@ -119,13 +119,8 @@ int	main(int argc, char **argv, char **envp)
 	if (fd == -1)
 		return (ft_freeanderror(lst), 1);
 	dup2(fd, STDOUT_FILENO);
-	if (execve(ft_pathfinder(lst, argc - 2), lst->flags, envp) < 0)
-	{
-		ft_free(lst->flags);
-		free(lst);
-		close(fd);
-		perror("Error");
-		return (1);
-	}
+	ft_do_last_cmd(lst, fd);
 	return (0);
 }
+// Hacer comprobacion si las variables de entorno
+//estan vacias entonces usar funcion que las coge

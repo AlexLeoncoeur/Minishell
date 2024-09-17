@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/16 18:18:08 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:04:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ t_arg_list	*ft_define_lst(int argc, char **argv, char **envp)
 	aux = malloc(sizeof(t_arg_list));
 	if (aux == NULL)
 		return (NULL);
+	aux->flags = NULL;
 	aux->argc = argc;
 	aux->argv = argv;
-	aux->flags = NULL;
 	aux->envp = envp;
-	aux->next = NULL;
 	return (aux);
 }
 
