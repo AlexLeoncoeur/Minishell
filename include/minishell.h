@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 13:33:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:24:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libft/libft.h"
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <unistd.h>
 
 typedef struct s_arg_list
 {
@@ -50,5 +51,9 @@ void		ft_do_last_cmd(t_arg_list *lst, int fd);
 /* ------------------------ built-ins/echo------------------------ */
 
 void		ft_echo(char **matrix);
+
+/* ------------------------ built-ins/pwd------------------------ */
+
+void		ft_pwd(void);
 
 #endif

@@ -13,9 +13,9 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = \
+CFILES = hola.c\
 
-BUILT_IN_CFILES = echo.c
+BUILT_IN_CFILES = echo.c pwd.c
 PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c last_cmd.c
 
 # DIRECTORIES 
@@ -36,10 +36,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(OBJ_DIR)pipex/%.o: $(PIPEX_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/pipex/
+	@ echo "$(BLUE)Compiling File: $(CYAN)pipex/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/built_ins/
+	@ echo "$(BLUE)Compiling File: $(CYAN)built_ins/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 
@@ -48,16 +50,19 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 CC = clang
 NAME = minishell
 BONUS_NAME = 
-CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+
+SILENT = 0
 
 all: libft $(NAME)
 $(NAME): compiling $(OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES)
 	@ echo
 	@ $(CC) $(CFLAGS) $(PIPEX_OFILES) $(BUILT_IN_OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
+	@ SILENT = 1
 
 libft:
-	@ make -C include/libft/ bonus
+	@ make --silent -C include/libft/ bonus
 
 bonus: all $(BONUS_NAME)
 $(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
@@ -69,7 +74,7 @@ clean:
 	@ echo "$(RED)Cleaning Project ... $(RESET)"
 	@ rm -f $(OFILES) $(ORDER_OFILES) $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
 	@ rm -rf $(OBJ_DIR)order_cmd/ $(OBJ_DIR) $(BONUS_OBJ_DIR)order_cmd/ $(BONUS_OBJ_DIR)
-	@ make -C "include/libft/" fclean
+	@ make --silent -C "include/libft/" fclean
 	@ echo "$(YELLOW)Project Cleaned!\n $(RESET)"
 
 fclean: clean
@@ -78,6 +83,9 @@ fclean: clean
 re: fclean all
 
 compiling:
-	@ echo "$(MAGENTA)Compiling Project: $(RESET)"
+	ifeq ($(SILENT), 1)
+		@ echo "$(MAGENTA)Already compiled: $(RESET)"
+	else
+		@ echo "$(MAGENTA)Compiling Project: $(RESET)"
 
 .PHONY: all clean fclean re bonus compiling
