@@ -52,14 +52,11 @@ NAME = minishell
 BONUS_NAME = 
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 
-SILENT = 0
-
 all: libft $(NAME)
 $(NAME): compiling $(OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES)
 	@ echo
 	@ $(CC) $(CFLAGS) $(PIPEX_OFILES) $(BUILT_IN_OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
-	@ SILENT = 1
 
 libft:
 	@ make --silent -C include/libft/ bonus
@@ -83,9 +80,6 @@ fclean: clean
 re: fclean all
 
 compiling:
-	ifeq ($(SILENT), 1)
-		@ echo "$(MAGENTA)Already compiled: $(RESET)"
-	else
-		@ echo "$(MAGENTA)Compiling Project: $(RESET)"
+	@ echo "$(MAGENTA)Compiling Project: $(RESET)"
 
 .PHONY: all clean fclean re bonus compiling
