@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/18 11:24:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:00:16 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
 
 typedef struct s_arg_list
 {
