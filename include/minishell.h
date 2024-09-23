@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 18:34:27 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:41:22 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct data
 	int					exit_status;
 
 }	t_data;
+
 /* ------------------------ pipex/pipex_bonus ------------------------ */
 
 char		*ft_pathfinder(t_arg_list *lst, int pos);
@@ -82,5 +83,14 @@ void		ft_echo(char **matrix);
 /* ------------------------ built-ins/pwd------------------------ */
 
 void		ft_pwd(void);
+
+/* ------------------------ Initializer------------------------ */
+/**
+ * @brief Initializes data struct
+ * 
+ * @param data 
+ * @return int 
+ */
+int			ft_init(t_data *data);
 
 #endif
