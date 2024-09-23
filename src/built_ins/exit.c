@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 16:05:55 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:17:26 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,29 @@ static void	ft_write_exit_error(int error)
 		ft_putstr("minishell: exit: numeric argument required\n");
 }
 
-void	ft_exit(char **argv, t_data *data) //o error guardado en estructura
+void	ft_exit(char **argv, t_data *data)
 {
 	int	error;
 
 	error = 0;
+	if (data->error < 0 || data->error > 255)
+		data->error = 0;
 	if (!argv[0] && data)
 		error = data->error;
-	//manejar errores especificos de exit
 	else if (argv[0] && ft_isdigit(*argv[0]) == 0)
-		error = 2;
+		ft_write_exit_error(2);
 	else if (argv[0] && ft_isdigit(*argv[0]) == 1 && argv[1])
-		error = 1;
-	//si el primer agumento es un numero y hay mas arrrrrrgumentos, no sale. too many arguments 1
-	//si el primero es letra, sale pero da error numeric argument required 2
+		ft_write_exit_error(1);
+	else if (argv[0] && ft_isdigit(*argv[0]) == 1)
+		error = ft_atoi(argv[0]);
+	else if (!argv[0])
+		error = data->error;
 	//si un cmd sale bien entonces error = 0
-	if (error != 0)
-		ft_write_exit_error(error);
 	exit(error);
 }
+//hay que inicializar data->error a 0. Quizas al iniciar error en esta
+//	funcion no pase nada realmente.
+//Antes de poder ejecutar esta funcion hay que limpiar todo lo que hayamos
+//	estado usando: t_cmd_list->cmd(de toda la lista), t_data->cmd, cerrar fd.
+//Como deberiamos manejar un exit durante la ejecucion de un hijo. Ignorar si
+//	exit no es el unico comando recibido.
