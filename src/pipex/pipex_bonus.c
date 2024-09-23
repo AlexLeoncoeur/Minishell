@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/18 11:23:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:49:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ int	main(int argc, char **argv, char **envp)
 	t_arg_list	*lst;
 
 	//ft_check_built-in
+	if (ft_strncmp(argv[1], "exit\0", 5) == 0)
+	{
+		ft_exit(&argv[2], NULL);
+		return (0);
+	}
 	if (ft_strncmp(argv[1], "echo\0", 5) == 0)
 	{
 		ft_echo(&argv[2]);

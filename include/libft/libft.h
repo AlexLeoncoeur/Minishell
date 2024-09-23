@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:16:36 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 13:56:16 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:04:24 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_atoi(const char *str);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_isprint(int c);
-int			ft_isdigit(int c);
+int			ft_isdigit(char c);
 int			ft_isascii(int c);
 int			ft_isalpha(int c);
 int			ft_isalnum(int c);
