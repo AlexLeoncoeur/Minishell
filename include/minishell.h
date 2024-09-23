@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/19 13:00:16 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:30:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,40 @@
 # include <stdio.h>
 # include <errno.h>
 
-typedef struct s_arg_list
+typedef struct s_redir
 {
-	int					argc;
-	char				**argv;
+	int				type;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
+
+typedef struct s_cmd
+{
+	char			*path;
+	char			**argv;
+	t_redir			*redir;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct data
+{
+	t_env				*env_var;
+	t_cmd				*cmd;
+	char				*input;
+	char				*heredoc;
 	char				**flags;
 	char				**envp;
+	int					argc;
+	int					exit_status;
 
-}	t_arg_list;
+}	t_data;
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
 
