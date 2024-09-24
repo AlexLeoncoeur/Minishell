@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 18:41:22 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:33:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <unistd.h>
@@ -26,6 +28,14 @@ typedef struct s_redir
 	char			*file;
 	struct s_redir	*next;
 }	t_redir;
+
+typedef struct s_input
+{
+	int				type;
+	char			*input;
+	struct s_input	*next;
+	struct s_input	*previous;
+}	t_input;
 
 typedef struct s_cmd
 {
@@ -46,7 +56,8 @@ typedef struct data
 {
 	t_env				*env_var;
 	t_cmd				*cmd;
-	char				*input;
+	char				*line;
+	char				**input;
 	char				*heredoc;
 	char				**flags;
 	char				**envp;
@@ -85,6 +96,7 @@ void		ft_echo(char **matrix);
 void		ft_pwd(void);
 
 /* ------------------------ Initializer------------------------ */
+
 /**
  * @brief Initializes data struct
  * 
@@ -92,5 +104,23 @@ void		ft_pwd(void);
  * @return int 
  */
 int			ft_init(t_data *data);
+
+/* ------------------------ Lexer------------------------ */
+
+/**
+ * @brief Reads text inputed by user and processes it
+ * 
+ * @param data 
+ * @return int 
+ */
+void		ft_read_string(t_data *data);
+
+/**
+ * @brief Checks if line is comprised only of tabs or spaces
+ * 
+ * @param input 
+ * @return int 
+ */
+int			ft_is_all_space(char *input);
 
 #endif
