@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/24 12:33:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:54:46 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
+
+# define NORMAL_INPUT		0
+# define SINGLE_QUOTE 		1
+# define DOUBLE_QUOTE 		2
+# define HEREDOC	  		3
+# define OUTPUT_APPEND		4
+# define INPUT_REDIRECT 	5
+# define OUTPUT_REDIRECT	6
+# define PIPE				7
 
 typedef struct s_redir
 {
@@ -122,5 +131,14 @@ void		ft_read_string(t_data *data);
  * @return int 
  */
 int			ft_is_all_space(char *input);
+
+/* ------------------------ Parser------------------------ */
+
+/**
+ * @brief Parses the line of input
+ * 
+ * @param data 
+ */
+void		ft_parser(t_data *data);
 
 #endif
