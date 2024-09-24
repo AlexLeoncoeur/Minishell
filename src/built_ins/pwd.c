@@ -6,20 +6,20 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 17:24:52 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:42:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_data *data)
 {
 	char	*path;
 
 	path = getcwd(NULL, 0);
 	if (!path)
 		perror("Error: ");
-	printf("%d", errno);
+	data->error = errno;
 	ft_putstr(path);
 	free(path);
 }

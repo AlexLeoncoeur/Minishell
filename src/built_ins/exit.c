@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 18:17:26 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:40:00 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_write_exit_error(int error)
+static void	ft_write_exit_error(int error, t_data *data)
 {
 	if (error == 1)
 		ft_putstr("minishell: exit: too many arguments\n");
@@ -25,19 +25,20 @@ void	ft_exit(char **argv, t_data *data)
 	int	error;
 
 	error = 0;
-	if (data->error < 0 || data->error > 255)
-		data->error = 0;
+	while (error % 256)
+		error /= 256;
 	if (!argv[0] && data)
 		error = data->error;
 	else if (argv[0] && ft_isdigit(*argv[0]) == 0)
-		ft_write_exit_error(2);
+		ft_write_exit_error(2, data);
 	else if (argv[0] && ft_isdigit(*argv[0]) == 1 && argv[1])
-		ft_write_exit_error(1);
+		ft_write_exit_error(1, data);
 	else if (argv[0] && ft_isdigit(*argv[0]) == 1)
 		error = ft_atoi(argv[0]);
 	else if (!argv[0])
 		error = data->error;
 	//si un cmd sale bien entonces error = 0
+	ft_free(data);
 	exit(error);
 }
 //hay que inicializar data->error a 0. Quizas al iniciar error en esta

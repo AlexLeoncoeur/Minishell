@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 15:49:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:44:11 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_do_last_cmd(lst, fd);
 	return (0);
 }
-// Hacer comprobacion si las variables de entorno
-//estan vacias entonces usar funcion que las coge
+//Hacer comprobacion si las variables de entorno
+//	estan vacias entonces usar funcion que las coge
+//Usar la estructura nueva para llamar y usar todas estas
+//	funciones antes de avanzar
