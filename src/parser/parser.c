@@ -6,11 +6,69 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:35:32 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/09/24 12:56:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:35:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	ft_dequote(t_input *input)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 1;
+	str = malloc(sizeof(char *) * input->content);
+	if (!str)
+		return ;
+	while (input)
+	{
+		str[i] = input->content[j];
+		i++;
+		j++;
+	}
+	str[i - 1] = 0;
+	free (list->content);
+	list->content = str;
+}
+
+static	void	ft_value_replace(t_input *input, t_data *data)
+{
+	int		i;
+	int		j;
+	char	*var;
+	char	*val;
+
+	i = 0;
+	j = 0;
+	while (input->content[i] && input->content[i] != '$')
+		i++;
+	if (input->content[i] == '$')
+	{
+		i++;
+		j = i;
+		while (input->content[i]
+			&& ft_strchr("'\"<>| $", input->content[i] == NULL))
+			i++;
+		
+	}
+}
+
+static void	ft_input_classifier(t_data *data)
+{
+	t_input	aux;
+
+	aux = data->list;
+	while (aux)
+	{
+		if (aux->type == 1 || aux->type == 2)
+			ft_dequote(aux);
+		if (aux->type == 0 || aux->type == 2 && ft_strchr(aux->content, '$'))
+			ft_value_replace(aux, data);
+	}
+}
 
 static void	ft_input_classifier(t_data *data)
 {
