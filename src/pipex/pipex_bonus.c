@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/24 15:44:11 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:37:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,5 @@ int	main(int argc, char **argv, char **envp)
 //	estan vacias entonces usar funcion que las coge
 //Usar la estructura nueva para llamar y usar todas estas
 //	funciones antes de avanzar
+//Pedirle a jcallejo que anada la funcion de env en el main y
+//	que lo guarde en la estructura t_data

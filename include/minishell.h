@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 15:50:10 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:08:38 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_data
 	t_cmd_list	*cmd;
 }	t_data;
 
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_arg_list
 {
 	int					argc;
@@ -43,6 +50,13 @@ typedef struct s_arg_list
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
 
+/**
+ * @brief pipo
+ * 
+ * @param lst 
+ * @param pos 
+ * @return char* 
+ */
 char		*ft_pathfinder(t_arg_list *lst, int pos);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
