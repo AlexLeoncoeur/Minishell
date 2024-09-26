@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/25 15:08:38 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:52:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,20 @@ int			ft_check_heredoc(char **argv);
 
 void		ft_do_last_cmd(t_arg_list *lst, int fd);
 
-/* ------------------------ built-ins/echo------------------------ */
+/* ------------------------ built-ins/echo ------------------------ */
 
 void		ft_echo(char **matrix);
 
-/* ------------------------ built-ins/pwd------------------------ */
+/* ------------------------ built-ins/pwd ------------------------ */
 
-void		ft_pwd(void);
+void		ft_pwd(t_data *data);
 
-/* ------------------------ built-ins/exit------------------------ */
+/* ------------------------ built-ins/exit ------------------------ */
 
 void		ft_exit(char **argv, t_data *data);
+
+/* ------------------------ env_lst.c ------------------------ */
+
+t_env		*ft_lst_env(char **envp);
 
 #endif

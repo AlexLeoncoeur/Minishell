@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/25 12:37:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:11:10 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ int	main(int argc, char **argv, char **envp)
 	t_arg_list	*lst;
 
 	//ft_check_built-in
+	t_env *env = ft_lst_env(envp);
+	while (env)
+	{
+		printf("%s=%s\n", env->name, env->value);
+		env = env->next;
+	}
 	if (ft_strncmp(argv[1], "exit\0", 5) == 0)
 	{
 		ft_exit(&argv[2], NULL);
@@ -119,7 +125,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (ft_strncmp(argv[1], "pwd\0", 4) == 0)
 	{
-		ft_pwd();
+		//ft_pwd(data);
 		return (0);
 	}
 	fd = ft_check_heredoc(argv);

@@ -6,11 +6,23 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/25 18:48:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:27:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
+
+static t_env	*ft_lstlast_tenv(t_env *lst)
+{
+	t_env	*aux;
+
+	if (lst == NULL)
+		return (NULL);
+	aux = lst;
+	while (aux->next != NULL)
+		aux = aux->next;
+	return (aux);
+}
 
 static void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
 {
@@ -20,7 +32,7 @@ static void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
 		*lst = new;
 	else
 	{
-		aux = ft_lstlast(*lst);
+		aux = ft_lstlast_tenv(*lst);
 		aux->next = new;
 	}
 }
@@ -46,22 +58,22 @@ t_env	*ft_lst_env(char **envp)
 	char	*cut;
 	int		i;
 
+	i = 0;
 	if (!envp)
 		return (NULL);
 	while (envp[i])
 	{
 		cut = ft_strchr(envp[i], '=');
-		name = ft_substr(envp[i], 0, (ft_strlen(envp[i]) - ft_strlen(&cut)));
-		value = ft_substr(envp[i], cut, ft_strlen(&cut));
+		name = ft_substr(envp[i], 0, (ft_strlen(envp[i]) - ft_strlen(cut)));
+		value = ft_substr(envp[i], ((ft_strlen(envp[i]) - ft_strlen(cut)) + 1),
+				ft_strlen(cut) - 1);
 		if (!env)
 			env = ft_lstnew_tenv(name, value);
 		else
 			ft_lstadd_back_tenv(&env, ft_lstnew_tenv(name, value));
-		free(cut);
-		free(name);
-		free(value);
 		i++;
 	}
+	return (env);
 }
 //strchr('=') y usar esa pos, coger todo lo que hay antes para name
 //	y todo lo que ahy despues para value
