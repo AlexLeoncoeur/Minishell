@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/09/24 12:34:08 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:17:14 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_new_token(t_data *data, int start, int end)
 	t_input	*aux;
 	char	*str;
 
-	str = ft_substr(data->line, s, e - s);
+	str = ft_substr(data->line, start, end - start);
 	new = malloc(sizeof(t_input));
 	if (!new)
 		return (NULL);
@@ -32,7 +32,7 @@ static void	ft_new_token(t_data *data, int start, int end)
 		aux = data->list;
 		while (aux->next)
 			aux = aux->next;
-		new->previous = tmp;
+		new->previous = aux;
 		aux->next = new;
 	}
 }
@@ -96,17 +96,17 @@ void	ft_read_string(t_data *data)
 	int	counter;
 	int	start;
 
-	c = 0;
-	while (data.line[counter])
+	counter = 0;
+	while (data->line[counter])
 	{
 		start = counter;
 		if (data->line[counter] == '\'')
 			ft_quote_token(data, &start, &counter, '\'');
 		else if (data->line[counter] == '\"')
 			ft_quote_token(data, &start, &counter, '\"');
-		else if (ft_strchr("|<>", data->line[c]))
+		else if (ft_strchr("|<>", data->line[counter]))
 			ft_redir_pipe_token(data, &start, &counter, data->line[counter]);
 		else
-			ft_normal_token([data, &start, &counter]);
+			ft_normal_token(data, &start, &counter);
 	}
 }

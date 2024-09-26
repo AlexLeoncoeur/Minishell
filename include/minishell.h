@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/24 12:54:46 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:13:50 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_env
 
 typedef struct data
 {
+	t_input				*list;
 	t_env				*env_var;
 	t_cmd				*cmd;
 	char				*line;
@@ -71,6 +72,7 @@ typedef struct data
 	char				**flags;
 	char				**envp;
 	int					argc;
+	int					status;
 	int					exit_status;
 
 }	t_data;
