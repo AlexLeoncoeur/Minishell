@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/26 23:13:50 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:09:00 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_input
 typedef struct s_cmd
 {
 	char			*path;
-	char			**argv;
 	t_redir			*redir;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -69,8 +68,8 @@ typedef struct data
 	char				*line;
 	char				**input;
 	char				*heredoc;
-	char				**flags;
 	char				**envp;
+	char				**argv;
 	int					argc;
 	int					status;
 	int					exit_status;
@@ -114,7 +113,7 @@ void		ft_pwd(void);
  * @param data 
  * @return int 
  */
-int			ft_init(t_data *data);
+int			ft_init(t_data *data, int argc, char **argv, char **envp);
 
 /* ------------------------ Lexer------------------------ */
 
@@ -142,5 +141,13 @@ int			ft_is_all_space(char *input);
  * @param data 
  */
 void		ft_parser(t_data *data);
+
+/* ------------------------ Cleanup------------------------ */
+/**
+ * @brief Frees inside array and then all of it
+ * 
+ * @param array 
+ */
+void		ft_clean_array(char **array);
 
 #endif

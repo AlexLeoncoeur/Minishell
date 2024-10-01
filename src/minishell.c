@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/09/24 11:36:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:41:30 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	ft_init(&data);
+	ft_init(&data, argc, argv, envp);
 	while (!data.exit_status)
 	{
-		data.line = readline();
+		data.line = readline("minishell$ ");
 		if (data.line == NULL)
 		{
 			printf("\n");
@@ -30,5 +30,6 @@ int	main(int argc, char **argv, char **envp)
 			free(data.line);
 			continue ;
 		}
+		ft_parser(&data);
 	}
 }
