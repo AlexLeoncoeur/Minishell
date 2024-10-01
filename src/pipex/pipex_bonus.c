@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/27 14:44:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:15:00 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,28 +106,12 @@ int	main(int argc, char **argv, char **envp)
 	int			fd;
 	t_arg_list	*lst;
 
-	//ft_check_built-in
-	t_env *env = ft_lst_env(envp);
-
-	if (ft_strncmp(argv[1], "exit\0", 5) == 0)
-	{
-		ft_exit(&argv[2], NULL);
-		return (0);
-	}
-	if (ft_strncmp(argv[1], "echo\0", 5) == 0)
-	{
-		ft_echo(&argv[2]);
-		return (0);
-	}
-	if (ft_strncmp(argv[1], "pwd\0", 4) == 0)
-	{
-		//ft_pwd(data);
-		return (0);
-	}
+	lst = ft_define_lst(argc, argv, envp);
+	ft_check_built_ins(lst);
+	return (0);
 	fd = ft_check_heredoc(argv);
 	if (fd == -1)
 		exit(1);
-	lst = ft_define_lst(argc, argv, envp);
 	if (ft_strncmp(argv[1], "here_doc\0", 9) == 0)
 		ft_do_cmd(lst, fd, 3);
 	else

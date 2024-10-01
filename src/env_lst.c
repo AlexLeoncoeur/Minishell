@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/26 16:27:48 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:13:37 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static t_env	*ft_lstlast_tenv(t_env *lst)
 {
 	t_env	*aux;
+	int		i = 0;
 
 	if (lst == NULL)
 		return (NULL);
 	aux = lst;
-	while (aux->next != NULL)
+	while (aux->next)
 		aux = aux->next;
 	return (aux);
 }
@@ -61,6 +62,7 @@ t_env	*ft_lst_env(char **envp)
 	i = 0;
 	if (!envp)
 		return (NULL);
+	env = NULL;
 	while (envp[i])
 	{
 		cut = ft_strchr(envp[i], '=');

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/26 14:52:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:50:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,16 @@ void		ft_pwd(t_data *data);
 
 void		ft_exit(char **argv, t_data *data);
 
+/* ------------------------ built-ins/env ------------------------ */
+
+void		ft_env(t_env *env);
+
 /* ------------------------ env_lst.c ------------------------ */
 
 t_env		*ft_lst_env(char **envp);
+
+/* ---------------------- check_built_ins.c ---------------------- */
+
+void		ft_check_built_ins(t_arg_list *lst);
 
 #endif
