@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 14:36:20 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 14:08:24 by aarenas-         ###   ########.fr       */
+/*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/10/03 14:15:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_env(t_env *env)
+void	ft_export(char *str, t_env *env)
 {
 	t_env	*aux;
 
-	aux = env;
-	while (aux && aux->value)
+	ft_lstadd_back_tenv(&env, ft_lstnew_tenv(str, NULL));
+	if (!str)
+		aux = env;
+	while (!str && aux)
 	{
-		printf("%s=%s\n", aux->name, aux->value);
+		printf("%s", aux->name);
+		if (aux->value)
+			printf("=%s", aux->value);
+		printf("\n");
 		aux = aux->next;
 	}
 }
-//Solo muestra las variables que contengan un valor, =
+
+//Necesito guardar los env como estatico para que se mantenga durante
+//	multiples ejecuciones?	
+//Escribe todas las variables incluso sin valor

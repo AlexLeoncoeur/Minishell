@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 15:14:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:46:12 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void	ft_check_built_ins(t_arg_list *lst)
 	{
 		//ft_pwd(data);
 	}
+	else if (ft_strncmp(lst->argv[1], "export\0", 7) == 0)
+		ft_export(lst->argv[2], env);
 }

@@ -6,16 +6,15 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 15:13:37 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:35:50 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static t_env	*ft_lstlast_tenv(t_env *lst)
+t_env	*ft_lstlast_tenv(t_env *lst)
 {
 	t_env	*aux;
-	int		i = 0;
 
 	if (lst == NULL)
 		return (NULL);
@@ -25,7 +24,7 @@ static t_env	*ft_lstlast_tenv(t_env *lst)
 	return (aux);
 }
 
-static void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
+void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
 {
 	t_env	*aux;
 
@@ -38,7 +37,7 @@ static void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
 	}
 }
 
-static t_env	*ft_lstnew_tenv(char *name, char *value)
+t_env	*ft_lstnew_tenv(char *name, char *value)
 {
 	t_env	*newlist;
 

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 15:15:00 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:19:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,3 +130,5 @@ int	main(int argc, char **argv, char **envp)
 //	funciones antes de avanzar
 //Pedirle a jcallejo que anada la funcion de env en el main y
 //	que lo guarde en la estructura t_data
+//No es necesario gestionar la falta de variables de entorno, si no hay
+//	da error y listo

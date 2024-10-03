@@ -15,7 +15,7 @@ RED		= \033[31;1m
 # FILES 
 CFILES = env_lst.c check_built_ins.c\
 
-BUILT_IN_CFILES = echo.c pwd.c exit.c env.c
+BUILT_IN_CFILES = echo.c pwd.c exit.c env.c export.c
 PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c last_cmd.c
 
 # DIRECTORIES 
