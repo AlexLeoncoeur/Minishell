@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 11:09:00 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:38:39 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,8 @@ void		ft_parser(t_data *data);
  * @param array 
  */
 void		ft_clean_array(char **array);
+
+/* ------------------------ Redirections------------------------ */
+void		ft_redirections(t_data *data, int *infd, int *outfd);
 
 #endif
