@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 15:19:14 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:15:23 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_arg_list	*ft_define_lst(int argc, char **argv, char **envp)
 	aux->argc = argc;
 	aux->argv = argv;
 	aux->envp = envp;
+	aux->env = NULL;
 	return (aux);
 }
 

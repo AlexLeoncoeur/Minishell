@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 13:46:57 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:22:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ typedef struct s_env
 
 typedef struct s_arg_list
 {
-	int					argc;
-	char				**argv;
-	char				**flags;
-	char				**envp;
+	int				argc;
+	char			**argv;
+	char			**flags;
+	char			**envp;
+	t_env			*env;
 
 }	t_arg_list;
 
@@ -94,13 +95,14 @@ void		ft_env(t_env *env);
 
 /* ------------------------ built-ins/export ------------------------ */
 
-void		ft_export(char *str, t_env *env);
+void		ft_export(char *str, t_arg_list *data);
+void		ft_add_to_env(char *str, t_arg_list *data);
 
 /* ------------------------ env_lst.c ------------------------ */
 
-t_env		*ft_lst_env(char **envp);
 t_env		*ft_lstlast_tenv(t_env *lst);
 t_env		*ft_lstnew_tenv(char *name, char *value);
+void		ft_lst_env(t_arg_list *data);
 void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 
 /* ---------------------- check_built_ins.c ---------------------- */

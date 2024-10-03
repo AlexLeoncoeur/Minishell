@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 13:35:50 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:23:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,18 @@ t_env	*ft_lstnew_tenv(char *name, char *value)
 	return (newlist);
 }
 
-t_env	*ft_lst_env(char **envp)
+void	ft_lst_env(t_arg_list *data)
 {
-	t_env	*env;
-	char	*name;
-	char	*value;
-	char	*cut;
 	int		i;
 
 	i = 0;
-	if (!envp)
-		return (NULL);
-	env = NULL;
-	while (envp[i])
+	if (!data->envp)
+		return ;
+	while (data->envp[i])
 	{
-		cut = ft_strchr(envp[i], '=');
-		name = ft_substr(envp[i], 0, (ft_strlen(envp[i]) - ft_strlen(cut)));
-		value = ft_substr(envp[i], ((ft_strlen(envp[i]) - ft_strlen(cut)) + 1),
-				ft_strlen(cut) - 1);
-		if (!env)
-			env = ft_lstnew_tenv(name, value);
-		else
-			ft_lstadd_back_tenv(&env, ft_lstnew_tenv(name, value));
+		ft_add_to_env(data->envp[i], data);
 		i++;
 	}
-	return (env);
 }
 //strchr('=') y usar esa pos, coger todo lo que hay antes para name
 //	y todo lo que ahy despues para value
