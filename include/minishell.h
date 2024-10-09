@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/02 11:38:39 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:28:32 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct data
 	char				**envp;
 	char				**argv;
 	int					argc;
+	int					redir_err;
 	int					status;
 	int					exit_status;
 
@@ -151,6 +152,43 @@ void		ft_parser(t_data *data);
 void		ft_clean_array(char **array);
 
 /* ------------------------ Redirections------------------------ */
+/**
+ * @brief Determines what type of redirection it is and calls respective 
+ * function
+ * 
+ * @param data 
+ * @param infd 
+ * @param outfd 
+ */
 void		ft_redirections(t_data *data, int *infd, int *outfd);
+
+/* ------------------------ Heredoc------------------------ */
+/**
+ * @brief Creates heredoc and manages it
+ * 
+ * @param current 
+ * @param infd 
+ * @param data 
+ */
+void		ft_heredoc(t_input *current, int *infd, t_data *data);
+
+/* ------------------------ Utils------------------------ */
+/**
+ * @brief Gets env variable value and returs it
+ * 
+ * @param input 
+ * @param data 
+ * @return char* 
+ */
+char		*ft_get_env(char *input, t_data *data);
+
+/**
+ * @brief Compates two strs and returns difference
+ * 
+ * @param s1 
+ * @param s2 
+ * @return int 
+ */
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif
