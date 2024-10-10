@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/10 11:12:12 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:44:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@ void	ft_add_to_env(char *str, t_arg_list *data)
 		value = ft_substr(str, ((ft_strlen(str) - ft_strlen(cut)) + 1),
 				ft_strlen(cut) - 1);
 	if (!data->env)
+	{
 		data->env = ft_lstnew_tenv(name, value);
+		data->env_export = ft_lstnew_tenv(name, value);
+	}
 	else
+	{
 		ft_lstadd_back_tenv(&data->env, ft_lstnew_tenv(name, value));
+		ft_lstadd_back_tenv(&data->env_export, ft_lstnew_tenv(name, value));
+	}
 }
 
 void	ft_export(char *str, t_arg_list *data)
@@ -45,6 +51,7 @@ void	ft_export(char *str, t_arg_list *data)
 		aux = data->env;
 	while (!str && aux)
 	{
+		ft_sort(data->env_export);
 		printf("declare -x ");
 		printf("%s", aux->name);
 		if (aux->value)

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 19:22:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:45:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_arg_list
 	char			**flags;
 	char			**envp;
 	t_env			*env;
+	t_env			*env_export;
 
 }	t_arg_list;
 
@@ -108,5 +109,9 @@ void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 /* ---------------------- check_built_ins.c ---------------------- */
 
 void		ft_check_built_ins(t_arg_list *lst);
+
+/* ---------------------- sort.c ---------------------- */
+
+t_env		ft_sort(t_env *lst);
 
 #endif
