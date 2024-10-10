@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 19:33:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:12:12 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,25 @@ void	ft_export(char *str, t_arg_list *data)
 {
 	t_env	*aux;
 
-	if (str)
-		printf("%s", str);
-	ft_add_to_env(str, data);
+	if (str && ft_isdigit(str[0]) == 1)
+	{
+		printf("Minishell: export: `%s`: not a valid identifier\n", str);
+		return ;
+	}
+	if (str && ft_isdigit(str[0]) == 0)
+		ft_add_to_env(str, data);
 	if (!str)
 		aux = data->env;
 	while (!str && aux)
 	{
+		printf("declare -x ");
 		printf("%s", aux->name);
 		if (aux->value)
-			printf("=%s", aux->value);
+			printf("=\"%s\"", aux->value);
 		printf("\n");
 		aux = aux->next;
 	}
-	ft_env(data->env);
+	// ft_env(data->env);
 }
 
 //Necesito guardar los env como estatico para que se mantenga durante

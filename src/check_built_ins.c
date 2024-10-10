@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 19:24:48 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:13:24 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_check_built_ins(t_arg_list *lst)
 {
+	int	i;
+
+	i = 2;
 	ft_lst_env(lst);
 	if (ft_strncmp(lst->argv[1], "env\0", 4) == 0)
 		ft_env(lst->env);
@@ -26,5 +29,14 @@ void	ft_check_built_ins(t_arg_list *lst)
 		//ft_pwd(data);
 	}
 	else if (ft_strncmp(lst->argv[1], "export\0", 7) == 0)
-		ft_export(lst->argv[2], lst);
+	{
+		if (lst->argc > 2)
+		{
+			while (lst->argv[i])
+				ft_export(lst->argv[i++], lst);
+		}
+		else
+			ft_export(NULL, lst);
+		// ft_export(NULL, lst);
+	}
 }

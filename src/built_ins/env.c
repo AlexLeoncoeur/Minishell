@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:36:20 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/03 18:54:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:58:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	ft_env(t_env *env)
 	while (aux)
 	{
 		if (aux->value)
-			printf("%s=%s\n", aux->name, aux->value);
+			printf("%s=\"%s\"\n", aux->name, aux->value);
 		aux = aux->next;
 	}
 }
 //Solo muestra las variables que contengan un valor, =
+//	Como tienen que estar ordenadas?
