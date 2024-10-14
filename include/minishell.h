@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/11 11:14:24 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:23:31 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void		ft_check_built_ins(t_arg_list *lst);
 /* ---------------------- sort.c ---------------------- */
 
 t_env		*ft_sort(t_env *lst);
+int			ft_tenv_lstsize(t_env *lst);
 
 #endif

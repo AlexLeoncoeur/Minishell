@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/10 14:44:25 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:07:54 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,21 @@ void	ft_export(char *str, t_arg_list *data)
 	if (str && ft_isdigit(str[0]) == 0)
 		ft_add_to_env(str, data);
 	if (!str)
-		aux = data->env;
+	{
+		aux = data->env_export;
+		ft_sort(data->env_export);
+	}
+	int i = 0;
 	while (!str && aux)
 	{
-		ft_sort(data->env_export);
+		printf("%d: ", i);
 		printf("declare -x ");
 		printf("%s", aux->name);
 		if (aux->value)
 			printf("=\"%s\"", aux->value);
 		printf("\n");
 		aux = aux->next;
+		i++;
 	}
 	// ft_env(data->env);
 }

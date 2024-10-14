@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:51:01 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/11 11:49:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:05:52 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,8 @@ int	ft_tenv_lstsize(t_env *lst)
 static void	ft_swap(t_env **lst)
 {
 	t_env	*aux;
-	t_env	*aux2 = *lst;
 
-	for (int i = 0; i < ft_tenv_lstsize(*lst); i++)
-	{
-		printf("i: %d\n", i);
-		printf("	%s=%s\n", aux2->name, aux2->value);
-		printf("\n");
-		aux2 = aux2->next;
-	}
-
-	if (!lst || ft_tenv_lstsize(*lst) < 2)
+	if (!lst || ft_tenv_lstsize(*lst) < 1)
 		return ;
 	aux = (*lst)->next;
 	(*lst)->next = aux->next;
@@ -57,8 +48,8 @@ static int	ft_check_sort(t_env *lst)
 	while (aux->next)
 	{
 		if (ft_strncmp(aux->name, aux->next->name, 1) > 0)
-			ft_swap(&aux);
-		return (1);
+			return (1);
+		aux = aux->next;
 	}
 	return (0);
 }
@@ -66,21 +57,38 @@ static int	ft_check_sort(t_env *lst)
 t_env	*ft_sort(t_env *lst)
 {
 	t_env	*aux;
+	t_env	*aux_prev_node;
+	int		i;
 
 	while (ft_check_sort(lst))
 	{
+		i = 0;
 		aux = lst;
-		while (aux->next)
+		aux_prev_node = lst;
+		while (aux)
 		{
 			if (aux->next && ft_strncmp(aux->name, aux->next->name, 1) > 0)
 			{
-				printf("Ola k ase, segfault o k ase\n");
+				if (aux_prev_node != lst)
+					aux_prev_node->next = aux->next;
 				if (aux == lst)
-					lst = aux->next;
+					lst = lst->next;
 				ft_swap(&aux);
 			}
 			aux = aux->next;
+			if (aux_prev_node->next != aux)
+				aux_prev_node = aux_prev_node->next;
 		}
 	}
-	return (aux);
+	return (lst);
 }
+
+/* t_env	*aux2 = lst;
+
+for (int i = 0; i < ft_tenv_lstsize(lst); i++)
+{
+	printf("i: %d: %s=%s\n", i, aux2->name, aux2->value);
+	printf("\n");
+	if (aux2->next)
+		aux2 = aux2->next;
+} */
