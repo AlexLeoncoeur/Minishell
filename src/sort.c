@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:51:01 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/14 14:05:52 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:00:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,25 @@ static void	ft_swap(t_env **lst)
 {
 	t_env	*aux;
 
-	if (!lst || ft_tenv_lstsize(*lst) < 1)
+	if (!lst || ft_tenv_lstsize(*lst) < 2)
 		return ;
 	aux = (*lst)->next;
 	(*lst)->next = aux->next;
 	aux->next = (*lst);
 	(*lst) = aux;
+	aux = NULL;
+}
+
+static void	ft_swap_next(t_env **lst)
+{
+	t_env	*aux;
+
+	if (!lst || ft_tenv_lstsize(*lst) < 1)
+		return ;
+	aux = (*lst)->next->next;
+	(*lst)->next->next = aux->next;
+	aux->next = (*lst)->next;
+	(*lst)->next = aux;
 	aux = NULL;
 }
 
@@ -57,27 +70,24 @@ static int	ft_check_sort(t_env *lst)
 t_env	*ft_sort(t_env *lst)
 {
 	t_env	*aux;
-	t_env	*aux_prev_node;
 	int		i;
 
 	while (ft_check_sort(lst))
 	{
 		i = 0;
 		aux = lst;
-		aux_prev_node = lst;
-		while (aux)
+		while (aux->next)
 		{
-			if (aux->next && ft_strncmp(aux->name, aux->next->name, 1) > 0)
-			{
-				if (aux_prev_node != lst)
-					aux_prev_node->next = aux->next;
-				if (aux == lst)
-					lst = lst->next;
+			if (i == 0 && aux->next
+				&& ft_strncmp(aux->name, aux->next->name, 1) > 0)
 				ft_swap(&aux);
+			else if (aux->next->next
+				&& ft_strncmp(aux->next->name, aux->next->next->name, 1) > 0)
+			{
+				ft_swap_next(&aux);
 			}
 			aux = aux->next;
-			if (aux_prev_node->next != aux)
-				aux_prev_node = aux_prev_node->next;
+			i++;
 		}
 	}
 	return (lst);
