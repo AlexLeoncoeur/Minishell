@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:51:01 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/14 18:00:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:23:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int	ft_tenv_lstsize(t_env *lst)
 	return (i);
 }
 
-static void	ft_swap(t_env **lst)
+static t_env	*ft_swap(t_env **lst)
 {
 	t_env	*aux;
 
 	if (!lst || ft_tenv_lstsize(*lst) < 2)
-		return ;
+		return (NULL);
 	aux = (*lst)->next;
 	(*lst)->next = aux->next;
 	aux->next = (*lst);
 	(*lst) = aux;
 	aux = NULL;
+	return (*lst);
 }
 
 static void	ft_swap_next(t_env **lst)
@@ -79,14 +80,17 @@ t_env	*ft_sort(t_env *lst)
 		while (aux->next)
 		{
 			if (i == 0 && aux->next
-				&& ft_strncmp(aux->name, aux->next->name, 1) > 0)
-				ft_swap(&aux);
+				&& ft_strncmp(aux->name, aux->next->name, ft_strlen(aux->name))
+				> 0)
+				lst = ft_swap(&aux);
 			else if (aux->next->next
-				&& ft_strncmp(aux->next->name, aux->next->next->name, 1) > 0)
+				&& ft_strncmp(aux->next->name, aux->next->next->name,
+					ft_strlen(aux->next->name)) > 0)
 			{
 				ft_swap_next(&aux);
 			}
-			aux = aux->next;
+			if (i != 0)
+				aux = aux->next;
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/14 12:23:31 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:56:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 
 typedef struct s_env
 {
+	int				pos;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
@@ -97,12 +98,12 @@ void		ft_env(t_env *env);
 /* ------------------------ built-ins/export ------------------------ */
 
 void		ft_export(char *str, t_arg_list *data);
-void		ft_add_to_env(char *str, t_arg_list *data);
+void		ft_add_to_env(char *str, t_arg_list *data, int i);
 
 /* ------------------------ env_lst.c ------------------------ */
 
 t_env		*ft_lstlast_tenv(t_env *lst);
-t_env		*ft_lstnew_tenv(char *name, char *value);
+t_env		*ft_lstnew_tenv(char *name, char *value, int i);
 void		ft_lst_env(t_arg_list *data);
 void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 
