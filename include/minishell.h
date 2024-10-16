@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/15 15:56:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:45:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_arg_list
 	char			**argv;
 	char			**flags;
 	char			**envp;
+	t_data			*error;
 	t_env			*env;
 	t_env			*env_export;
 
@@ -99,6 +100,10 @@ void		ft_env(t_env *env);
 
 void		ft_export(char *str, t_arg_list *data);
 void		ft_add_to_env(char *str, t_arg_list *data, int i);
+
+/* ------------------------ built-ins/unset ------------------------ */
+
+void		ft_unset(t_env *lst, char *name);
 
 /* ------------------------ env_lst.c ------------------------ */
 
