@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/15 15:56:47 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:30:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_add_to_env(char *str, t_arg_list *data, int i)
 	char	*value;
 	char	*cut;
 
+	name = NULL;
 	cut = ft_strchr(str, '=');
 	name = ft_substr(str, 0, (ft_strlen(str) - ft_strlen(cut)));
 	value = NULL;

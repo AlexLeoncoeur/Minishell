@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/16 12:59:16 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:23:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	ft_check_built_ins(t_arg_list *data)
 	}
 	else if (ft_strncmp(data->argv[1], "unset\0", 6) == 0)
 	{
-		ft_unset(data->env, data->argv[2]);
-		ft_unset(data->env_export, data->argv[2]);
+		if (data->argv[2])
+			ft_unset(data, data->argv[2]);
 	}
-	ft_export(NULL, data);
+	// ft_export(NULL, data);
+	ft_env(data->env);
 }
