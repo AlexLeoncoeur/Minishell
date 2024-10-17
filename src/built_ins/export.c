@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/16 15:30:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:54:17 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_add_to_env(char *str, t_arg_list *data, int i)
+t_env	*ft_add_to_env(char *str, t_env *lst, int i)
 {
 	char	*name;
 	char	*value;
@@ -25,16 +25,13 @@ void	ft_add_to_env(char *str, t_arg_list *data, int i)
 	if (cut)
 		value = ft_substr(str, ((ft_strlen(str) - ft_strlen(cut)) + 1),
 				ft_strlen(cut) - 1);
-	if (!data->env)
-	{
-		data->env = ft_lstnew_tenv(name, value, i);
-		data->env_export = ft_lstnew_tenv(name, value, i);
-	}
+	if (!lst)
+		lst = ft_lstnew_tenv(name, value, i);
 	else
 	{
-		ft_lstadd_back_tenv(&data->env, ft_lstnew_tenv(name, value, i));
-		ft_lstadd_back_tenv(&data->env_export, ft_lstnew_tenv(name, value, i));
+		ft_lstadd_back_tenv(&lst, ft_lstnew_tenv(name, value, i));
 	}
+	return (lst);
 }
 
 void	ft_export(char *str, t_arg_list *data)
@@ -47,24 +44,23 @@ void	ft_export(char *str, t_arg_list *data)
 		return ;
 	}
 	if (str && ft_isdigit(str[0]) == 0)
-		ft_add_to_env(str, data, -1);
+	{
+		ft_add_to_env(str, data->env, -1);
+		ft_add_to_env(str, data->env_export, -1);
+	}
 	if (!str)
 	{
 		aux = ft_sort(data->env_export);
 	}
-	int i = 0;
 	while (!str && aux)
 	{
-		printf("%d: ", i);
 		printf("declare -x ");
 		printf("%s", aux->name);
 		if (aux->value)
 			printf("=\"%s\"", aux->value);
 		printf("\n");
 		aux = aux->next;
-		i++;
 	}
-	// ft_env(data->env);
 }
 
 //Necesito guardar los env como estatico para que se mantenga durante

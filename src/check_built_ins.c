@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 10:27:45 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:58:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	ft_check_built_ins(t_arg_list *data)
 	int	i;
 
 	i = 2;
-	ft_lst_env(data);
-	ft_export("a=pipo", data);
+	data->env = ft_lst_env(data->envp, data->env);
+	data->env_export = ft_lst_env(data->envp, data->env_export);
+	ft_export("ale=pipo", data);
+	ft_export("ajo=pipo", data);
 	if (ft_strncmp(data->argv[1], "env\0", 4) == 0)
 		ft_env(data->env);
 	else if (ft_strncmp(data->argv[1], "exit\0", 5) == 0)
@@ -38,9 +40,12 @@ void	ft_check_built_ins(t_arg_list *data)
 	else if (ft_strncmp(data->argv[1], "unset\0", 6) == 0)
 	{
 		if (data->argv[2])
-			ft_unset(data, data->argv[2]);
+		{
+			ft_unset(data->env, data->argv[2]);
+			ft_unset(data->env_export, data->argv[2]);
+		}
 	}
-	// ft_export(NULL, data);
-	ft_env(data->env);
+	ft_export(NULL, data);
+	//ft_env(data->env);
 	ft_free_data(data);
 }

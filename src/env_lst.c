@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/15 15:54:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:56:52 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ t_env	*ft_lstnew_tenv(char *name, char *value, int i)
 	return (newlist);
 }
 
-void	ft_lst_env(t_arg_list *data)
+t_env	*ft_lst_env(char **envp, t_env *lst)
 {
 	int		i;
 
 	i = 0;
-	if (!data->envp)
-		return ;
-	while (data->envp[i])
+	if (!envp)
+		return (NULL);
+	while (envp[i])
 	{
-		ft_add_to_env(data->envp[i], data, i);
+		lst = ft_add_to_env(envp[i], lst, i);
 		i++;
 	}
+	return (lst);
 }
 //strchr('=') y usar esa pos, coger todo lo que hay antes para name
 //	y todo lo que ahy despues para value

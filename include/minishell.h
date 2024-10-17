@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 10:22:10 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:56:31 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,17 @@ void		ft_env(t_env *env);
 /* ------------------------ built-ins/export ------------------------ */
 
 void		ft_export(char *str, t_arg_list *data);
-void		ft_add_to_env(char *str, t_arg_list *data, int i);
+t_env		*ft_add_to_env(char *str, t_env *lst, int i);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
-void		ft_unset(t_arg_list *data, char *name);
+void		ft_unset(t_env *lst, char *name);
 
 /* ------------------------ env_lst.c ------------------------ */
 
 t_env		*ft_lstlast_tenv(t_env *lst);
 t_env		*ft_lstnew_tenv(char *name, char *value, int i);
-void		ft_lst_env(t_arg_list *data);
+t_env		*ft_lst_env(char **envp, t_env *lst);
 void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 
 /* ---------------------- check_built_ins.c ---------------------- */
@@ -120,5 +120,9 @@ void		ft_check_built_ins(t_arg_list *lst);
 
 t_env		*ft_sort(t_env *lst);
 int			ft_tenv_lstsize(t_env *lst);
+
+/* ---------------------- finish.c ---------------------- */
+
+void		ft_free_data(t_arg_list *data);
 
 #endif
