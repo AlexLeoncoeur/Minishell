@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 12:58:47 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:01:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_check_built_ins(t_arg_list *data)
 	i = 2;
 	data->env = ft_lst_env(data->envp, data->env);
 	data->env_export = ft_lst_env(data->envp, data->env_export);
-	ft_export("ale=pipo", data);
+	ft_export("A=pipo", data);
 	ft_export("ajo=pipo", data);
 	if (ft_strncmp(data->argv[1], "env\0", 4) == 0)
 		ft_env(data->env);
