@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:10:33 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 12:59:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:07:07 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,26 @@ static void	ft_delete_node(t_env *prev_node)
 	node_to_delete = NULL;
 }
 
-void	ft_unset(t_env *lst, char *name)
+void	ft_unset(t_env **lst, char *name)
 {
 	t_env	*node;
+	t_env	*delete;
+	int		i;
 
-	node = lst;
+	i = 0;
+	node = *lst;
 	while (node->next)
 	{
-		if (ft_strncmp(node->next->name, name, ft_strlen(node->next->name)) == 0)
+		if (i == 0 && ft_strncmp(node->name, name, ft_strlen(node->name)) == 0)
+		{
+			delete = *lst;
+			*lst = (*lst)->next;
+			free(delete->name);
+			free(delete->value);
+			free(delete);
+		}
+		if (ft_strncmp(node->next->name, name,
+				ft_strlen(node->next->name)) == 0)
 		{
 			ft_delete_node(node);
 			break ;

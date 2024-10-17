@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 13:01:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:09:09 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,16 @@ void	ft_check_built_ins(t_arg_list *data)
 	{
 		if (data->argv[2])
 		{
-			ft_unset(data->env, data->argv[2]);
-			ft_unset(data->env_export, data->argv[2]);
+			i = 0;
+			while (data->argv[i])
+			{
+				ft_unset(&data->env, data->argv[i]);
+				ft_unset(&data->env_export, data->argv[i]);
+				i++;
+			}
 		}
 	}
 	ft_export(NULL, data);
-	//ft_env(data->env);
+	ft_env(data->env);
 	ft_free_data(data);
 }
