@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/16 12:45:25 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:22:10 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		ft_add_to_env(char *str, t_arg_list *data, int i);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
-void		ft_unset(t_env *lst, char *name);
+void		ft_unset(t_arg_list *data, char *name);
 
 /* ------------------------ env_lst.c ------------------------ */
 

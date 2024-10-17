@@ -50,7 +50,7 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 CC = clang
 NAME = minishell
 BONUS_NAME = 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 all: libft $(NAME)
 $(NAME): compiling $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)

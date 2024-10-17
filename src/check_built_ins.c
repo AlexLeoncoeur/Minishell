@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/16 19:23:51 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:27:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void	ft_check_built_ins(t_arg_list *data)
 	}
 	// ft_export(NULL, data);
 	ft_env(data->env);
+	ft_free_data(data);
 }
