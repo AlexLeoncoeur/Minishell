@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 12:54:17 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/19 14:17:36 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	ft_export(char *str, t_arg_list *data)
 	}
 	if (str && ft_isdigit(str[0]) == 0)
 	{
-		ft_add_to_env(str, data->env, -1);
-		ft_add_to_env(str, data->env_export, -1);
+		data->env = ft_add_to_env(str, data->env, -1);
+		data->env_export = ft_add_to_env(str, data->env_export, -1);
 	}
 	if (!str)
-	{
-		aux = ft_sort(data->env_export);
-	}
+		data->env_export = ft_sort(data->env_export);
+	if (!str)
+		aux = data->env_export;
 	while (!str && aux)
 	{
 		printf("declare -x ");
