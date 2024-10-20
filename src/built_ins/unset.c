@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:10:33 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 14:07:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:00:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_unset(t_env **lst, char *name)
 			free(delete->name);
 			free(delete->value);
 			free(delete);
+			break ;
 		}
 		if (ft_strncmp(node->next->name, name,
 				ft_strlen(node->next->name)) == 0)

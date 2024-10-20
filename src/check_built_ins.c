@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 16:53:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:06:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_check_built_ins(t_arg_list *data)
 	i = 2;
 	data->env = ft_lst_env(data->envp, data->env);
 	data->env_export = ft_lst_env(data->envp, data->env_export);
-	//ft_export("A=pipo", data);
-	//ft_export("ajo=pipo", data);
+	ft_export("A=pipo", data);
+	ft_export("ajo=pipo", data);
 	if (ft_strncmp(data->argv[1], "env\0", 4) == 0)
 		ft_env(data->env);
 	else if (ft_strncmp(data->argv[1], "exit\0", 5) == 0)
@@ -53,9 +53,9 @@ void	ft_check_built_ins(t_arg_list *data)
 	else if (ft_strncmp(data->argv[1], "cd\0", 3) == 0)
 	{
 		if (data->argv[2])
-			ft_cd(data->argv[2]);
+			ft_cd(data, data->argv[2]);
 		else
-			ft_cd(getenv("HOME"));
+			ft_cd(data, getenv("HOME"));
 	}
 	//ft_export(NULL, data);
 	//ft_env(data->env);

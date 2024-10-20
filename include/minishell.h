@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 16:44:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:21:00 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		ft_unset(t_env **lst, char *name);
 
 /* ------------------------ built-ins/cd ------------------------ */
 
-void		ft_cd(char *str);
+void		ft_cd(t_arg_list *data, char *str);
 
 /* ------------------------ env_lst.c ------------------------ */
 

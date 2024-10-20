@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 12:56:52 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:48:01 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_env	*ft_lst_env(char **envp, t_env *lst)
 		lst = ft_add_to_env(envp[i], lst, i);
 		i++;
 	}
+	lst = ft_add_to_env("OLDPWD", lst, i);
 	return (lst);
 }
 //strchr('=') y usar esa pos, coger todo lo que hay antes para name
