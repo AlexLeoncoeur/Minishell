@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/09 11:28:32 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:58:12 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <unistd.h>
@@ -190,5 +191,9 @@ char		*ft_get_env(char *input, t_data *data);
  * @return int 
  */
 int			ft_strcmp(const char *s1, const char *s2);
+
+/* ------------------------ Signals------------------------ */
+void		signal_setter(void);
+void		ft_active_setter(int i);
 
 #endif

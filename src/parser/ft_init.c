@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/09 11:00:45 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:58:27 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_init(t_data *data, int argc, char **argv, char **envp)
 	data->redir_err = 0;
 	data->status = 0;
 	data->exit_status = 0;
+	signal_setter();
+	ft_active_setter(0);
 	ft_copy_envp(data, envp);
 	return (1);
 }
