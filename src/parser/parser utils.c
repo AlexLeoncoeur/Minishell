@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/09 11:26:46 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:51:17 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*ft_get_var(char *env)
 		i++;
 	var = malloc(sizeof(char) * i + 1);
 	if (!var)
-		return NULL;
+		return (NULL);
 	i = 0;
 	while (env[i] != '=')
 	{
@@ -58,7 +58,6 @@ static char	*ft_get_var(char *env)
 	}
 	var[i] = 0;
 	return (var);
-	
 }
 
 char	*ft_get_env(char *input, t_data *data)
@@ -69,7 +68,7 @@ char	*ft_get_env(char *input, t_data *data)
 	char	**val;
 
 	i = 0;
-	while(data->envp[i])
+	while (data->envp[i])
 	{
 		var = ft_get_var(data->envp[i]);
 		if (ft_strcmp(var, input) == 0)
@@ -78,7 +77,7 @@ char	*ft_get_env(char *input, t_data *data)
 			val = ft_split(data->envp[i], '=');
 			aux = ft_strdup(val[1]);
 			ft_clean_array(val);
-			return(aux);
+			return (aux);
 		}
 		free(var);
 		i++;
@@ -97,7 +96,7 @@ void	ft_replace_aux(t_input *input, int start, int end, char *val)
 	if (val == NULL)
 		val = "";
 	aux = malloc(sizeof(char) * ft_strlen(input->input) - (end - start)
-		+ ft_strlen(val + 1));
+			+ ft_strlen(val + 1));
 	if (!aux)
 		return ;
 	while (i < start)
