@@ -6,107 +6,84 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/09/26 23:17:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:15:33 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_new_token(t_data *data, int start, int end)
+static char	ft_join_and_free(char *s1, char *s2)
 {
-	t_input	*new;
-	t_input	*aux;
-	char	*str;
+	char	tmp;
 
-	str = ft_substr(data->line, start, end - start);
-	new = malloc(sizeof(t_input));
-	if (!new)
-		return (NULL);
-	new->input = str;
-	new->type = 0;
-	new->next = NULL;
-	if (!data->list)
-		data->list = new;
+	tmp = ft_strjoin(s1, s2);
+	free(s1);
+	return (tmp);
+}
+
+static int	ft_check_env(t_data *data, char **home, char **pwd)
+{
+	if (!ft_get_env(data, "HOME" || !ft_get_env(data, "PWD")))
+		return (0);
+	*home = ft_get_env(data, "HOME")->value;
+	*pwd = ft_get_env(data, "PWD")->value;
+	if (!ft_get_env(data, "USER"))
+		return (0);
+	return (1);
+}
+
+static char	*get_string(t_data *data)
+{
+	char	*string;
+	char	*aux;
+	char	**home;
+	char	**pwd;
+
+	if (!ft_check_env(data, &home, &pwd))
+		return ("minishell$ ");
+	aux = ft_get_env(data, "USER")->value;
+	string = ft_join_and_free(aux, ":");
+	if (ft_strncmp(home, pwd, ft_strlen(home)) == 0)
+		aux = ft_join_and_free(aux, "~");
 	else
 	{
-		aux = data->list;
-		while (aux->next)
-			aux = aux->next;
-		new->previous = aux;
-		aux->next = new;
+		string = ft_join_and_free(aux, pwd);
+		aux = ft_join_and_free(string, "$ ");
+		return (aux);
 	}
-}
-
-static void	ft_redir_pipe_token(t_data *data, int *start, int *count, char div)
-{
-	int	s;
-	int	c;
-
-	s = *start;
-	c = *count;
-	c++;
-	if (data->line[c] == div && div != '|')
-		c++;
-	if (div == '<' || div == '>')
+	if (ft_strcmp(home, pwd))
+		return (ft_join_and_free(aux, "$ "));
+	else
 	{
-		while (data->line[c] == ' ')
-			c++;
-		while (data->line[c] && ft_strchr("|<>", data->line[c]) == 0)
-			c++;
+		string = ft_join_and_free(aux, pwd + ft_strlen(home));
+		return (ft_join_and_free(string, "$ "));
 	}
-	ft_new_token(data, s, c);
-	*count = c;
 }
 
-static void	ft_quote_token(t_data *data, int *start, int *counter, char quote)
+int	ft_read_string(t_data *data)
 {
-	int	s;
-	int	c;
+	char	*string;
+	char	*aux;
 
-	s = *start;
-	c = *counter;
-	while (data->line[c] && data->line[c] != quote)
-		c++;
-	if (data->line[c] == quote)
-		c++;
-	ft_new_token(data, s, c);
-	*counter = c;
-}
-
-static void	ft_normal_token(t_data *data, int *start, int *counter)
-{
-	int	s;
-	int	c;
-
-	c = *counter;
-	s = *start;
-	while (data->line[c] && data->line[c] == ' ')
-		c++;
-	s = c;
-	while (data->line[c] && data->line[c] != '\'' && data->line[c] != '\"'
-		&& ft_strchr("|<>", data->line[c]) == 0)
-		c++;
-	if (c > s)
-		ft_new_token(data, s, c);
-	*counter = c;
-}
-
-void	ft_read_string(t_data *data)
-{
-	int	counter;
-	int	start;
-
-	counter = 0;
-	while (data->line[counter])
+	string = get_string(data);
+	if (data->input)
 	{
-		start = counter;
-		if (data->line[counter] == '\'')
-			ft_quote_token(data, &start, &counter, '\'');
-		else if (data->line[counter] == '\"')
-			ft_quote_token(data, &start, &counter, '\"');
-		else if (ft_strchr("|<>", data->line[counter]))
-			ft_redir_pipe_token(data, &start, &counter, data->line[counter]);
-		else
-			ft_normal_token(data, &start, &counter);
+		free(data->input);
+		data->input = NULL;
 	}
+	aux = readline(string);
+	if (!aux)
+	{
+		printf("\n");
+		ft_exit(NULL, data);
+		return (free(string), free(aux), 0);
+	}
+	data->input = ft_strtrim(aux, " \t");
+	free(aux);
+	if (!data->input)
+		return (0);
+	else if (*(data->input))
+		add_history(data->input);
+	free(string);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/23 10:58:27 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:34:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ static void	ft_copy_envp(t_data *data, char **envp)
 
 int	ft_init(t_data *data, int argc, char **argv, char **envp)
 {
-	data->line = NULL;
-	data->input = NULL;
-	data->heredoc = NULL;
-	data->argc = argc;
-	data->argv = argv;
-	data->redir_err = 0;
-	data->status = 0;
-	data->exit_status = 0;
+	data->env_variables = 0;
+	data->input = 0;
+	data->heredoc = 0;
+	data->error = 0;
+	data->envp = NULL;
+	data->cmd = NULL;
+	data->exit = 0;
 	signal_setter();
 	ft_active_setter(0);
 	ft_copy_envp(data, envp);

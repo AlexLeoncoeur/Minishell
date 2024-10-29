@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/23 18:51:17 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:03:05 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,22 @@ static char	*ft_get_var(char *env)
 	return (var);
 }
 
-char	*ft_get_env(char *input, t_data *data)
+t_env	*ft_get_env(t_data *data, char *name)
 {
-	int		i;
-	char	*var;
-	char	*aux;
-	char	**val;
+	t_env	*current;
 
-	i = 0;
-	while (data->envp[i])
+	current = data->env_variables;
+	if (!current)
+		return ((t_env *)0);
+	while (current->next)
 	{
-		var = ft_get_var(data->envp[i]);
-		if (ft_strcmp(var, input) == 0)
-		{
-			free(var);
-			val = ft_split(data->envp[i], '=');
-			aux = ft_strdup(val[1]);
-			ft_clean_array(val);
-			return (aux);
-		}
-		free(var);
-		i++;
+		if (ft_strcmp(name, current->name))
+			return (current);
+		current->next;
 	}
-	return (NULL);
+	if (ft_strcmp(name, current->name))
+			return (current);
+	return ((t_env *)0);
 }
 
 void	ft_replace_aux(t_input *input, int start, int end, char *val)

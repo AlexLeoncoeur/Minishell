@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 14:05:45 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:51:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,47 +39,34 @@ typedef struct s_redir
 	struct s_redir	*next;
 }	t_redir;
 
-typedef struct s_input
+typedef struct s_cmd
 {
-	int				type;
-	char			*input;
-	struct s_input	*next;
-	struct s_input	*previous;
-}	t_input;
-
-typedef struct s_data
-{
-	t_input				*list;
-	t_env				*env_var;
-	t_cmd				*cmd;
-	char				*line;
-	char				**input;
-	char				*heredoc;
-	char				**envp;
-	char				**argv;
-	int					argc;
-	int					redir_err;
-	int					status;
-	int					exit_status;
-	int					error;
-	char				**flags;
-	t_env				*env;
-	t_env				*env_export;
-}	t_data;
-
-typedef struct s_cmd_list
-{
-	char	**cmd;
-	int		fd;
-}	t_cmd_list;
+	char			*path;
+	char			**argv;
+	t_redir			*redir;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_env
 {
-	int				pos;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
-}	t_env;	
+}	t_env;
+
+typedef struct s_data
+{
+	t_env	*env_variables;
+	t_cmd	*cmd;
+	char	*input;
+	char	*heredoc;
+	char	**envp;
+	int		last;
+	int		exit;
+	int		error;
+	t_env	*env;
+	t_env	*env_export;
+}	t_data;
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
 
@@ -172,7 +159,7 @@ int			ft_init(t_data *data, int argc, char **argv, char **envp);
  * @param data 
  * @return int 
  */
-void		ft_read_string(t_data *data);
+int			ft_read_string(t_data *data);
 
 /**
  * @brief Checks if line is comprised only of tabs or spaces
@@ -228,7 +215,7 @@ void		ft_heredoc(t_input *current, int *infd, t_data *data);
  * @param data 
  * @return char* 
  */
-char		*ft_get_env(char *input, t_data *data);
+t_env		*ft_get_env(char *input, t_data *data);
 
 /**
  * @brief Compates two strs and returns difference
