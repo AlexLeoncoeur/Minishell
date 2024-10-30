@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/20 15:06:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:46:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	ft_cd(t_arg_list *data, char *str)
 	ft_change_pwd_env(&data->env_export, "PWD", pwd_export);
 	ft_change_pwd_env(&data->env, "OLDPWD", oldpwd_env);
 	ft_change_pwd_env(&data->env_export, "OLDPWD", oldpwd_export);
-	
 }
