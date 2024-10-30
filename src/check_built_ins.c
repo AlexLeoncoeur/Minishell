@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/30 09:51:11 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:57:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	ft_check_cd_unset(t_arg_list *data)
+static void	ft_check_cd_unset(t_arg_list *data, int j)
 {
 	int	i;
 
@@ -36,13 +36,16 @@ static void	ft_check_cd_unset(t_arg_list *data)
 		else
 			ft_cd(data, getenv("HOME"));
 	}
+	else
+		data->builtin_done = 1;
 }
 
-void	ft_check_built_ins(t_arg_list *data)
+void	ft_check_built_ins(t_arg_list *data, int j)
 {
 	int	i;
 
 	i = 2;
+	data->builtin_done = 0;
 	data->env = ft_lst_env(data->envp, data->env);
 	data->env_export = ft_lst_env(data->envp, data->env_export);
 	if (ft_strncmp(data->argv[1], "env\0", 4) == 0)

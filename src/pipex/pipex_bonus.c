@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/01 15:19:48 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:49:44 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,13 @@ static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i)
 {
 	char	*path;
 
-	close(pipefd[0]);
-	dup2(pipefd[1], STDOUT_FILENO);
+	if (pipefd >= 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+	}
+	else
+		dup2(lst->cmd->redir, STDOUT_FILENO);
 	path = ft_pathfinder(lst, i);
 	if (execve(path, lst->flags, lst->envp) < 0)
 	{
@@ -75,19 +80,21 @@ static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i)
 	}
 }
 
-static void	ft_do_cmd(t_arg_list *lst, int fd, int i)
+void	ft_do_cmd(t_arg_list *lst)
 {
 	int		pipefd[2];
 	int		child;
+	t_cmd	*aux;
 
-	dup2(fd, STDIN_FILENO);
-	while (i < lst->argc - 2)
+	dup2(lst->cmd->redir, STDIN_FILENO);
+	aux = lst->cmd;
+	while (aux)
 	{
-		if (pipe(pipefd) == -1)
+		if (aux->redir == 0 && pipe(pipefd) == -1)
 			perror("Error");
 		child = fork();
-		if (child == 0)
-			ft_execute_cmd(lst, pipefd, i);
+		if (child == 0 && pipefd >= 0)
+			ft_execute_cmd(aux, pipefd, i);
 		else if (child == -1)
 			perror("Error");
 		if (waitpid(-1, NULL, 0) == -1)
@@ -96,32 +103,32 @@ static void	ft_do_cmd(t_arg_list *lst, int fd, int i)
 			exit(1);
 		}
 		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		i++;
+		if (pipefd >= 0)
+			dup2(pipefd[0], STDIN_FILENO);
+		aux = aux->next;
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int	ft_executer(t_arg_list *data)
 {
-	int			fd;
-	t_arg_list	*lst;
+	//t_arg_list	*lst;
 
-	lst = ft_define_lst(argc, argv, envp);
-	ft_check_built_ins(lst);
-	return (0);
-	fd = ft_check_heredoc(argv);
-	if (fd == -1)
+	//lst = ft_define_lst(argc, argv, envp);
+	if (data->cmd->redir == -1)
 		exit(1);
-	if (ft_strncmp(argv[1], "here_doc\0", 9) == 0)
-		ft_do_cmd(lst, fd, 3);
+	if (data->cmd && !data->cmd->next)
+	{
+		dup2(data->cmd->redir, STDOUT_FILENO);
+		ft_check_built_ins(data);
+	}
+	else if (data->cmd && data->builtin_done == 1)
+		ft_do_last_cmd(data->cmd);
 	else
-		ft_do_cmd(lst, fd, 2);
-	close(fd);
-	fd = ft_openfile(argv, argc);
-	if (fd == -1)
-		return (ft_freeanderror(lst), 1);
-	dup2(fd, STDOUT_FILENO);
-	ft_do_last_cmd(lst, fd);
+	{
+		ft_do_cmd(data);
+		dup2(fd, STDOUT_FILENO);
+		ft_do_last_cmd(data, fd);
+	}
 	return (0);
 }
 //Hacer comprobacion si las variables de entorno

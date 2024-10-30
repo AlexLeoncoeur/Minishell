@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/20 14:21:00 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:55:37 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@
 # include <stdio.h>
 # include <errno.h>
 
-typedef struct s_cmd_list
+typedef struct s_cmd
 {
-	char	**cmd;
-	int		fd;
-}	t_cmd_list;
+	char		*cmd;
+	char		*flags;
+	int			redir;
+	t_cmd		*next;
+}	t_cmd;
 
 typedef struct s_data
 {
 	int			error;
-	t_cmd_list	*cmd;
+	t_cmd		*cmd;
 }	t_data;
 
 typedef struct s_env
@@ -42,13 +44,20 @@ typedef struct s_env
 
 typedef struct s_arg_list
 {
+	int				last;
+	int				exit;
+	int				error;
+	int				builtin_done;
 	int				argc;
 	char			**argv;
 	char			**flags;
 	char			**envp;
-	t_data			*error;
+	char			*heredoc;
+	char			*input;
 	t_env			*env;
 	t_env			*env_export;
+	t_env			*env_variables;
+	t_cmd			*cmd;
 
 }	t_arg_list;
 
@@ -62,6 +71,7 @@ typedef struct s_arg_list
  * @return char* 
  */
 char		*ft_pathfinder(t_arg_list *lst, int pos);
+void		ft_do_cmd(t_arg_list *lst, int fd, int i);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 

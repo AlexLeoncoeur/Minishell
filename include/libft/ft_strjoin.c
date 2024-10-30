@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:44:06 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 17:15:50 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:55:07 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 		j++;
 	}
 	aux[i + j] = '\0';
-	free(s1);
-	return (aux);
+	return (free(s1), aux);
 }
 
 /* #include <stdio.h>
