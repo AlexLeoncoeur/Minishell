@@ -12,16 +12,14 @@
 
 #include "../../include/minishell.h"
 
-int	ft_is_all_space(char *input)
+size_t	ft_env_name_len(char *name)
 {
-	int	c;
+	size_t	len;
 
-	c = 0;
-	while (input[c] && (input[c] == ' ' || input[c] == '\t'))
-		c++;
-	if (input[c] == '\0')
-		return (1);
-	return (0);
+	len = 0;
+	while (ft_isalnum(name[len]) || name[len] == '_')
+		len++;
+	return (len);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -78,30 +76,17 @@ t_env	*ft_get_env(t_data *data, char *name)
 	return ((t_env *)0);
 }
 
-void	ft_replace_aux(t_input *input, int start, int end, char *val)
+char	ft_check_quote(char c, char quote)
 {
-	int		i;
-	int		j;
-	char	*aux;
-
-	i = 0;
-	j = 0;
-	if (val == NULL)
-		val = "";
-	aux = malloc(sizeof(char) * ft_strlen(input->input) - (end - start)
-			+ ft_strlen(val + 1));
-	if (!aux)
-		return ;
-	while (i < start)
-		aux[i++] = input->input[j++];
-	j = 0;
-	while (val[j])
-		aux[i++] = val[j++];
-	j = end;
-	while (input->input[j])
-		aux[i++] = input->input[j++];
-	aux[i] = 0;
-	free(input->input);
-	input->input = aux;
+	if (c == '\'' && !quote)
+		return ('\'');
+	else if (c == '\'')
+		return (0);
+	else if (c == '"' && !quote)
+		return ('"');
+	else if (c == '"')
+		return (0);
+	else
+		return (quote);
 }
 //Por ahjora solo uso get_env y strcmp,  revisar si las demas hacen falta

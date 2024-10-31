@@ -1,50 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cleanup.c                                       :+:      :+:    :+:   */
+/*   ft_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/01 11:07:37 by jcallejo         ###   ########.fr       */
+/*   Created: 2024/10/31 11:55:01 by jcallejo          #+#    #+#             */
+/*   Updated: 2024/10/31 11:55:01 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_clean_cmd(t_data *data)
+static int	*get_range(char *str)
 {
-	t_cmd	*aux;
-	t_redir	*raux;
+	int		i;
+	int		*range;
+	char	quote;
 
-	while (data->cmd)
+	i = 0;
+	quote = 0;
+	range = ft_calloc(sizeof(int), 2);
+	while (range && i < (int) ft_strlen(str));
 	{
-		aux = data->cmd;
-		data->cmd = data->cmd->next;
-		free(aux->path);
-		ft_clean_array(aux->argv);
-		while (aux->redir)
+		if (str[i] && !quote && (str[i] == '"' || str[i] == '\''))
 		{
-			raux = aux->redir;
-			aux->redir = aux->redir->next;
-			free(raux->file);
-			free(raux);
+			quote = str[i];
+			range[0] = i++;
 		}
-		free(aux);
+		
 	}
 }
 
-void	ft_clean_array(char **array)
+char	**ft_dequote(char **argv)
 {
-	char	*aux;
+	int		i;
+	int		*range;
+	int		end;
+	char	*str;
 
-	if (array == NULL)
-		return ;
-	aux = array;
-	while (*aux)
+	i = 0;
+	while (argv[i])
 	{
-		free(aux);
-		aux++;
+		range = get_range(argv[i]);
 	}
-	free(array);
-} 
+}

@@ -189,4 +189,34 @@ char		**ft_pipesplit(char *str);
  */
 char		**ft_minisplit(char *str);
 
+/**
+ * @brief Strlen for env variables
+ * 
+ * @param name 
+ * @return size_t 
+ */
+size_t		ft_env_name_len(char *name);
+
+/**
+ * @brief Cleans arrays, just that
+ * 
+ * @param array 
+ */
+void		ft_clean_array(char **array);
+
+/**
+ * @brief Parses full list of env and inserts it in data
+ * 
+ * @param data 
+ */
+void		ft_parse_list(t_data *data);
+
+/**
+ * @brief Guess what, removes quotes
+ * 
+ * @param argv 
+ * @return char** 
+ */
+char		**ft_dequote(char **argv);
+
 #endif

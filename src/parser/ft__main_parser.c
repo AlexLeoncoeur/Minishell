@@ -43,5 +43,6 @@ t_cmd	*ft_parser(t_data *data)
 	{
 		argv = ft_minisplit(pipes[i]);
 		ft_parse_env(data, argv);
+		ft_dequote(argv);
 	}
 }
