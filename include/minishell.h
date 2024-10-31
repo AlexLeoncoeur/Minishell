@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/30 17:55:37 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:45:28 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_cmd
 	char		*cmd;
 	char		*flags;
 	int			redir;
+	char		**env;
 	t_cmd		*next;
 }	t_cmd;
 
@@ -50,7 +51,6 @@ typedef struct s_arg_list
 	int				builtin_done;
 	int				argc;
 	char			**argv;
-	char			**flags;
 	char			**envp;
 	char			*heredoc;
 	char			*input;

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/31 13:37:09 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:04:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ char	*ft_pathfinder(t_arg_list *lst, int pos)
 	return (path);
 } */
 
-static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i) //Modificar para que si recibe un -1 use el redir como standar
+static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
 {
 	char	*path;
 
-	if (pipefd >= 0)
+	if (i == -1)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 	}
 	else
-		dup2(lst->cmd->redir, STDOUT_FILENO);
-	path = ft_pathfinder(lst, i);
-	if (execve(path, lst->flags, lst->envp) < 0)
+		dup2(cmd->redir, STDOUT_FILENO);
+	path = cmd->cmd;
+	if (execve(path, cmd->flags, cmd->envp) < 0)
 	{
-		perror(lst->flags[1]);
+		perror(cmd->flags[1]);
 		free(path);
-		ft_free(lst->flags);
+		ft_free(cmd->flags);
 		exit(1);
 	}
 }
@@ -96,9 +96,9 @@ void	ft_do_cmd(t_arg_list *lst)
 		if (child == -1)
 			perror("Error");
 		else if (child == 0 && aux->redir > 0)  //
-			ft_execute_cmd(aux, aux->redir, i); //	Dividir en otra función
+			ft_execute_cmd(aux, 0, -1); //	Dividir en otra función
 		else if (child == 0 && aux->redir == 0) //
-			ft_execute_cmd(aux, pipefd, i);
+			ft_execute_cmd(aux, pipefd, 0);
 		if (waitpid(-1, NULL, 0) == -1)
 		{
 			perror("Error");
@@ -133,6 +133,9 @@ int	ft_executer(t_arg_list *data)
 	}
 	return (0);
 }
+
+//	Hacer funcion de prueba que cree e inicialice la lista de comandos y probar cositas
+
 //Hacer comprobacion si las variables de entorno
 //	estan vacias entonces usar funcion que las coge
 //Usar la estructura nueva para llamar y usar todas estas
