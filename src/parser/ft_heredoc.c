@@ -62,3 +62,4 @@ void	ft_heredoc(t_input *current, int *infd, t_data *data)
 		close(*infd);
 	*infd = fd;
 }
+//revisar heredoc para ver si con los cambios funciona correctamente, pero deberia

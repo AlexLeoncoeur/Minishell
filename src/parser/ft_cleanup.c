@@ -25,4 +25,4 @@ void	ft_clean_array(char **array)
 		aux++;
 	}
 	free(array);
-}
+} //¿hace falta realmente esto ahora que estoy cambiando? quien sabe

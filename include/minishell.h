@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
+# include "../include/colors.h"
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -114,7 +116,7 @@ void		ft_env(t_env *env);
 
 /* ------------------------ built-ins/export ------------------------ */
 
-void		ft_export(char *str, t_arg_list *data);
+void		ft_export(char *str, t_data *data);
 t_env		*ft_add_to_env(char *str, t_env *lst, int i);
 
 /* ------------------------ built-ins/unset ------------------------ */
@@ -141,93 +143,50 @@ int			ft_tenv_lstsize(t_env *lst);
 
 void		ft_free_data(t_arg_list *data);
 
-/* ------------------------ Initializer------------------------ */
+/* ---------------------- Parser/Lexer ---------------------- */
 
 /**
- * @brief Initializes data struct
+ * @brief Initializes data structure
  * 
  * @param data 
+ * @param argc 
+ * @param argv 
+ * @param envp 
  * @return int 
  */
 int			ft_init(t_data *data, int argc, char **argv, char **envp);
 
-/* ------------------------ Lexer------------------------ */
-
 /**
- * @brief Reads text inputed by user and processes it
+ * @brief Main parser function to create cmd struct
  * 
  * @param data 
- * @return int 
+ * @return t_cmd* 
  */
-int			ft_read_string(t_data *data);
+t_cmd		*ft_parser(t_data *data);
 
 /**
- * @brief Checks if line is comprised only of tabs or spaces
- * 
- * @param input 
- * @return int 
- */
-int			ft_is_all_space(char *input);
-
-/* ------------------------ Parser------------------------ */
-
-/**
- * @brief Parses the line of input
+ * @brief Gets enviromental variable
  * 
  * @param data 
+ * @param name 
+ * @return t_env* 
  */
-void		ft_parser(t_data *data);
-
-/* ------------------------ Cleanup------------------------ */
-/**
- * @brief Frees inside array and then all of it
- * 
- * @param array 
- */
-void		ft_clean_array(char **array);
-
-/* ------------------------ Redirections------------------------ */
-/**
- * @brief Determines what type of redirection it is and calls respective 
- * function
- * 
- * @param data 
- * @param infd 
- * @param outfd 
- */
-void		ft_redirections(t_data *data, int *infd, int *outfd);
-
-/* ------------------------ Heredoc------------------------ */
-/**
- * @brief Creates heredoc and manages it
- * 
- * @param current 
- * @param infd 
- * @param data 
- */
-void		ft_heredoc(t_input *current, int *infd, t_data *data);
-
-/* ------------------------ Utils------------------------ */
-/**
- * @brief Gets env variable value and returs it
- * 
- * @param input 
- * @param data 
- * @return char* 
- */
-t_env		*ft_get_env(char *input, t_data *data);
+t_env		*ft_get_env(t_data *data, char *name);
 
 /**
- * @brief Compates two strs and returns difference
+ * @brief Split to get each command and it's args sepparatelly
  * 
- * @param s1 
- * @param s2 
- * @return int 
+ * @param str 
+ * @return char** 
  */
-int			ft_strcmp(const char *s1, const char *s2);
+char		**ft_pipesplit(char *str);
 
-/* ------------------------ Signals------------------------ */
-void		signal_setter(void);
-void		ft_active_setter(int i);
+/**
+ * @brief Splits based on spaces to separate every part of the cmds and args
+ * 
+ * @param str 
+ * @return char** 
+ */
+char		**ft_minisplit(char *str);
 
 #endif

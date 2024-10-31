@@ -12,6 +12,40 @@
 
 #include "../../include/minishell.h"
 
+static void	shell_lvl(t_data *data)
+{
+	char	*lvl;
+	char	*str;
+	char	*aux;
+	int		i;
+
+	lvl = ft_get_env(data, "SHLVL")->value;
+	i = ft_atoi(lvl) + 1;
+	lvl = ft_itoa(i);
+	aux = ft_strdup("SHLVL=");
+	str = ft_strjoin(aux, lvl);
+	ft_export(str, data);
+	free(lvl);
+	free(aux);
+	free(str);
+	ft_cd(NULL, data); //no esta hecho cd pero hace falta hace un cd cuando se ejecuta esta funcion cuando se entra a un nuevo minishell
+}
+
+static void	update_name(t_data *data)
+{
+	char	*name;
+	char	*str;
+	char	*aux;
+
+	aux = ft_strdup("SHELL=");
+	name = ft_strdup("minishell");
+	str = ft_strjoin(aux, name);
+	ft_export(str, data);
+	free(str);
+	free(name);
+	free(aux);
+}
+
 static void	ft_copy_envp(t_data *data, char **envp)
 {
 	int	i;
@@ -43,5 +77,7 @@ int	ft_init(t_data *data, int argc, char **argv, char **envp)
 	signal_setter();
 	ft_active_setter(0);
 	ft_copy_envp(data, envp);
+	shell_lvl(data);
+	update_name(data);
 	return (1);
 }

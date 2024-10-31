@@ -19,9 +19,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_init(&data, argc, argv, envp);
 	while (data.exit != 1)
 	{
-		if (ft_read_string)
+		if (ft_read_string(&data))
 		{
-			
+			data.cmd = ft_parsecmd(&data);
 		}
 	}
 }

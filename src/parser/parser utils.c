@@ -104,3 +104,4 @@ void	ft_replace_aux(t_input *input, int start, int end, char *val)
 	free(input->input);
 	input->input = aux;
 }
+//Por ahjora solo uso get_env y strcmp,  revisar si las demas hacen falta

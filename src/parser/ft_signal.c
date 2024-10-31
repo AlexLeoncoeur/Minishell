@@ -50,3 +50,4 @@ int	ft_active_getter(void)
 	g_active = *g_var_on;
 	return (g_active);
 }
+//va a haber que rehacer todo signal, me quiero matar

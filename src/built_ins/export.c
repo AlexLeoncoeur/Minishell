@@ -34,7 +34,7 @@ t_env	*ft_add_to_env(char *str, t_env *lst, int i)
 	return (lst);
 }
 
-void	ft_export(char *str, t_arg_list *data)
+void	ft_export(char *str, t_data *data)
 {
 	t_env	*aux;
 
