@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/30 18:49:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:37:09 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
+/* static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
 {
 	char	*endl;
 	char	*path;
@@ -57,9 +57,9 @@ char	*ft_pathfinder(t_arg_list *lst, int pos)
 	if (!path)
 		ft_puterrorstr("Error: Command not found\n");
 	return (path);
-}
+} */
 
-static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i)
+static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i) //Modificar para que si recibe un -1 use el redir como standar
 {
 	char	*path;
 
@@ -86,24 +86,26 @@ void	ft_do_cmd(t_arg_list *lst)
 	int		child;
 	t_cmd	*aux;
 
-	dup2(lst->cmd->redir, STDIN_FILENO);
+	dup2(lst->cmd->redir, STDIN_FILENO); //Si hay un redir de entrada
 	aux = lst->cmd;
 	while (aux)
 	{
-		if (aux->redir == 0 && pipe(pipefd) == -1)
+		if (pipe(pipefd) == -1)
 			perror("Error");
 		child = fork();
-		if (child == 0 && pipefd >= 0)
-			ft_execute_cmd(aux, pipefd, i);
-		else if (child == -1)
+		if (child == -1)
 			perror("Error");
+		else if (child == 0 && aux->redir > 0)  //
+			ft_execute_cmd(aux, aux->redir, i); //	Dividir en otra función
+		else if (child == 0 && aux->redir == 0) //
+			ft_execute_cmd(aux, pipefd, i);
 		if (waitpid(-1, NULL, 0) == -1)
 		{
 			perror("Error");
 			exit(1);
 		}
-		close(pipefd[1]);
-		if (pipefd >= 0)
+		close(pipefd[1]); //poner dentro del if de abajo
+		if (aux->redir > 0)
 			dup2(pipefd[0], STDIN_FILENO);
 		aux = aux->next;
 	}
@@ -126,7 +128,7 @@ int	ft_executer(t_arg_list *data)
 	else
 	{
 		ft_do_cmd(data);
-		dup2(fd, STDOUT_FILENO);
+		dup2(ft_lstlast_cmd()->redir, STDOUT_FILENO);
 		ft_do_last_cmd(data, fd);
 	}
 	return (0);
