@@ -12,42 +12,25 @@
 
 #include "../../include/minishell.h"
 
-static int	*g_var_on;
+static int	g_signal_flag = 0;
 
-void	signal_handler(int signal)
+static void	handler_int(int signal)
 {
 	(void) signal;
-	ft_putstr_fd("\n", 1);
+	ft_putendl_fd("", STDOUT_FILENO);
 	rl_on_new_line();
-	rl_replace_line("", 1);
-	if (ft_active_getter() == 0)
+	rl_replace_line("", 0);
+	if (g_signal_flag == 0)
 		rl_redisplay();
 }
 
-void	signal_setter(void)
+void	ft_set_flag(int i)
 {
-	struct sigaction	sa_ignore;
-
-	sa_ignore.sa_handler = SIG_IGN;
-	sigemptyset(&sa_ignore.sa_mask);
-	sa_ignore.sa_flags = 0;
-	sigaction(SIGQUIT, &sa_ignore, NULL);
-	signal(SIGINT, signal_handler);
+	g_signal_flag = i;
 }
 
-void	ft_active_setter(int i)
+void	ft_init_signals(void)
 {
-	static int	g_active;
-
-	g_active = i;
-	g_var_on = &g_active;
+	signal(SIGINT, handler_int);
+	signal(SIGQUIT, SIG_IGN);
 }
-
-int	ft_active_getter(void)
-{
-	int	g_active;
-
-	g_active = *g_var_on;
-	return (g_active);
-}
-//va a haber que rehacer todo signal, me quiero matar

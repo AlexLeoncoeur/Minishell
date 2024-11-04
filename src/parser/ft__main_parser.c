@@ -44,5 +44,10 @@ t_cmd	*ft_parser(t_data *data)
 		argv = ft_minisplit(pipes[i]);
 		ft_parse_env(data, argv);
 		ft_dequote(argv);
+		ft_add_cmd(cmd, argv); //esto esta aqui porque no lo tengo hecho y no se si va en el executer
+		ft_clean_array(argv);
+		i++;
 	}
+	ft_clean_array(pipes);
+	return (cmd);
 }
