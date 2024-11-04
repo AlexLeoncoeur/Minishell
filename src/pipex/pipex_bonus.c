@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 12:33:23 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:26:02 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,18 @@ static t_cmd	*ft_test_cmd(char **envp)
 {
 	t_cmd	*prueba;
 
-	prueba = NULL;
-	prueba->cmd = "ls";
+	prueba = malloc(sizeof(t_cmd));
+	prueba->cmd = ft_strdup("ls");
 	prueba->argv = NULL;
 	prueba->env = envp;
 	prueba->redir = 0;
-	prueba->next->cmd = "wc";
-	prueba->next->argv[0][1] = "l";
+	prueba->next = malloc(sizeof(t_cmd));
+	prueba->next->cmd = ft_strdup("wc");
+	prueba->next->argv[0] = ft_strdup("l");
 	prueba->next->env = envp;
 	prueba->next->redir = 0;
+	prueba->next->next = NULL;
+	return (prueba);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -132,11 +135,12 @@ int	main(int argc, char **argv, char **envp)
 	//t_arg_list	*lst;
 
 	//lst = ft_define_lst(argc, argv, envp);
-	data = NULL;
+	data = malloc(sizeof(t_arg_list));
+	printf("pipo es un buen perro\n");
 	data->argc = argc;
 	data->argv = argv;
-	data->env = envp;
-	data->cmd = ft_test_cmd(data->env);
+	data->envp = envp;
+	data->cmd = ft_test_cmd(data->envp);
 	if (data->cmd->redir == -1)
 		exit(1);
 	if (data->cmd && !data->cmd->next)
@@ -152,7 +156,7 @@ int	main(int argc, char **argv, char **envp)
 		dup2(1, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir)
 			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
-		ft_do_last_cmd(data);
+		ft_do_last_cmd(data->cmd);
 	}
 	return (0);
 }

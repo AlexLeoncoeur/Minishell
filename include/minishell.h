@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 12:40:59 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:14:57 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		ft_echo(char **matrix);
 
 /* ------------------------ built-ins/pwd ------------------------ */
 
-void		ft_pwd(t_data *data);
+void		ft_pwd(t_arg_list *data);
 
 /* ------------------------ built-ins/exit ------------------------ */
 

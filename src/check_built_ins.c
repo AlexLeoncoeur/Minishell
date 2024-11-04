@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/30 17:57:20 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:14:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	ft_check_cd_unset(t_arg_list *data, int j)
+static void	ft_check_cd_unset(t_arg_list *data)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ static void	ft_check_cd_unset(t_arg_list *data, int j)
 		data->builtin_done = 1;
 }
 
-void	ft_check_built_ins(t_arg_list *data, int j)
+void	ft_check_built_ins(t_arg_list *data)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ void	ft_check_built_ins(t_arg_list *data, int j)
 	else if (ft_strncmp(data->argv[1], "echo\0", 5) == 0)
 		ft_echo(&data->argv[2]);
 	else if (ft_strncmp(data->argv[1], "pwd\0", 4) == 0)
-		ft_pwd(data->error);
+		ft_pwd(data);
 	else if (ft_strncmp(data->argv[1], "export\0", 7) == 0)
 	{
 		if (data->argc > 2)

@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 12:25:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:12:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_cmd	*ft_lstlast_tenv(t_cmd *lst)
+t_cmd	*ft_lstlast_cmd(t_cmd *lst)
 {
 	t_cmd	*aux;
 
