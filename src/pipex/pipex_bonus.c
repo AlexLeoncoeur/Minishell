@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 13:26:02 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:16:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_do_cmd(t_arg_list *lst)
 static t_cmd	*ft_test_cmd(char **envp)
 {
 	t_cmd	*prueba;
+	char	*arg;
 
 	prueba = malloc(sizeof(t_cmd));
 	prueba->cmd = ft_strdup("ls");
@@ -122,7 +123,9 @@ static t_cmd	*ft_test_cmd(char **envp)
 	prueba->redir = 0;
 	prueba->next = malloc(sizeof(t_cmd));
 	prueba->next->cmd = ft_strdup("wc");
-	prueba->next->argv[0] = ft_strdup("l");
+	prueba->next->argv = malloc(sizeof(char) * 1);
+	arg = ft_strdup("l");
+	prueba->next->argv[0] = arg;
 	prueba->next->env = envp;
 	prueba->next->redir = 0;
 	prueba->next->next = NULL;
