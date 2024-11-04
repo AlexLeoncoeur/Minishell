@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/31 19:04:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:33:23 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
 	else
 		dup2(cmd->redir, STDOUT_FILENO);
 	path = cmd->cmd;
-	if (execve(path, cmd->flags, cmd->envp) < 0)
+	if (execve(path, cmd->argv, cmd->env) < 0)
 	{
-		perror(cmd->flags[1]);
+		perror(cmd->argv[1]);
 		free(path);
-		ft_free(cmd->flags);
+		ft_free(cmd->argv);
 		exit(1);
 	}
 }
@@ -105,17 +105,38 @@ void	ft_do_cmd(t_arg_list *lst)
 			exit(1);
 		}
 		close(pipefd[1]); //poner dentro del if de abajo
-		if (aux->redir > 0)
+		if (!aux->redir)
 			dup2(pipefd[0], STDIN_FILENO);
 		aux = aux->next;
 	}
 }
 
-int	ft_executer(t_arg_list *data)
+static t_cmd	*ft_test_cmd(char **envp)
 {
+	t_cmd	*prueba;
+
+	prueba = NULL;
+	prueba->cmd = "ls";
+	prueba->argv = NULL;
+	prueba->env = envp;
+	prueba->redir = 0;
+	prueba->next->cmd = "wc";
+	prueba->next->argv[0][1] = "l";
+	prueba->next->env = envp;
+	prueba->next->redir = 0;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_arg_list	*data;
 	//t_arg_list	*lst;
 
 	//lst = ft_define_lst(argc, argv, envp);
+	data = NULL;
+	data->argc = argc;
+	data->argv = argv;
+	data->env = envp;
+	data->cmd = ft_test_cmd(data->env);
 	if (data->cmd->redir == -1)
 		exit(1);
 	if (data->cmd && !data->cmd->next)
@@ -128,8 +149,10 @@ int	ft_executer(t_arg_list *data)
 	else
 	{
 		ft_do_cmd(data);
-		dup2(ft_lstlast_cmd()->redir, STDOUT_FILENO);
-		ft_do_last_cmd(data, fd);
+		dup2(1, STDOUT_FILENO);
+		if (ft_lstlast_cmd(data->cmd)->redir)
+			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
+		ft_do_last_cmd(data);
 	}
 	return (0);
 }

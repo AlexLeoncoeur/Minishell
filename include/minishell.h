@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/31 18:45:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:40:59 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 
 typedef struct s_cmd
 {
-	char		*cmd;
-	char		*flags;
-	int			redir;
-	char		**env;
-	t_cmd		*next;
+	int				redir;
+	char			*cmd;
+	char			**argv;
+	char			**env;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_data
@@ -70,12 +70,12 @@ typedef struct s_arg_list
  * @param pos 
  * @return char* 
  */
-char		*ft_pathfinder(t_arg_list *lst, int pos);
-void		ft_do_cmd(t_arg_list *lst, int fd, int i);
+//char		*ft_pathfinder(t_arg_list *lst, int pos);
+void		ft_do_cmd(t_arg_list *lst);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
-t_arg_list	*ft_define_lst(int argc, char **argv, char **envp);
+//t_arg_list	*ft_define_lst(int argc, char **argv, char **envp);
 void		ft_freeanderror(t_arg_list *lst);
 void		ft_puterrorstr(char *str);
 void		ft_free(char **str);
@@ -88,7 +88,7 @@ int			ft_check_heredoc(char **argv);
 
 /* ------------------------ pipex/last_cmd ------------------------ */
 
-void		ft_do_last_cmd(t_arg_list *lst, int fd);
+void		ft_do_last_cmd(t_cmd *lst);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
@@ -121,6 +121,7 @@ void		ft_cd(t_arg_list *data, char *str);
 
 /* ------------------------ env_lst.c ------------------------ */
 
+t_cmd		*ft_lstlast_cmd(t_cmd *lst);
 t_env		*ft_lstlast_tenv(t_env *lst);
 t_env		*ft_lstnew_tenv(char *name, char *value, int i);
 t_env		*ft_lst_env(char **envp, t_env *lst);
