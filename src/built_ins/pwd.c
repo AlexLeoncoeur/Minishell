@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 13:14:35 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:47:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pwd(t_arg_list *data)
 		data = NULL;
 	path = getcwd(NULL, 0);
 	if (!path)
-		perror("Error: ");
+		perror("Error");
 	//data->error = 0; //errno
 	path = ft_strjoin(path, "\n");
 	ft_putstr(path);

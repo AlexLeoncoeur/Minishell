@@ -6,24 +6,24 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 15:16:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:14:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
+static char	*ft_definitive_path(char **d_paths, char *command)
 {
 	char	*endl;
 	char	*path;
 	int		i;
 
 	i = 0;
-	if (lst->flags)
-		ft_free(lst->flags);
-	lst->flags = ft_split(lst->argv[pos], ' ');
+	/* if (lst->flags)
+		ft_free(lst->flags); */
+	//lst->flags = ft_split(lst->argv[pos], ' ');
 	i = 0;
-	endl = ft_strjoin("/", lst->flags[0]);
+	endl = ft_strjoin("/", command);
 	path = ft_strjoin(d_paths[0], endl);
 	while (d_paths[i] && access(path, X_OK) < 0)
 	{
@@ -37,7 +37,7 @@
 	return (free(endl), NULL);
 }
 
-char	*ft_pathfinder(t_arg_list *lst, int pos)
+static char	*ft_pathfinder(t_arg_list *lst, char *command)
 {
 	char	**d_paths;
 	char	*path;
@@ -53,11 +53,11 @@ char	*ft_pathfinder(t_arg_list *lst, int pos)
 		return (NULL);
 	d_paths = ft_split(path, ':');
 	free(path);
-	path = ft_definitive_path(lst, pos, d_paths);
+	path = ft_definitive_path(d_paths, command);
 	if (!path)
 		ft_puterrorstr("Error: Command not found\n");
 	return (path);
-} */
+}
 
 static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
 {
@@ -73,7 +73,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
 	path = cmd->cmd;
 	if (execve(path, cmd->argv, cmd->env) < 0)
 	{
-		perror(cmd->argv[1]);
+		perror("minishell: executer");
 		free(path);
 		ft_free(cmd->argv);
 		exit(1);
@@ -86,26 +86,26 @@ void	ft_do_cmd(t_arg_list *lst)
 	int		child;
 	t_cmd	*aux;
 
-	dup2(lst->cmd->redir, STDIN_FILENO); //Si hay un redir de entrada
+	//dup2(lst->cmd->redir, STDIN_FILENO); //Si hay un redir de entrada
 	aux = lst->cmd;
-	while (aux)
+	while (aux->next)
 	{
 		if (pipe(pipefd) == -1)
 			perror("Error");
 		child = fork();
 		if (child == -1)
 			perror("Error");
-		else if (child == 0 && aux->redir > 0)  //
-			ft_execute_cmd(aux, 0, -1); //	Dividir en otra función
-		else if (child == 0 && aux->redir == 0) //
-			ft_execute_cmd(aux, pipefd, 0);
+		else if (child == 0 && aux->redir >= 0)  //
+			ft_execute_cmd(aux, 0, 0); //	Dividir en otra función
+		else if (child == 0 && aux->redir == -1) //
+			ft_execute_cmd(aux, pipefd, -1);
 		if (waitpid(-1, NULL, 0) == -1)
 		{
 			perror("Error");
 			exit(1);
 		}
 		close(pipefd[1]); //poner dentro del if de abajo
-		if (!aux->redir)
+		if (aux->redir < 0)
 			dup2(pipefd[0], STDIN_FILENO);
 		aux = aux->next;
 	}
@@ -117,17 +117,16 @@ static t_cmd	*ft_test_cmd(char **envp)
 	char	*arg;
 
 	prueba = malloc(sizeof(t_cmd));
-	prueba->cmd = ft_strdup("ls");
 	prueba->argv = NULL;
 	prueba->env = envp;
-	prueba->redir = 0;
+	prueba->redir = -1;
 	prueba->next = malloc(sizeof(t_cmd));
-	prueba->next->cmd = ft_strdup("wc");
-	prueba->next->argv = malloc(sizeof(char) * 1);
+	prueba->next->argv = malloc(sizeof(char*) * 3);
 	arg = ft_strdup("l");
-	prueba->next->argv[0] = arg;
+	prueba->next->argv[2] = NULL;
+	prueba->next->argv[1] = arg;
 	prueba->next->env = envp;
-	prueba->next->redir = 0;
+	prueba->next->redir = -1;
 	prueba->next->next = NULL;
 	return (prueba);
 }
@@ -139,13 +138,15 @@ int	main(int argc, char **argv, char **envp)
 
 	//lst = ft_define_lst(argc, argv, envp);
 	data = malloc(sizeof(t_arg_list));
-	printf("pipo es un buen perro\n");
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
 	data->cmd = ft_test_cmd(data->envp);
-	if (data->cmd->redir == -1)
-		exit(1);
+	data->cmd->cmd = ft_pathfinder(data, "ls");
+	data->cmd->next->cmd = ft_pathfinder(data, "wc");
+	//data->cmd->next->argv[0] = data->cmd->next->cmd;
+	/* if (data->cmd->redir == -1)
+		exit(1); */
 	if (data->cmd && !data->cmd->next)
 	{
 		dup2(data->cmd->redir, STDOUT_FILENO);
@@ -157,9 +158,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_do_cmd(data);
 		dup2(1, STDOUT_FILENO);
-		if (ft_lstlast_cmd(data->cmd)->redir)
+		if (ft_lstlast_cmd(data->cmd)->redir >= 0)
 			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
-		ft_do_last_cmd(data->cmd);
+		ft_do_last_cmd(ft_lstlast_cmd(data->cmd));
 	}
 	return (0);
 }
