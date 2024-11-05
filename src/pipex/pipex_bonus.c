@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 14:31:16 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:46:50 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
 	else
 		dup2(cmd->redir, STDOUT_FILENO);
 	ft_check_built_ins(cmd, builtin_done);
-	if (builtin_done == 0)
+	if (*builtin_done == 1)
 	{
 		path = cmd->cmd;
 		if (execve(path, cmd->argv, cmd->envp) < 0)
@@ -153,13 +153,15 @@ int	main(int argc, char **argv, char **envp)
 	data->envp = envp;
 	data->cmd = ft_test_cmd(data);
 	data->cmd->cmd = ft_pathfinder(data, "ls");
-	data->cmd->next->cmd = ft_pathfinder(data, "exit");
-	//data->cmd->next->argv[0] = data->cmd->next->cmd;
+	data->cmd->next->cmd = "exit";
+	//data->cmd->next->cmd = ft_pathfinder(data, "exit");
+	data->cmd->next->argv[0] = data->cmd->next->cmd;
 	/* if (data->cmd->redir == -1)
 		exit(1); */
 	if (data->cmd && !data->cmd->next)
 	{
-		dup2(data->cmd->redir, STDOUT_FILENO);
+		if (data->cmd->redir >= 0)
+			dup2(data->cmd->redir, STDOUT_FILENO);
 		ft_check_built_ins(data->cmd, &data->builtin_done);
 	}
 	else if (data->cmd && data->builtin_done == 1)
