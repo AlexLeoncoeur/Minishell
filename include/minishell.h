@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 17:00:02 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:48:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@
 
 typedef struct s_cmd
 {
-	int				redir;
-	char			*cmd;
-	char			**argv;
-	char			**env;
-	struct s_cmd	*next;
+	struct t_arg_list		*data;
+	t_env					*env;
+	t_env					*env_export;
+	int						redir;
+	char					*cmd;
+	char					**argv;
+	char					**envp;
+	struct s_cmd			*next;
 }	t_cmd;
 
 typedef struct s_data

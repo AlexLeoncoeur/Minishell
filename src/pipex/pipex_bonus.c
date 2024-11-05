@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 18:14:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:46:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*ft_pathfinder(t_arg_list *lst, char *command)
 	return (path);
 }
 
-static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
+static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
 {
 	char	*path;
 
@@ -70,14 +70,19 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i)
 	}
 	else
 		dup2(cmd->redir, STDOUT_FILENO);
-	path = cmd->cmd;
-	if (execve(path, cmd->argv, cmd->env) < 0)
+	ft_check_built_ins(cmd);
+	if (builtin_done == 0)
 	{
-		perror("minishell: executer");
-		free(path);
-		ft_free(cmd->argv);
-		exit(1);
+		path = cmd->cmd;
+		if (execve(path, cmd->argv, cmd->env) < 0)
+		{
+			perror("minishell: executer");
+			free(path);
+			ft_free(cmd->argv);
+			exit(1);
+		}
 	}
+	*builtin_done = 0;
 }
 
 void	ft_do_cmd(t_arg_list *lst)
@@ -96,9 +101,9 @@ void	ft_do_cmd(t_arg_list *lst)
 		if (child == -1)
 			perror("Error");
 		else if (child == 0 && aux->redir >= 0)  //
-			ft_execute_cmd(aux, 0, 0); //	Dividir en otra función
+			ft_execute_cmd(aux, 0, 0, &lst->builtin_done); //	Dividir en otra función
 		else if (child == 0 && aux->redir == -1) //
-			ft_execute_cmd(aux, pipefd, -1);
+			ft_execute_cmd(aux, pipefd, -1, &lst->builtin_done);
 		if (waitpid(-1, NULL, 0) == -1)
 		{
 			perror("Error");
@@ -111,23 +116,29 @@ void	ft_do_cmd(t_arg_list *lst)
 	}
 }
 
-static t_cmd	*ft_test_cmd(char **envp)
+static t_cmd	*ft_test_cmd(t_arg_list *data)
 {
 	t_cmd	*prueba;
 	char	*arg;
 
 	prueba = malloc(sizeof(t_cmd));
 	prueba->argv = NULL;
-	prueba->env = envp;
+	prueba->env = data->envp;
 	prueba->redir = -1;
 	prueba->next = malloc(sizeof(t_cmd));
-	prueba->next->argv = malloc(sizeof(char*) * 3);
-	arg = ft_strdup("l");
+	prueba->env = NULL;
+	prueba->env_export = NULL;
+	prueba->data = data;
+	prueba->next->argv = malloc(sizeof(char *) * 3);
+	arg = ft_strdup("1");
 	prueba->next->argv[2] = NULL;
 	prueba->next->argv[1] = arg;
-	prueba->next->env = envp;
+	prueba->next->env = data->envp;
 	prueba->next->redir = -1;
 	prueba->next->next = NULL;
+	prueba->next->env = NULL;
+	prueba->next->env_export = NULL;
+	prueba->data = data;
 	return (prueba);
 }
 
@@ -141,9 +152,9 @@ int	main(int argc, char **argv, char **envp)
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
-	data->cmd = ft_test_cmd(data->envp);
+	data->cmd = ft_test_cmd(data);
 	data->cmd->cmd = ft_pathfinder(data, "ls");
-	data->cmd->next->cmd = ft_pathfinder(data, "wc");
+	data->cmd->next->cmd = ft_pathfinder(data, "exit");
 	//data->cmd->next->argv[0] = data->cmd->next->cmd;
 	/* if (data->cmd->redir == -1)
 		exit(1); */

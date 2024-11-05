@@ -6,65 +6,66 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 13:14:08 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:47:02 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	ft_check_cd_unset(t_arg_list *data)
+static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 {
 	int	i;
 
 	i = 0;
-	if (ft_strncmp(data->argv[1], "unset\0", 6) == 0)
+	if (ft_strncmp(cmd->cmd, "unset\0", 6) == 0)
 	{
-		if (data->argv[2])
+		if (cmd->argv)
 		{
-			while (data->argv[i])
+			while (cmd->argv[i])
 			{
-				ft_unset(&data->env, data->argv[i]);
-				ft_unset(&data->env_export, data->argv[i]);
+				ft_unset(&cmd->env, cmd->argv[i]);
+				ft_unset(&cmd->env_export, cmd->argv[i]);
 				i++;
 			}
 		}
 	}
-	else if (ft_strncmp(data->argv[1], "cd\0", 3) == 0)
+	else if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
 	{
-		if (data->argv[2])
-			ft_cd(data, data->argv[2]);
+		if (cmd->argv)
+			ft_cd(cmd->data, cmd->argv);
 		else
-			ft_cd(data, getenv("HOME"));
+			ft_cd(cmd->data, getenv("HOME"));
 	}
 	else
-		data->builtin_done = 1;
+		*builtin_done = 1;
 }
 
-void	ft_check_built_ins(t_arg_list *data)
+void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 {
 	int	i;
 
 	i = 2;
-	data->builtin_done = 0;
-	data->env = ft_lst_env(data->envp, data->env);
-	data->env_export = ft_lst_env(data->envp, data->env_export);
-	if (ft_strncmp(data->argv[1], "env\0", 4) == 0)
-		ft_env(data->env);
-	else if (ft_strncmp(data->argv[1], "exit\0", 5) == 0)
-		ft_exit(&data->argv[2], NULL);
-	else if (ft_strncmp(data->argv[1], "echo\0", 5) == 0)
-		ft_echo(&data->argv[2]);
-	else if (ft_strncmp(data->argv[1], "pwd\0", 4) == 0)
-		ft_pwd(data);
-	else if (ft_strncmp(data->argv[1], "export\0", 7) == 0)
+	*builtin_done = 0;
+	cmd->env = ft_lst_env(cmd->envp, cmd->env);
+	cmd->env_export = ft_lst_env(cmd->envp, cmd->env_export);
+	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
+		ft_env(cmd->env);
+	else if (ft_strncmp(cmd->cmd, "exit\0", 5) == 0)
+		ft_exit(cmd->argv, NULL);
+	else if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
+		ft_echo(cmd->argv);
+	else if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
+		ft_pwd(cmd);
+	else if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
 	{
-		if (data->argc > 2)
-			while (data->argv[i])
-				ft_export(data->argv[i++], data);
+		if (cmd->argv)
+			while (cmd->argv[i])
+				ft_export(cmd->argv[i++], cmd);
 		else
-			ft_export(NULL, data);
+			ft_export(NULL, cmd);
 	}
 	else
-		ft_check_cd_unset(data);
-	ft_free_data(data);
+		ft_check_cd_unset(cmd, &builtin_done);
 }
+
+	//ft_free_data(data); estoy hay que ponerlo cuando termine el programa
