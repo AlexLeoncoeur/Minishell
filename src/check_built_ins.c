@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 13:47:02 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:30:50 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 	else if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
 		ft_echo(cmd->argv);
 	else if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
-		ft_pwd(cmd);
+		ft_pwd(cmd->data);
 	else if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
 	{
 		if (cmd->argv)
@@ -65,7 +65,7 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 			ft_export(NULL, cmd);
 	}
 	else
-		ft_check_cd_unset(cmd, &builtin_done);
+		ft_check_cd_unset(cmd, builtin_done);
 }
 
 	//ft_free_data(data); estoy hay que ponerlo cuando termine el programa

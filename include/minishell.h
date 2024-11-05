@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 13:48:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:24:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 # include <stdio.h>
 # include <errno.h>
 
+typedef struct s_arg_list	t_arg_list;
+typedef struct s_env		t_env;
+
 typedef struct s_cmd
 {
-	struct t_arg_list		*data;
+	t_arg_list				*data;
 	t_env					*env;
 	t_env					*env_export;
 	int						redir;
@@ -91,7 +94,7 @@ int			ft_check_heredoc(char **argv);
 
 /* ------------------------ pipex/last_cmd ------------------------ */
 
-void		ft_do_last_cmd(t_cmd *lst);
+void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
@@ -111,7 +114,7 @@ void		ft_env(t_env *env);
 
 /* ------------------------ built-ins/export ------------------------ */
 
-void		ft_export(char *str, t_arg_list *data);
+void		ft_export(char *str, t_cmd *cmd);
 t_env		*ft_add_to_env(char *str, t_env *lst, int i);
 
 /* ------------------------ built-ins/unset ------------------------ */
@@ -120,7 +123,7 @@ void		ft_unset(t_env **lst, char *name);
 
 /* ------------------------ built-ins/cd ------------------------ */
 
-void		ft_cd(t_arg_list *data, char *str);
+void		ft_cd(t_arg_list *data, char **str);
 
 /* ------------------------ env_lst.c ------------------------ */
 
@@ -132,7 +135,7 @@ void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 
 /* ---------------------- check_built_ins.c ---------------------- */
 
-void		ft_check_built_ins(t_arg_list *lst);
+void		ft_check_built_ins(t_cmd *cmd, int *builtin_done);
 
 /* ---------------------- sort.c ---------------------- */
 

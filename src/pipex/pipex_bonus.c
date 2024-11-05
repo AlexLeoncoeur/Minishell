@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 13:46:30 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:31:16 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
 	}
 	else
 		dup2(cmd->redir, STDOUT_FILENO);
-	ft_check_built_ins(cmd);
+	ft_check_built_ins(cmd, builtin_done);
 	if (builtin_done == 0)
 	{
 		path = cmd->cmd;
-		if (execve(path, cmd->argv, cmd->env) < 0)
+		if (execve(path, cmd->argv, cmd->envp) < 0)
 		{
 			perror("minishell: executer");
 			free(path);
@@ -82,7 +82,6 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
 			exit(1);
 		}
 	}
-	*builtin_done = 0;
 }
 
 void	ft_do_cmd(t_arg_list *lst)
@@ -123,7 +122,7 @@ static t_cmd	*ft_test_cmd(t_arg_list *data)
 
 	prueba = malloc(sizeof(t_cmd));
 	prueba->argv = NULL;
-	prueba->env = data->envp;
+	prueba->envp = data->envp;
 	prueba->redir = -1;
 	prueba->next = malloc(sizeof(t_cmd));
 	prueba->env = NULL;
@@ -133,7 +132,7 @@ static t_cmd	*ft_test_cmd(t_arg_list *data)
 	arg = ft_strdup("1");
 	prueba->next->argv[2] = NULL;
 	prueba->next->argv[1] = arg;
-	prueba->next->env = data->envp;
+	prueba->next->envp = data->envp;
 	prueba->next->redir = -1;
 	prueba->next->next = NULL;
 	prueba->next->env = NULL;
@@ -161,17 +160,17 @@ int	main(int argc, char **argv, char **envp)
 	if (data->cmd && !data->cmd->next)
 	{
 		dup2(data->cmd->redir, STDOUT_FILENO);
-		ft_check_built_ins(data);
+		ft_check_built_ins(data->cmd, &data->builtin_done);
 	}
 	else if (data->cmd && data->builtin_done == 1)
-		ft_do_last_cmd(data->cmd);
+		ft_do_last_cmd(data->cmd, &data->builtin_done);
 	else
 	{
 		ft_do_cmd(data);
 		dup2(1, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir >= 0)
 			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
-		ft_do_last_cmd(ft_lstlast_cmd(data->cmd));
+		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
 	}
 	return (0);
 }

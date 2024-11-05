@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 14:17:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:24:26 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*ft_add_to_env(char *str, t_env *lst, int i)
 	return (lst);
 }
 
-void	ft_export(char *str, t_arg_list *data)
+void	ft_export(char *str, t_cmd *cmd)
 {
 	t_env	*aux;
 
@@ -45,13 +45,13 @@ void	ft_export(char *str, t_arg_list *data)
 	}
 	if (str && ft_isdigit(str[0]) == 0)
 	{
-		data->env = ft_add_to_env(str, data->env, -1);
-		data->env_export = ft_add_to_env(str, data->env_export, -1);
+		cmd->data->env = ft_add_to_env(str, cmd->data->env, -1);
+		cmd->data->env_export = ft_add_to_env(str, cmd->data->env_export, -1);
 	}
 	if (!str)
-		data->env_export = ft_sort(data->env_export);
+		cmd->data->env_export = ft_sort(cmd->data->env_export);
 	if (!str)
-		aux = data->env_export;
+		aux = cmd->data->env_export;
 	while (!str && aux)
 	{
 		printf("declare -x ");
