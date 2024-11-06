@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/29 10:51:28 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:27:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@
 # include <stdio.h>
 # include <errno.h>
 
-# define NORMAL_INPUT		0
-# define SINGLE_QUOTE 		1
-# define DOUBLE_QUOTE 		2
-# define HEREDOC	  		3
-# define OUTPUT_APPEND		4
-# define INPUT_REDIRECT 	5
-# define OUTPUT_REDIRECT	6
-# define PIPE				7
+# define HEREDOC	  		1
+# define OUTPUT_APPEND		2
+# define INPUT_REDIRECT 	3
+# define OUTPUT_REDIRECT	4
 
 typedef struct s_redir
 {
@@ -218,5 +214,13 @@ void		ft_parse_list(t_data *data);
  * @return char** 
  */
 char		**ft_dequote(char **argv);
+
+/**
+ * @brief Classifies and parses all redirections
+ * 
+ * @param data 
+ * @param pid 
+ */
+void		ft_redirections(t_data *data, pid_t pid);
 
 #endif

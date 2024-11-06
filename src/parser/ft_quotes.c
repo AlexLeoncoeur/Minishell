@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:55:01 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/31 11:55:01 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:57:55 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	*get_range(char *str)
 	i = 0;
 	quote = 0;
 	range = ft_calloc(sizeof(int), 2);
-	while (range && i < (int) ft_strlen(str));
+	while (range && i < (int) ft_strlen(str))
 	{
 		if (str[i] && !quote && (str[i] == '"' || str[i] == '\''))
 		{

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:39:43 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/31 01:39:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:57:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	count_args(char *str)
 			i++;
 		if (quote == str[i])
 			quote = 0;
-		if(str[i] == '|')
+		if (str[i] == '|')
 			args++;
 		if (str[i])
 			i++;
@@ -67,18 +67,18 @@ char	**ft_pipesplit(char *str)
 	int		args;
 
 	args = count_args(str);
-	res = malloc(sizeof(char *) * (args + 1));
-	if (!res)
+	result = malloc(sizeof(char *) * (args + 1));
+	if (!result)
 		return (NULL);
-	res[args] = 0;
+	result[args] = 0;
 	i = 0;
 	while (*str)
 	{
-		res[i] = ft_substr(str, 0, get_next_cut(str));
+		result[i] = ft_substr(str, 0, get_next_cut(str));
 		if (!str[get_next_cut(str)])
 			break ;
 		str = &str[get_next_cut(str) + 1];
 		i++;
 	}
-	return (res);
+	return (result);
 }

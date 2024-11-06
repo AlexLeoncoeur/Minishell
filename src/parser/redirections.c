@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:36:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/09 11:04:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:37:15 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,13 @@ static void	ft_in_redir(t_input *current, int *infd)
 		return ;
 	}
 	if (*infd != 0)
-		close(*infd);
+		close(*infd);gi
 	*infd = fd;
 }
 
-void	ft_redirections(t_data *data, int *infd, int *outfd)
+void	ft_redirections(t_data *data, pid_t pid)
 {
-	t_input	*aux;
-
-	aux = data->list;
-	while (aux->previous && aux->type != PIPE)
-		aux = aux->previous;
-	while (aux)
-	{
-		if (aux->type == HEREDOC)
-			ft_heredoc(aux, infd, data);
-		else if (aux->type == OUTPUT_APPEND)
-			ft_in_redir(aux, infd);
-		else if (aux->type == INPUT_REDIRECT)
-			ft_out_redir(aux, outfd, 1, data);
-		else if (aux->type == OUTPUT_REDIRECT)
-			ft_out_redir(aux, outfd, 0, data);
-	}
+	t_redir	*redir;
+	//terminar redirections, tengo que reahcer el heredoc de nuevo porque no va a funcioanr con el nuevo parser
+	//y tambien hay que hacer las funciones de añari comandos JAJA ME QUIERO MORIR
 }

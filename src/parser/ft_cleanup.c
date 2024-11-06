@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/01 11:07:37 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:55:43 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,4 @@ void	ft_clean_array(char **array)
 		aux++;
 	}
 	free(array);
-} 
+}

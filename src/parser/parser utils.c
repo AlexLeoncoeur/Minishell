@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/29 11:03:05 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:58:11 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ char	ft_check_quote(char c, char quote)
 	else
 		return (quote);
 }
-//Por ahjora solo uso get_env y strcmp,  revisar si las demas hacen falta
