@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/09 11:32:34 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:21:10 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,4 @@ void	ft_heredoc(t_input *current, int *infd, t_data *data)
 		close(*infd);
 	*infd = fd;
 }
-//revisar heredoc para ver si con los cambios funciona correctamente, pero deberia
+//Hay que rehacer esto pero solo queda esto en teoria

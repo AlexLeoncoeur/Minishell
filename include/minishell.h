@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/06 11:27:13 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:12:43 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <stdio.h>
 # include <errno.h>
 
-# define HEREDOC	  		1
-# define OUTPUT_APPEND		2
-# define INPUT_REDIRECT 	3
-# define OUTPUT_REDIRECT	4
+# define INPUT_REDIRECT 	1
+# define OUTPUT_REDIRECT	2
+# define OUTPUT_APPEND		3
+# define HEREDOC	  		4
 
 typedef struct s_redir
 {
@@ -161,6 +161,13 @@ int			ft_init(t_data *data, int argc, char **argv, char **envp);
 t_cmd		*ft_parser(t_data *data);
 
 /**
+ * @brief Adds new node to cmd list
+ * 
+ * @return t_cmd* 
+ */
+t_cmd		*ft_new_cmd(void);
+
+/**
  * @brief Gets enviromental variable
  * 
  * @param data 
@@ -222,5 +229,13 @@ char		**ft_dequote(char **argv);
  * @param pid 
  */
 void		ft_redirections(t_data *data, pid_t pid);
+
+/**
+ * @brief The function that really fills t_cmd
+ * 
+ * @param cmd 
+ * @param argv 
+ */
+void		ft_add_cmd(t_cmd *cmd, char **argv);
 
 #endif

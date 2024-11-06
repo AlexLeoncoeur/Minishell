@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/29 10:34:06 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:42:12 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	shell_lvl(t_data *data)
 	free(lvl);
 	free(aux);
 	free(str);
-	ft_cd(NULL, data); //no esta hecho cd pero hace falta hace un cd cuando se ejecuta esta funcion cuando se entra a un nuevo minishell
+	ft_cd(data, NULL);
 }
 
 static void	update_name(t_data *data)

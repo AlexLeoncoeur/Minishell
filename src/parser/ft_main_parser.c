@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_cmd.c                                     :+:      :+:    :+:   */
+/*   ft_main_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/10/31 01:33:13 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:47:22 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_cmd	*ft_parser(t_data *data)
 		argv = ft_minisplit(pipes[i]);
 		ft_parse_env(data, argv);
 		ft_dequote(argv);
-		ft_add_cmd(cmd, argv); //esto esta aqui porque no lo tengo hecho y no se si va en el executer
+		ft_add_cmd(cmd, argv);
 		ft_clean_array(argv);
 		i++;
 	}
