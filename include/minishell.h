@@ -238,4 +238,13 @@ void		ft_redirections(t_data *data, pid_t pid);
  */
 void		ft_add_cmd(t_cmd *cmd, char **argv);
 
+/**
+ * @brief Main function to manage heredoc
+ * 
+ * @param data 
+ * @param redir 
+ * @return int 
+ */
+int			ft_heredoc(t_data *data, t_redir *redir);
+
 #endif

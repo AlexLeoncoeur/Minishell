@@ -12,54 +12,58 @@
 
 #include "../../include/minishell.h"
 
-static char	*ft_tmp_path(t_data *data)
+static char	*heredoc_join(char *s1, char *s2, bool free_s1)
 {
-	char	*shell;
+	char	*ret;
 	char	*aux;
 
-	aux = ft_get_env("SHELL", data);
-	shell = ft_strtrim(aux, "minishell");
+	aux = ft_strjoin(s1, s2);
+	ret = ft_strjoin(aux, "\n");
 	free(aux);
-	aux = ft_strjoin(shell, "/tmp/.heredoc_minishell.tmp");
-	free(shell);
-	return (aux);
+	free(s2);
+	if (free_s1)
+		free(s1);
+	return (ret);
 }
 
-static char	*ft_get_delim(t_input *current)
-{
-	char	**tmp;
-	char	*aux;
-
-	tmp = ft_split(current->input, ' ');
-	aux = ft_strjoin(tmp[1], "\n");
-	ft_clean_array(tmp);
-	return (aux);
-}
-
-void	ft_heredoc(t_input *current, int *infd, t_data *data)
+static void	read_heredoc(t_data *data, t_redir *redir)
 {
 	int		fd;
-	char	*delim;
-	char	*line;
-	char	*shell;
+	char	*aux;
 
-	delim = ft_get_delim(current);
-	shell = ft_tmp_path(data);
-	fd = open(shell, O_WRONLY | O_CREAT | O_TRUNC);
-	line = get_next_line(STDIN_FILENO);
-	while (ft_strcmp(line, delim) != 0)
+	data->heredoc = 0;
+	aux = 0;
+	while (1)
 	{
-		ft_putstr_fd(line, fd);
-		free(line);
-		line = get_next_line(STDIN_FILENO);
+		aux = readline("> ");
+		if (!aux ||ft_strcmp(aux, redir->file))
+			break ;
+		if (!data->heredoc)
+			data->heredoc = heredoc_join("", aux, false);
+		else
+			data->heredoc = heredoc_join(data->heredoc, aux, true);
 	}
-	close(fd);
-	fd = open(shell, O_RDONLY);
-	free(shell);
-	free(line);
-	free(delim);
-	if (*infd != 0)
-		close(*infd);
-	*infd = fd;
+	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 1)
+		return ;
+	write (fd, data->heredoc, ft_strlen(data->heredoc));
+	close (fd);
+	free (fd);
+	free(redir->file);
+	free (data->heredoc);
+	redir->file = ft_strdup(".heredoc_tmp");
+	redir->type = INPUT_REDIRECT;
 }
-//Hay que rehacer esto pero solo queda esto en teoria
+
+int	ft_heredoc(t_data *data, t_redir *redir)
+{
+	if (!redir || !redir->file)
+		return (1);
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			read_heredoc(data, redir);
+		redir = redir->next;
+	}
+	return (1);
+}

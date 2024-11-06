@@ -12,12 +12,10 @@
 
 #include "../../include/minishell.h"
 
-void	ft_in_redir(t_data *data, t_redir *redir, pid_t pid)
+void	ft_in_redir(t_data *data, t_redir *redir)
 {
 	int		fd;
 
-	if (pid != 0)
-		return ;
 	if (redir->type == INPUT_REDIRECT)
 	{
 		fd = open(redir->file, O_RDONLY);
@@ -26,7 +24,7 @@ void	ft_in_redir(t_data *data, t_redir *redir, pid_t pid)
 		dup2(fd, STDOUT_FILENO);
 	}
 	else if (redir->type == HEREDOC)
-		heredoc(data, pid);
+		ft_heredoc(data, redir);
 }
 
 void	ft_out_redir(pid_t pid, t_redir *redir)
