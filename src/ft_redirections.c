@@ -27,7 +27,7 @@ void	ft_in_redir(t_data *data, t_redir *redir)
 		ft_heredoc(data, redir);
 }
 
-void	ft_out_redir(pid_t pid, t_redir *redir)
+void	ft_out_redir(pid_t pid, t_redir *redir) //quitar pid
 {
 	int		fd;
 
