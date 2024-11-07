@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 10:58:11 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:52:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_env	*ft_get_env(t_data *data, char *name)
 		current->next;
 	}
 	if (ft_strcmp(name, current->name))
-			return (current);
+		return (current);
 	return ((t_env *)0);
 }
 
