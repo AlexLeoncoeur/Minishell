@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/06 12:12:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:19:36 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,18 @@
 # include "./libft/libft.h"
 # include "../include/colors.h"
 
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <signal.h>
 # include <sys/wait.h>
-# include <sys/types.h>
+# include <stdbool.h>
+# include <string.h>
+# include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
+# include <dirent.h>
+# include <limits.h>
+# include <signal.h>
+# include <fcntl.h>
 
 # define INPUT_REDIRECT 	1
 # define OUTPUT_REDIRECT	2
@@ -54,16 +58,16 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_env	*env_variables;
-	t_cmd	*cmd;
-	char	*input;
-	char	*heredoc;
-	char	**envp;
-	int		last;
-	int		exit;
-	int		error;
-	t_env	*env;
-	t_env	*env_export;
+	t_env		*env_variables;
+	t_cmd		*cmd;
+	char		*input;
+	char		*heredoc;
+	char		**envp;
+	int			last;
+	bool		exit;
+	int			error;
+	t_env		*envp;
+	t_env		*env_export;
 }	t_data;
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
@@ -153,6 +157,14 @@ void		ft_free_data(t_arg_list *data);
 int			ft_init(t_data *data, int argc, char **argv, char **envp);
 
 /**
+ * @brief Reads input string
+ * 
+ * @param data 
+ * @return int 
+ */
+int			ft_read_string(t_data *data);
+
+/**
  * @brief Main parser function to create cmd struct
  * 
  * @param data 
@@ -193,6 +205,14 @@ char		**ft_pipesplit(char *str);
 char		**ft_minisplit(char *str);
 
 /**
+ * @brief Parses env var
+ * 
+ * @param data 
+ * @param argv 
+ */
+void		ft_parse_env(t_data *data, char **argv);
+
+/**
  * @brief Strlen for env variables
  * 
  * @param name 
@@ -206,6 +226,13 @@ size_t		ft_env_name_len(char *name);
  * @param array 
  */
 void		ft_clean_array(char **array);
+
+/**
+ * @brief Cleans cmd struct
+ * 
+ * @param data 
+ */
+void		ft_clean_cmd(t_data *data);
 
 /**
  * @brief Parses full list of env and inserts it in data
@@ -246,5 +273,45 @@ void		ft_add_cmd(t_cmd *cmd, char **argv);
  * @return int 
  */
 int			ft_heredoc(t_data *data, t_redir *redir);
+
+/**
+ * @brief Because in libft we only make strncmp
+ * 
+ * @param s1 
+ * @param s2 
+ * @return int 
+ */
+int			ft_strcmp(const char *s1, const char *s2);
+
+/**
+ * @brief Get enviromental values
+ * 
+ * @param data 
+ * @param name 
+ * @return t_env* 
+ */
+t_env		*ft_get_env(t_data *data, char *name);
+
+/**
+ * @brief Check for quote characters
+ * 
+ * @param c 
+ * @param quote 
+ * @return char 
+ */
+char		ft_check_quote(char c, char quote);
+
+/**
+ * @brief Initializes signals
+ * 
+ */
+void		ft_init_signals(void);
+
+/**
+ * @brief Sets main variable flag to 1 when starting the program
+ * 
+ * @param i 
+ */
+void		ft_set_flag(int i);
 
 #endif

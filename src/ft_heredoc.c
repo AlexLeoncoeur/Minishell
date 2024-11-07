@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 13:21:10 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:13:43 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 	while (1)
 	{
 		aux = readline("> ");
-		if (!aux ||ft_strcmp(aux, redir->file))
+		if (!aux || ft_strcmp(aux, redir->file))
 			break ;
 		if (!data->heredoc)
 			data->heredoc = heredoc_join("", aux, false);
