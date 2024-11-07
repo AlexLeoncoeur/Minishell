@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 18:46:50 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:03:21 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
 	}
 	else
 		dup2(cmd->redir, STDOUT_FILENO);
+	//Si el redir es == HEREDOC ejecutar ft_heredoc, ft_in_redir(data, cmd->redir), dup2(fd, STDIN_FILENO);
 	ft_check_built_ins(cmd, builtin_done);
 	if (*builtin_done == 1)
 	{
@@ -128,10 +129,10 @@ static t_cmd	*ft_test_cmd(t_arg_list *data)
 	prueba->env = NULL;
 	prueba->env_export = NULL;
 	prueba->data = data;
-	prueba->next->argv = malloc(sizeof(char *) * 3);
+	prueba->next->argv = malloc(sizeof(char *) * 2);
 	arg = ft_strdup("1");
-	prueba->next->argv[2] = NULL;
-	prueba->next->argv[1] = arg;
+	prueba->next->argv[1] = NULL;
+	prueba->next->argv[0] = arg;
 	prueba->next->envp = data->envp;
 	prueba->next->redir = -1;
 	prueba->next->next = NULL;
@@ -153,6 +154,7 @@ int	main(int argc, char **argv, char **envp)
 	data->envp = envp;
 	data->cmd = ft_test_cmd(data);
 	data->cmd->cmd = ft_pathfinder(data, "ls");
+	data->builtin_done = 0;
 	data->cmd->next->cmd = "exit";
 	//data->cmd->next->cmd = ft_pathfinder(data, "exit");
 	data->cmd->next->argv[0] = data->cmd->next->cmd;
@@ -164,7 +166,7 @@ int	main(int argc, char **argv, char **envp)
 			dup2(data->cmd->redir, STDOUT_FILENO);
 		ft_check_built_ins(data->cmd, &data->builtin_done);
 	}
-	else if (data->cmd && data->builtin_done == 1)
+	if (data->cmd && !data->cmd->next && data->builtin_done == 1)
 		ft_do_last_cmd(data->cmd, &data->builtin_done);
 	else
 	{
@@ -172,6 +174,7 @@ int	main(int argc, char **argv, char **envp)
 		dup2(1, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir >= 0)
 			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
+		printf("Pipo es un buen perro\n");
 		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
 	}
 	return (0);
