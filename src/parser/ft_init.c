@@ -57,7 +57,7 @@ int	ft_init(t_data *data, int argc, char **argv, char **envp)
 	data->exit = false;
 	ft_init_signals();
 	while (*envp)
-		ft_export(*envp++, data);
+		ft_export(*envp++, data); //cambiar esto por las dos lineas de data->envp de check_builtins
 	shell_lvl(data);
 	update_name(data);
 	return (1);
