@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:15:03 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:34:57 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_set_flag(0);
 	}
+	return (free(data.input), 0);
 }
