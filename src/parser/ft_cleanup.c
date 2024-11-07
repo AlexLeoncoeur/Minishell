@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 10:55:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:56:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ void	ft_clean_cmd(t_data *data)
 
 void	ft_clean_array(char **array)
 {
-	char	*aux;
+	int	i;
 
-	if (array == NULL)
-		return ;
-	aux = array;
-	while (*aux)
+	if (array)
 	{
-		free(aux);
-		aux++;
+		i = 0;
+		while (array[i])
+		{
+			free(array[i]);
+			i++;
+		}
+		free(array);
 	}
-	free(array);
 }

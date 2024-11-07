@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 12:49:00 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:54:45 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static t_redir	*add_back(t_redir *redir, t_redir *node)
 	{
 		aux = redir;
 		while (aux->next)
-			aux->next;
+			aux = aux->next;
 		aux->next = node;
 	}
-	return (aux);
+	return (redir);
 }
 
 static t_redir	*add_redir(char **argv)
@@ -78,20 +78,18 @@ static char	**get_argv(char **argv)
 	while (argv[i] && !ft_strnstr(argv[i], ">>", 2)
 		&& !ft_strnstr(argv[i], "<<", 2) && !ft_strnstr(argv[i], "<", 1)
 		&& !ft_strnstr(argv[i], ">", 1))
-	{
 		i++;
-		aux = malloc(sizeof(char **) * i + 1);
-		if (!aux)
-			return (NULL);
-		j = 0;
-		while (j < i)
-		{
-			aux[j] = ft_strtrim(argv[j], " ");
-			j++;
-		}
-		aux[i] = 0;
-		return (aux);
+	aux = malloc(sizeof(char **) * i + 1);
+	if (!aux)
+		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		aux[j] = ft_strtrim(argv[j], " ");
+		j++;
 	}
+	aux[i] = 0;
+	return (aux);
 }
 
 void	ft_add_cmd(t_cmd *cmd, char **argv)

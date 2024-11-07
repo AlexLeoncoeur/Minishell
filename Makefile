@@ -22,14 +22,14 @@ PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c last_cmd.c
 
 # DIRECTORIES 
 SRC_DIR = src/
-PARSER_DIR = parser/
+PARSER_DIR = src/parser/
 BUILT_IN_SRC_DIR = src/built_ins/
 PIPEX_SRC_DIR = src/pipex/
 OBJ_DIR = objs/
 
 # OBJECTS
 OFILES = $(addprefix $(OBJ_DIR), $(CFILES:.c=.o))
-PARSER_FILES = $(addprefix $(OBJ_DIR)built_ins/, $(PARSER_FILES:.c=.o))
+PARSER_OFILES = $(addprefix $(OBJ_DIR)parser/, $(PARSER_FILES:.c=.o))
 BUILT_IN_OFILES = $(addprefix $(OBJ_DIR)built_ins/, $(BUILT_IN_CFILES:.c=.o))
 PIPEX_OFILES = $(addprefix $(OBJ_DIR)pipex/, $(PIPEX_CFILES:.c=.o))
 
@@ -38,9 +38,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ echo "$(BLUE)Compiling File: $(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)%.o: $(PARSER_DIR)%.c
+$(OBJ_DIR)parser/%.o: $(PARSER_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/parser/
-	@ echo "$(BLUE)Compiling File: $(GREEN)parser/$(RESET)$(notdir $<)"
+	@ echo "$(BLUE)Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)pipex/%.o: $(PIPEX_SRC_DIR)%.c
@@ -58,13 +58,20 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 
 CC = clang
 NAME = minishell
+NAMETEST = parsertest
 BONUS_NAME = 
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 all: libft $(NAME)
-$(NAME): compiling $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
+$(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_FILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
+	@ echo "$(YELLOW)Compilation finished!$(RESET)"
+
+parsetest: libft $(NAMETEST)
+$(NAMETEST): compiling $(PARSER_OFILES) $(OFILES)
+	@ echo
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
 libft:

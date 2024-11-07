@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/07 11:19:36 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:57:58 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_data
 	int			last;
 	bool		exit;
 	int			error;
-	t_env		*envp;
+	t_env		*env;
 	t_env		*env_export;
 }	t_data;
 
