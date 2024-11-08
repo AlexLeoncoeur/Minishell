@@ -27,7 +27,7 @@ static void	ft_free_tenv(t_env **lst)
 		(*lst)->name = NULL;
 		(*lst)->value = NULL;
 		aux = *lst;
-		*lst = aux->next;
+		*lst = (*lst)->next;
 		free(aux);
 	}
 }
