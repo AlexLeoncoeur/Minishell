@@ -6,17 +6,28 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 11:47:22 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:33:42 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static	int	ft_check_alpha(char *str)
+{
+	while (str)
+	{
+		if (!ft_isalpha(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 t_cmd	*ft_new_cmd(void)
 {
 	t_cmd	*cmd;
 
-	cmd = mallox(sizeof(t_cmd));
+	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->argv = NULL;
@@ -34,7 +45,8 @@ t_cmd	*ft_parser(t_data *data)
 	t_cmd	*cmd;
 
 	i = 0;
-	if (!ft_isalpha(data->input) && *data->input != '.' && *data->input != '/'
+	if (ft_check_alpha(data->input) == 0 && *data->input != '.'
+		&& *data->input != '/'
 		&& *data->input != '"' && *data->input != '\'')
 		return (NULL);
 	pipes = ft_pipesplit(data->input);

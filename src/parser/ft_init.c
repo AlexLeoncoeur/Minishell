@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 11:51:57 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:41:35 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	shell_lvl(t_data *data)
 	lvl = ft_itoa(i);
 	aux = ft_strdup("SHLVL=");
 	str = ft_strjoin(aux, lvl);
-	ft_export(str, data);
+	ft_export(str, data->cmd);
 	free(lvl);
 	free(aux);
 	free(str);
@@ -40,15 +40,14 @@ static void	update_name(t_data *data)
 	aux = ft_strdup("SHELL=");
 	name = ft_strdup("minishell");
 	str = ft_strjoin(aux, name);
-	ft_export(str, data);
+	ft_export(str, data->cmd);
 	free(str);
 	free(name);
 	free(aux);
 }
 
-int	ft_init(t_data *data, int argc, char **argv, char **envp)
+int	ft_init(t_data *data, char **envp)
 {
-	data->env_variables = 0;
 	data->cmd = NULL;
 	data->input = 0;
 	data->heredoc = 0;

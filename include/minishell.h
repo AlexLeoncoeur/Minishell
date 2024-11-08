@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 12:45:55 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:44:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_data
 	char		*heredoc;
 	char		**envp;
 	int			error;
-	char		**env_variables;
 	char		*last;
 	int			builtin_done;
 	int			argc;
@@ -165,12 +164,10 @@ void		ft_out_redir(t_redir *redir);
  * @brief Initializes data structure
  * 
  * @param data 
- * @param argc 
- * @param argv 
  * @param envp 
  * @return int 
  */
-int			ft_init(t_data *data, int argc, char **argv, char **envp);
+int			ft_init(t_data *data, char **envp);
 
 /**
  * @brief Reads input string
@@ -249,13 +246,6 @@ void		ft_clean_array(char **array);
  * @param data 
  */
 void		ft_clean_cmd(t_data *data);
-
-/**
- * @brief Parses full list of env and inserts it in data
- * 
- * @param data 
- */
-void		ft_parse_list(t_data *data);
 
 /**
  * @brief Guess what, removes quotes

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 12:32:28 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:26:34 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	ft_init(&data, argc, argv, envp);
+	ft_init(&data, envp);
 	while (data.error == 0)
 	{
 		if (ft_read_string(&data))
