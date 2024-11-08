@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/07 11:57:58 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:24:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define OUTPUT_APPEND		3
 # define HEREDOC	  		4
 
+typedef struct s_data t_data;
+typedef struct s_env		t_env;
+
 typedef struct s_redir
 {
 	int				type;
@@ -43,6 +46,7 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
+  t_data    *data;
 	char			*path;
 	char			**argv;
 	t_redir			*redir;
@@ -58,16 +62,15 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_env		*env_variables;
 	t_cmd		*cmd;
 	char		*input;
 	char		*heredoc;
 	char		**envp;
-	int			last;
-	bool		exit;
 	int			error;
 	t_env		*env;
 	t_env		*env_export;
+	int				builtin_done;
+	int				argc;
 }	t_data;
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
@@ -79,11 +82,12 @@ typedef struct s_data
  * @param pos 
  * @return char* 
  */
-char		*ft_pathfinder(t_arg_list *lst, int pos);
+//char		*ft_pathfinder(t_arg_list *lst, int pos);
+void		ft_do_cmd(t_arg_list *lst);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
-t_arg_list	*ft_define_lst(int argc, char **argv, char **envp);
+//t_arg_list	*ft_define_lst(int argc, char **argv, char **envp);
 void		ft_freeanderror(t_arg_list *lst);
 void		ft_puterrorstr(char *str);
 void		ft_free(char **str);
@@ -96,7 +100,7 @@ int			ft_check_heredoc(char **argv);
 
 /* ------------------------ pipex/last_cmd ------------------------ */
 
-void		ft_do_last_cmd(t_arg_list *lst, int fd);
+void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
@@ -104,7 +108,7 @@ void		ft_echo(char **matrix);
 
 /* ------------------------ built-ins/pwd ------------------------ */
 
-void		ft_pwd(t_data *data);
+void		ft_pwd(t_arg_list *data);
 
 /* ------------------------ built-ins/exit ------------------------ */
 
@@ -116,15 +120,20 @@ void		ft_env(t_env *env);
 
 /* ------------------------ built-ins/export ------------------------ */
 
-void		ft_export(char *str, t_data *data);
+void		ft_export(char *str, t_cmd *cmd);
 t_env		*ft_add_to_env(char *str, t_env *lst, int i);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
 void		ft_unset(t_env **lst, char *name);
 
+/* ------------------------ built-ins/cd ------------------------ */
+
+void		ft_cd(t_arg_list *data, char **str);
+
 /* ------------------------ env_lst.c ------------------------ */
 
+t_cmd		*ft_lstlast_cmd(t_cmd *lst);
 t_env		*ft_lstlast_tenv(t_env *lst);
 t_env		*ft_lstnew_tenv(char *name, char *value, int i);
 t_env		*ft_lst_env(char **envp, t_env *lst);
@@ -132,7 +141,7 @@ void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 
 /* ---------------------- check_built_ins.c ---------------------- */
 
-void		ft_check_built_ins(t_arg_list *lst);
+void		ft_check_built_ins(t_cmd *cmd, int *builtin_done);
 
 /* ---------------------- sort.c ---------------------- */
 

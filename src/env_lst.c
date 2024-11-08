@@ -6,11 +6,23 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/17 12:56:52 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:12:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+t_cmd	*ft_lstlast_cmd(t_cmd *lst)
+{
+	t_cmd	*aux;
+
+	if (lst == NULL)
+		return (NULL);
+	aux = lst;
+	while (aux->next)
+		aux = aux->next;
+	return (aux);
+}
 
 t_env	*ft_lstlast_tenv(t_env *lst)
 {
@@ -63,6 +75,7 @@ t_env	*ft_lst_env(char **envp, t_env *lst)
 		lst = ft_add_to_env(envp[i], lst, i);
 		i++;
 	}
+	lst = ft_add_to_env("OLDPWD", lst, i);
 	return (lst);
 }
 //strchr('=') y usar esa pos, coger todo lo que hay antes para name
