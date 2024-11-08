@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 13:12:08 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:56:05 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_env	*ft_lstnew_tenv(char *name, char *value, int i)
 		return (NULL);
 	newlist->name = name;
 	newlist->value = value;
-	newlist->pos = i;
 	newlist->next = NULL;
 	return (newlist);
 }
@@ -78,5 +77,3 @@ t_env	*ft_lst_env(char **envp, t_env *lst)
 	lst = ft_add_to_env("OLDPWD", lst, i);
 	return (lst);
 }
-//strchr('=') y usar esa pos, coger todo lo que hay antes para name
-//	y todo lo que ahy despues para value

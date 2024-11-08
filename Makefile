@@ -60,18 +60,18 @@ CC = clang
 NAME = minishell
 NAMETEST = parsertest
 BONUS_NAME = 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 
 all: libft $(NAME)
-$(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
+$(NAME): @ echo "$(MAGENTA)DEBUG MODE:\n Compiling project: $(RESET)" $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
 	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
-parsetest: libft $(NAMETEST)
-$(NAMETEST): compiling $(PARSER_OFILES) $(OFILES)
+debug: libft $(NAME)
+$(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
+	@ $(CC) $(CFLAGS) -fsanitize=address -g $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
 libft:

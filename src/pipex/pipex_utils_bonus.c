@@ -3,33 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 12:03:02 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:44:45 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* t_arg_list	*ft_define_lst(int argc, char **argv, char **envp)
+void	ft_check_redirs(t_cmd *cmd)
 {
-	t_arg_list	*aux;
-
-	if (!envp[0])
-		ft_puterrorstr();
-	aux = malloc(sizeof(t_arg_list));
-	if (aux == NULL)
-		return (NULL);
-	aux->flags = NULL;
-	aux->argc = argc;
-	aux->argv = argv;
-	aux->envp = envp;
-	aux->env = NULL;
-	aux->env_export = NULL;
-	return (aux);
-} 
-*/
+	if (cmd->redir->type == INPUT_REDIRECT)
+		ft_in_redir(cmd->data, cmd->redir);
+	else if (cmd->redir->type == OUTPUT_REDIRECT
+		|| cmd->redir->type == OUTPUT_APPEND)
+		ft_out_redir(cmd->redir);
+}
 
 void	ft_puterrorstr(char *str)
 {
@@ -59,7 +49,7 @@ void	ft_free(char **str)
 	free(str);
 }
 
-void	ft_freeanderror(t_arg_list *lst)
+void	ft_freeanderror(t_data *lst)
 {
 	free(lst);
 	perror("Error");

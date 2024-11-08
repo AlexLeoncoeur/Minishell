@@ -3,118 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/07 16:15:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:49:30 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
-{
-	char	*path;
-
-	if (i == -1)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-	}
-	else
-		dup2(cmd->redir, STDOUT_FILENO);
-	//Si el redir es == HEREDOC ejecutar ft_heredoc, ft_in_redir(data, cmd->redir), dup2(fd, STDIN_FILENO);
-	ft_check_built_ins(cmd, builtin_done);
-	if (*builtin_done == 1)
-	{
-		path = cmd->cmd;
-		if (execve(path, cmd->argv, cmd->envp) < 0)
-		{
-			perror("minishell: executer");
-			free(path);
-			ft_free(cmd->argv);
-			exit(1);
-		}
-	}
-}
-
-void	ft_do_cmd(t_arg_list *lst)
-{
-	int		pipefd[2];
-	int		child;
-	t_cmd	*aux;
-
-	//dup2(lst->cmd->redir, STDIN_FILENO); //Si hay un redir de entrada
-	aux = lst->cmd;
-	while (aux->next)
-	{
-		if (pipe(pipefd) == -1)
-			perror("Error");
-		child = fork();
-		if (child == -1)
-			perror("Error");
-		else if (child == 0 && aux->redir >= 0)  //
-			ft_execute_cmd(aux, 0, 0, &lst->builtin_done); //	Dividir en otra función
-		else if (child == 0 && aux->redir == -1) //
-			ft_execute_cmd(aux, pipefd, -1, &lst->builtin_done);
-		if (waitpid(-1, NULL, 0) == -1)
-		{
-			perror("Error");
-			exit(1);
-		}
-		close(pipefd[1]); //poner dentro del if de abajo
-		if (aux->redir < 0)
-			dup2(pipefd[0], STDIN_FILENO);
-		aux = aux->next;
-	}
-}
-
-int	ft_executer(t_arg_list *data)
-{
-	/* if (data->cmd->redir == -1)
-		exit(1); */
-	if (data->cmd && !data->cmd->next)
-	{
-		if (data->cmd->redir >= 0)
-			dup2(data->cmd->redir, STDOUT_FILENO);
-		ft_check_built_ins(data->cmd, &data->builtin_done);
-	}
-	if (data->cmd && !data->cmd->next && data->builtin_done == 1)
-		ft_do_last_cmd(data->cmd, &data->builtin_done);
-	else
-	{
-		ft_do_cmd(data);
-		dup2(1, STDOUT_FILENO);
-		if (ft_lstlast_cmd(data->cmd)->redir >= 0)
-			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
-		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
-	}
-	return (0);
-}
-
-//	Hacer funcion de prueba que cree e inicialice la lista de comandos y probar cositas
-
-//Hacer comprobacion si las variables de entorno
-//	estan vacias entonces usar funcion que las coge
-//Usar la estructura nueva para llamar y usar todas estas
-//	funciones antes de avanzar
-//Pedirle a jcallejo que anada la funcion de env en el main y
-//	que lo guarde en la estructura t_data
-//No es necesario gestionar la falta de variables de entorno, si no hay
-//	da error y listo
-
-/*testing*/
-
-/* static char	*ft_definitive_path(char **d_paths, char *command)
+static char	*ft_definitive_path(char **d_paths, char *command)
 {
 	char	*endl;
 	char	*path;
 	int		i;
 
-	i = 0;
-	if (lst->flags)
-		ft_free(lst->flags);
-	//lst->flags = ft_split(lst->argv[pos], ' ');
 	i = 0;
 	endl = ft_strjoin("/", command);
 	path = ft_strjoin(d_paths[0], endl);
@@ -130,7 +33,7 @@ int	ft_executer(t_arg_list *data)
 	return (free(endl), NULL);
 }
 
-static char	*ft_pathfinder(t_arg_list *lst, char *command)
+static char	*ft_pathfinder(t_data *lst, char *command)
 {
 	char	**d_paths;
 	char	*path;
@@ -150,9 +53,88 @@ static char	*ft_pathfinder(t_arg_list *lst, char *command)
 	if (!path)
 		ft_puterrorstr("Error: Command not found\n");
 	return (path);
-} */
+}
 
-/* static t_cmd	*ft_test_cmd(t_arg_list *data)
+static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
+{
+	char	*path;
+
+	if (cmd->redir != NULL)
+		ft_check_redirs(cmd);
+	else
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+	}
+	ft_check_built_ins(cmd, builtin_done);
+	if (*builtin_done == 1)
+	{
+		path = ft_pathfinder(cmd->data, cmd->path);
+		if (execve(cmd->path, cmd->argv, cmd->data->envp) < 0)
+		{
+			perror("minishell: executer");
+			free(cmd->path);
+			ft_free(cmd->argv);
+			exit(1);
+		}
+	}
+}
+
+void	ft_do_cmd(t_data *lst)
+{
+	int		pipefd[2];
+	int		child;
+	t_cmd	*aux;
+
+	aux = lst->cmd;
+	while (aux->next)
+	{
+		if (pipe(pipefd) == -1)
+			perror("Error");
+		child = fork();
+		if (child == -1)
+			perror("Error");
+		else if (child == 0)
+			ft_execute_cmd(aux, pipefd, &lst->builtin_done);
+		else if (waitpid(-1, NULL, 0) == -1)
+		{
+			perror("Error");
+			exit(1);
+		}
+		close(pipefd[1]);
+		if (!aux->redir)
+			dup2(pipefd[0], STDIN_FILENO);
+		aux = aux->next;
+	}
+}
+
+int	ft_executer(t_data *data)
+{
+	if (data->cmd && !data->cmd->next)
+	{
+		if (data->cmd->redir)
+			ft_check_redirs(data->cmd);
+		ft_check_built_ins(data->cmd, &data->builtin_done);
+	}
+	if (data->cmd && !data->cmd->next && data->builtin_done == 1)
+	{
+		ft_check_redirs(data->cmd);
+		ft_do_last_cmd(data->cmd, &data->builtin_done);
+	}
+	else
+	{
+		ft_do_cmd(data);
+		dup2(1, STDOUT_FILENO);
+		if (ft_lstlast_cmd(data->cmd)->redir)
+			ft_check_redirs(ft_lstlast_cmd(data->cmd));
+		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
+	}
+	return (0);
+}
+
+/*testing*/
+
+/* static t_cmd	*ft_test_cmd(t_data *data)
 {
 	t_cmd	*prueba;
 	char	*arg;
@@ -180,16 +162,16 @@ static char	*ft_pathfinder(t_arg_list *lst, char *command)
 	return (prueba);
 } */
 
-	/* t_arg_list	*data;
-	//t_arg_list	*lst;
+	/* t_data	*data;
+	//t_data	*lst;
 
 	//lst = ft_define_lst(argc, argv, envp);
-	data = malloc(sizeof(t_arg_list));
+	data = malloc(sizeof(t_data));
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
 	data->cmd = ft_test_cmd(data);
-	data->cmd->cmd = "cd";
+	data->cmd->path = "cd";
 	data->builtin_done = 0;
 	data->cmd->next->cmd = "pwd";
 	//data->cmd->next->cmd = ft_pathfinder(data, "exit");

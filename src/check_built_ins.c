@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_built_ins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 18:41:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:53:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 	int	i;
 
 	i = 0;
-	if (ft_strncmp(cmd->cmd, "unset\0", 6) == 0)
+	if (ft_strncmp(cmd->path, "unset\0", 6) == 0)
 	{
 		if (cmd->argv)
 		{
 			while (cmd->argv[i])
 			{
-				ft_unset(&cmd->env, cmd->argv[i]);
-				ft_unset(&cmd->env_export, cmd->argv[i]);
+				ft_unset(&cmd->data->env, cmd->argv[i]);
+				ft_unset(&cmd->data->env_export, cmd->argv[i]);
 				i++;
 			}
 		}
 	}
-	else if (ft_strncmp(cmd->cmd, "cd\0", 3) == 0)
+	else if (ft_strncmp(cmd->path, "cd\0", 3) == 0)
 	{
 		if (cmd->argv)
 			ft_cd(cmd->data, cmd->argv);
@@ -46,17 +46,15 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 
 	i = 2;
 	*builtin_done = 0;
-	cmd->env = ft_lst_env(cmd->envp, cmd->env);
-	cmd->env_export = ft_lst_env(cmd->envp, cmd->env_export);
-	if (ft_strncmp(cmd->cmd, "env\0", 4) == 0)
-		ft_env(cmd->env);
-	else if (ft_strncmp(cmd->cmd, "exit\0", 5) == 0)
+	if (ft_strncmp(cmd->path, "env\0", 4) == 0)
+		ft_env(cmd->data->env);
+	else if (ft_strncmp(cmd->path, "exit\0", 5) == 0)
 		ft_exit(cmd->argv, NULL);
-	else if (ft_strncmp(cmd->cmd, "echo\0", 5) == 0)
+	else if (ft_strncmp(cmd->path, "echo\0", 5) == 0)
 		ft_echo(cmd->argv);
-	else if (ft_strncmp(cmd->cmd, "pwd\0", 4) == 0)
+	else if (ft_strncmp(cmd->path, "pwd\0", 4) == 0)
 		ft_pwd(cmd->data);
-	else if (ft_strncmp(cmd->cmd, "export\0", 7) == 0)
+	else if (ft_strncmp(cmd->path, "export\0", 7) == 0)
 	{
 		if (cmd->argv)
 			while (cmd->argv[i])

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   ft_redirections.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:36:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 13:17:33 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:33:23 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ void	ft_in_redir(t_data *data, t_redir *redir)
 {
 	int		fd;
 
+	if (redir->type == HEREDOC)
+		ft_heredoc(data, redir);
 	if (redir->type == INPUT_REDIRECT)
 	{
 		fd = open(redir->file, O_RDONLY);
 		if (fd < 1)
 			return (perror("open"));
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDIN_FILENO);
 	}
-	else if (redir->type == HEREDOC)
-		ft_heredoc(data, redir);
 }
 
-void	ft_out_redir(pid_t pid, t_redir *redir) //quitar pid
+void	ft_out_redir(t_redir *redir)
 {
 	int		fd;
 

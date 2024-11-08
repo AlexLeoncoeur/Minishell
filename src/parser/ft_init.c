@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:18:49 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:51:57 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ int	ft_init(t_data *data, int argc, char **argv, char **envp)
 	data->heredoc = 0;
 	data->error = 0;
 	data->envp = NULL;
-	data->exit = false;
 	ft_init_signals();
 	while (*envp)
-		ft_export(*envp++, data); //cambiar esto por las dos lineas de data->envp de check_builtins
+	{
+		data->env = ft_lst_env(data->envp, data->env);
+		data->env_export = ft_lst_env(data->envp, data->env_export);
+	}
 	shell_lvl(data);
 	update_name(data);
 	return (1);

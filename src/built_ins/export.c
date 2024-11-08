@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 15:24:26 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:59:57 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,3 @@ void	ft_export(char *str, t_cmd *cmd)
 		aux = aux->next;
 	}
 }
-
-//Necesito guardar los env como estatico para que se mantenga durante
-//	multiples ejecuciones?	
-//Escribe todas las variables incluso sin valor
-//Escribir los env con "declare -x " delante y por orden alfabético

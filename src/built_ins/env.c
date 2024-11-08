@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:36:20 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/10 10:58:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:59:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,3 @@ void	ft_env(t_env *env)
 		aux = aux->next;
 	}
 }
-//Solo muestra las variables que contengan un valor, =
-//	Como tienen que estar ordenadas?

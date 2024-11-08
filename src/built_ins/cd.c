@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 13:40:20 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:54:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_change_pwd_env(t_env **lst, char *name, char *new_route)
 	}
 }
 
-void	ft_cd(t_arg_list *data, char **str)
+void	ft_cd(t_data *data, char **str)
 {
 	char	*pwd_env;
 	char	*pwd_export;

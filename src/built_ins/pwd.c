@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/05 15:30:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:00:18 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_pwd(t_arg_list *data)
+void	ft_pwd(t_data *data)
 {
 	char	*path;
 
@@ -26,5 +26,3 @@ void	ft_pwd(t_arg_list *data)
 	ft_putstr(path);
 	free(path);
 }
-//anadir data como parametro y setear data->error a 0 si todo salio bien
-//si algo sale mal, igualar el error a errno

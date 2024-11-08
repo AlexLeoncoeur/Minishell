@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:34:57 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:32:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	ft_init(&data, argc, argv, envp);
-	while (data.exit != 1)
+	while (data.error == 0)
 	{
 		if (ft_read_string(&data))
 		{
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			if (data.cmd)
 			{
 				ft_set_flag(1);
-				//aqui deberia ir el executer
+				ft_executer(&data);
 				ft_delete_heredoc();
 				ft_clean_cmd(&data);
 			}

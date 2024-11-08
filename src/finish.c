@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:28:18 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 14:11:20 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:54:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_free_tenv(t_env **lst)
 	}
 }
 
-void	ft_free_data(t_arg_list *data)
+void	ft_free_data(t_data *data)
 {
 	ft_free_tenv(&data->env);
 	ft_free_tenv(&data->env_export);
