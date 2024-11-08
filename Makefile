@@ -13,9 +13,9 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = hola.c\
+CFILES = env_lst.c check_built_ins.c sort.c finish.c\
 
-BUILT_IN_CFILES = echo.c pwd.c
+BUILT_IN_CFILES = echo.c pwd.c exit.c env.c export.c unset.c cd.c
 PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c ft_here_doc_bonus.c last_cmd.c
 
 # DIRECTORIES 
@@ -50,12 +50,12 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 CC = clang
 NAME = minishell
 BONUS_NAME = 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -g
 
 all: libft $(NAME)
-$(NAME): compiling $(OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES)
+$(NAME): compiling $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
-	@ $(CC) $(CFLAGS) $(PIPEX_OFILES) $(BUILT_IN_OFILES) include/libft/libft.a -o $(NAME)
+	@ $(CC) $(CFLAGS) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
 libft:

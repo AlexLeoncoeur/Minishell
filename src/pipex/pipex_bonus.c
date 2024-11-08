@@ -6,13 +6,106 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/18 11:23:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:15:07 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
+static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int i, int *builtin_done)
+{
+	char	*path;
+
+	if (i == -1)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+	}
+	else
+		dup2(cmd->redir, STDOUT_FILENO);
+	//Si el redir es == HEREDOC ejecutar ft_heredoc, ft_in_redir(data, cmd->redir), dup2(fd, STDIN_FILENO);
+	ft_check_built_ins(cmd, builtin_done);
+	if (*builtin_done == 1)
+	{
+		path = cmd->cmd;
+		if (execve(path, cmd->argv, cmd->envp) < 0)
+		{
+			perror("minishell: executer");
+			free(path);
+			ft_free(cmd->argv);
+			exit(1);
+		}
+	}
+}
+
+void	ft_do_cmd(t_arg_list *lst)
+{
+	int		pipefd[2];
+	int		child;
+	t_cmd	*aux;
+
+	//dup2(lst->cmd->redir, STDIN_FILENO); //Si hay un redir de entrada
+	aux = lst->cmd;
+	while (aux->next)
+	{
+		if (pipe(pipefd) == -1)
+			perror("Error");
+		child = fork();
+		if (child == -1)
+			perror("Error");
+		else if (child == 0 && aux->redir >= 0)  //
+			ft_execute_cmd(aux, 0, 0, &lst->builtin_done); //	Dividir en otra función
+		else if (child == 0 && aux->redir == -1) //
+			ft_execute_cmd(aux, pipefd, -1, &lst->builtin_done);
+		if (waitpid(-1, NULL, 0) == -1)
+		{
+			perror("Error");
+			exit(1);
+		}
+		close(pipefd[1]); //poner dentro del if de abajo
+		if (aux->redir < 0)
+			dup2(pipefd[0], STDIN_FILENO);
+		aux = aux->next;
+	}
+}
+
+int	ft_executer(t_arg_list *data)
+{
+	/* if (data->cmd->redir == -1)
+		exit(1); */
+	if (data->cmd && !data->cmd->next)
+	{
+		if (data->cmd->redir >= 0)
+			dup2(data->cmd->redir, STDOUT_FILENO);
+		ft_check_built_ins(data->cmd, &data->builtin_done);
+	}
+	if (data->cmd && !data->cmd->next && data->builtin_done == 1)
+		ft_do_last_cmd(data->cmd, &data->builtin_done);
+	else
+	{
+		ft_do_cmd(data);
+		dup2(1, STDOUT_FILENO);
+		if (ft_lstlast_cmd(data->cmd)->redir >= 0)
+			dup2(ft_lstlast_cmd(data->cmd)->redir, STDOUT_FILENO);
+		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
+	}
+	return (0);
+}
+
+//	Hacer funcion de prueba que cree e inicialice la lista de comandos y probar cositas
+
+//Hacer comprobacion si las variables de entorno
+//	estan vacias entonces usar funcion que las coge
+//Usar la estructura nueva para llamar y usar todas estas
+//	funciones antes de avanzar
+//Pedirle a jcallejo que anada la funcion de env en el main y
+//	que lo guarde en la estructura t_data
+//No es necesario gestionar la falta de variables de entorno, si no hay
+//	da error y listo
+
+/*testing*/
+
+/* static char	*ft_definitive_path(char **d_paths, char *command)
 {
 	char	*endl;
 	char	*path;
@@ -21,9 +114,9 @@ static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
 	i = 0;
 	if (lst->flags)
 		ft_free(lst->flags);
-	lst->flags = ft_split(lst->argv[pos], ' ');
+	//lst->flags = ft_split(lst->argv[pos], ' ');
 	i = 0;
-	endl = ft_strjoin("/", lst->flags[0]);
+	endl = ft_strjoin("/", command);
 	path = ft_strjoin(d_paths[0], endl);
 	while (d_paths[i] && access(path, X_OK) < 0)
 	{
@@ -37,7 +130,7 @@ static char	*ft_definitive_path(t_arg_list *lst, int pos, char **d_paths)
 	return (free(endl), NULL);
 }
 
-char	*ft_pathfinder(t_arg_list *lst, int pos)
+static char	*ft_pathfinder(t_arg_list *lst, char *command)
 {
 	char	**d_paths;
 	char	*path;
@@ -53,85 +146,51 @@ char	*ft_pathfinder(t_arg_list *lst, int pos)
 		return (NULL);
 	d_paths = ft_split(path, ':');
 	free(path);
-	path = ft_definitive_path(lst, pos, d_paths);
+	path = ft_definitive_path(d_paths, command);
 	if (!path)
 		ft_puterrorstr("Error: Command not found\n");
 	return (path);
-}
+} */
 
-static void	ft_execute_cmd(t_arg_list *lst, int *pipefd, int i)
+/* static t_cmd	*ft_test_cmd(t_arg_list *data)
 {
-	char	*path;
+	t_cmd	*prueba;
+	char	*arg;
 
-	close(pipefd[0]);
-	dup2(pipefd[1], STDOUT_FILENO);
-	path = ft_pathfinder(lst, i);
-	if (execve(path, lst->flags, lst->envp) < 0)
-	{
-		perror(lst->flags[1]);
-		free(path);
-		ft_free(lst->flags);
-		exit(1);
-	}
-}
+	prueba = malloc(sizeof(t_cmd));
+	arg = ft_strdup("..");
+	prueba->argv = malloc(sizeof(char *) * 2);
+	prueba->argv[1] = NULL;
+	prueba->argv[0] = arg;
+	prueba->envp = data->envp;
+	prueba->redir = -1;
+	prueba->next = malloc(sizeof(t_cmd));
+	prueba->env = NULL;
+	prueba->env_export = NULL;
+	prueba->data = data;
+	prueba->next->argv = NULL;
+	prueba->next->argv[1] = NULL;
+	prueba->next->argv[0] = arg;
+	prueba->next->envp = data->envp;
+	prueba->next->redir = -1;
+	prueba->next->next = NULL;
+	prueba->next->env = NULL;
+	prueba->next->env_export = NULL;
+	prueba->data = data;
+	return (prueba);
+} */
 
-static void	ft_do_cmd(t_arg_list *lst, int fd, int i)
-{
-	int		pipefd[2];
-	int		child;
+	/* t_arg_list	*data;
+	//t_arg_list	*lst;
 
-	dup2(fd, STDIN_FILENO);
-	while (i < lst->argc - 2)
-	{
-		if (pipe(pipefd) == -1)
-			perror("Error");
-		child = fork();
-		if (child == 0)
-			ft_execute_cmd(lst, pipefd, i);
-		else if (child == -1)
-			perror("Error");
-		if (waitpid(-1, NULL, 0) == -1)
-		{
-			perror("Error");
-			exit(1);
-		}
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		i++;
-	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	int			fd;
-	t_arg_list	*lst;
-
-	//ft_check_built-in
-	if (ft_strncmp(argv[1], "echo\0", 5) == 0)
-	{
-		ft_echo(&argv[2]);
-		return (0);
-	}
-	if (ft_strncmp(argv[1], "pwd\0", 4) == 0)
-	{
-		ft_pwd();
-		return (0);
-	}
-	fd = ft_check_heredoc(argv);
-	if (fd == -1)
-		exit(1);
-	lst = ft_define_lst(argc, argv, envp);
-	if (ft_strncmp(argv[1], "here_doc\0", 9) == 0)
-		ft_do_cmd(lst, fd, 3);
-	else
-		ft_do_cmd(lst, fd, 2);
-	close(fd);
-	fd = ft_openfile(argv, argc);
-	if (fd == -1)
-		return (ft_freeanderror(lst), 1);
-	dup2(fd, STDOUT_FILENO);
-	ft_do_last_cmd(lst, fd);
-	return (0);
-}
-// Hacer comprobacion si las variables de entorno
-//estan vacias entonces usar funcion que las coge
+	//lst = ft_define_lst(argc, argv, envp);
+	data = malloc(sizeof(t_arg_list));
+	data->argc = argc;
+	data->argv = argv;
+	data->envp = envp;
+	data->cmd = ft_test_cmd(data);
+	data->cmd->cmd = "cd";
+	data->builtin_done = 0;
+	data->cmd->next->cmd = "pwd";
+	//data->cmd->next->cmd = ft_pathfinder(data, "exit");
+	//data->cmd->next->argv[0] = data->cmd->next->cmd; */

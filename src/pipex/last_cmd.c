@@ -6,28 +6,29 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 11:34:23 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:09:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_do_last_cmd(t_arg_list *lst, int fd)
+void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 {
 	int	child;
-	int	cmd;
 
-	cmd = lst->argc - 2;
 	child = fork();
 	if (child == 0)
 	{
-		if (execve(ft_pathfinder(lst, cmd), lst->flags, lst->envp) < 0)
+		ft_check_built_ins(lst, builtin_done);
+		if (*builtin_done == 1)
 		{
-			ft_free(lst->flags);
-			free(lst);
-			close(fd);
-			perror("Error");
-			exit (1);
+			if (execve(lst->cmd, lst->argv, lst->envp) < 0)
+			{
+				perror("minishell: executer");
+				free(lst->cmd);
+				ft_free(lst->argv);
+				exit(1);
+			}
 		}
 	}
 	else if (child == -1)

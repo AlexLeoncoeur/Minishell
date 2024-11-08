@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 19:06:10 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/26 16:10:50 by aarenas-         ###   ########.fr       */
+/*   Created: 2024/10/17 10:28:18 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/10/19 14:11:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+static void	ft_free_tenv(t_env **lst)
 {
-	t_list	*aux;
+	t_env	*aux;
 
-	if (lst == NULL)
-		return (NULL);
-	aux = lst;
-	while (aux->next != NULL)
-		aux = aux->next;
-	return (aux);
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		if ((*lst)->name)
+			free((*lst)->name);
+		if ((*lst)->value)
+			free((*lst)->value);
+		(*lst)->name = NULL;
+		(*lst)->value = NULL;
+		aux = *lst;
+		*lst = aux->next;
+		free(aux);
+	}
 }
 
-/* int	main(void)
+void	ft_free_data(t_arg_list *data)
 {
-	t_list	*lst;
-	t_list	*aux;
-
-	lst = NULL;
-	aux = ft_lstlast(lst);
-} */
+	ft_free_tenv(&data->env);
+	ft_free_tenv(&data->env_export);
+}

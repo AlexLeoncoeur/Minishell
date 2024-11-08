@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 16:23:20 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/10/19 14:09:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ void	ft_echo(char **matrix)
 {
 	int	flag;
 	int	i;
-	int	j;
 
 	flag = 0;
 	i = 0;
-	j = 0;
 	while (ft_flag_skip(matrix[i], &flag) == 1)
 		i++;
 	while (matrix[i])

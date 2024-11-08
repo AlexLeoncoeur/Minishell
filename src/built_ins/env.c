@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 12:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/23 16:03:51 by aarenas-         ###   ########.fr       */
+/*   Created: 2024/09/27 14:36:20 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/10/10 10:58:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-int	ft_isdigit(char c)
+void	ft_env(t_env *env)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	t_env	*aux;
+
+	aux = env;
+	while (aux)
+	{
+		if (aux->value)
+			printf("%s=\"%s\"\n", aux->name, aux->value);
+		aux = aux->next;
+	}
 }
+//Solo muestra las variables que contengan un valor, =
+//	Como tienen que estar ordenadas?
