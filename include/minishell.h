@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 13:44:06 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:07:46 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_data
 	char		*heredoc;
 	char		**envp;
 	int			error;
-	char		*last;
 	int			builtin_done;
 	int			argc;
 }	t_data;

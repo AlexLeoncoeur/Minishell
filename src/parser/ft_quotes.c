@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:55:01 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 10:57:55 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:10:38 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	**ft_dequote(char **argv)
 			if (range)
 			{
 				range[0] += (ft_strlen(str) - ft_strlen(&str[end]) - 1);
-				range[1] += (fT_strlen(str) - ft_strlen(&str[end]) - 1);
+				range[1] += (ft_strlen(str) - ft_strlen(&str[end]) - 1);
 			}
 		}
 		i++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser utils.c                                     :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 10:52:13 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:16:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,18 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (aux[i] - tmp[i]);
 }
 
-static char	*ft_get_var(char *env)
-{
-	int		i;
-	char	*var;
-
-	i = 0;
-	while (env[i] != '=')
-		i++;
-	var = malloc(sizeof(char) * i + 1);
-	if (!var)
-		return (NULL);
-	i = 0;
-	while (env[i] != '=')
-	{
-		var[i] = env[i];
-		i++;
-	}
-	var[i] = 0;
-	return (var);
-}
-
 t_env	*ft_get_env(t_data *data, char *name)
 {
 	t_env	*current;
 
-	current = data->env_variables;
+	current = data->env;
 	if (!current)
 		return ((t_env *)0);
 	while (current->next)
 	{
 		if (ft_strcmp(name, current->name))
 			return (current);
-		current->next;
+		current = current->next;
 	}
 	if (ft_strcmp(name, current->name))
 		return (current);

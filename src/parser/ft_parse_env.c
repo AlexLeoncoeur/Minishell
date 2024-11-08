@@ -6,24 +6,11 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 14:00:08 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:10:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	lst_size(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (env->next)
-	{
-		i++;
-		env = env->next;
-	}
-	return (++i);
-}
 
 static char	*multi_join(t_env *env, char *str, int i)
 {
@@ -59,7 +46,7 @@ static char	*str_replace_env(t_data *data, char *str)
 		{
 			if (str[i] + 1 == '?')
 			{
-				str_new = ft_itoa(data->last); //si hay $? tiene que sacar el ultimo codigo de salida, para eso existe last, soy imbecil 
+				str_new = ft_itoa(data->error);
 				break ;
 			}
 		}
@@ -68,6 +55,7 @@ static char	*str_replace_env(t_data *data, char *str)
 		free(aux);
 		break ;
 	}
+	return (free(str), str_new);
 }
 
 void	ft_parse_env(t_data *data, char **argv)
