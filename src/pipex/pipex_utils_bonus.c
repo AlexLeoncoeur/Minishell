@@ -14,6 +14,8 @@
 
 void	ft_check_redirs(t_cmd *cmd)
 {
+	if (!cmd->redir)
+		return ;
 	if (cmd->redir->type == INPUT_REDIRECT)
 		ft_in_redir(cmd->data, cmd->redir);
 	else if (cmd->redir->type == OUTPUT_REDIRECT

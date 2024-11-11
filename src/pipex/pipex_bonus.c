@@ -78,6 +78,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 			exit(1);
 		}
 	}
+	(void)path;
 }
 
 void	ft_do_cmd(t_data *lst)

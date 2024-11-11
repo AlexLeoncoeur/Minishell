@@ -47,20 +47,20 @@ static t_redir	*add_redir(char **argv)
 	char	*aux;
 
 	redirs = NULL;
-	while (argv)
+	while (*argv)
 	{
 		aux = ft_strtrim(argv[0], " ");
-		if (ft_strnstr(aux, "<", 2))
-			redirs = add_back(redirs, new_redir(INPUT_REDIRECT,
-						ft_strtrim(argv[0], " ")));
-		else if (ft_strnstr(aux, ">", 2))
-			redirs = add_back(redirs, new_redir(OUTPUT_REDIRECT,
-						ft_strtrim(argv[0], " ")));
-		else if (ft_strnstr(aux, ">>", 2))
+		if (ft_strnstr(aux, ">>", 2))
 			redirs = add_back(redirs, new_redir(OUTPUT_APPEND,
 						ft_strtrim(argv[0], " ")));
 		else if (ft_strnstr(aux, "<<", 2))
 			redirs = add_back(redirs, new_redir(HEREDOC,
+						ft_strtrim(argv[0], " ")));
+		else if (ft_strnstr(aux, "<", 1))
+			redirs = add_back(redirs, new_redir(INPUT_REDIRECT,
+						ft_strtrim(argv[0], " ")));
+		else if (ft_strnstr(aux, ">", 1))
+			redirs = add_back(redirs, new_redir(OUTPUT_REDIRECT,
 						ft_strtrim(argv[0], " ")));
 		argv++;
 		free(aux);
