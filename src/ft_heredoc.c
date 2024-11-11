@@ -6,11 +6,11 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:13:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:22:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static char	*heredoc_join(char *s1, char *s2, bool free_s1)
 {
@@ -48,7 +48,6 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 		return ;
 	write (fd, data->heredoc, ft_strlen(data->heredoc));
 	close (fd);
-	free (fd);
 	free(redir->file);
 	free (data->heredoc);
 	redir->file = ft_strdup(".heredoc_tmp");

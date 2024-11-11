@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 11:53:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:58:58 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 	{
 		if (cmd->argv)
 			while (cmd->argv[i])
-				ft_export(cmd->argv[i++], cmd);
+				ft_export(cmd->argv[i++], cmd->data);
 		else
-			ft_export(NULL, cmd);
+			ft_export(NULL, cmd->data);
 	}
 	else
 		ft_check_cd_unset(cmd, builtin_done);

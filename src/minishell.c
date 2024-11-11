@@ -6,11 +6,11 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 13:26:34 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:53:01 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 static void	ft_delete_heredoc(void)
 {
@@ -25,6 +25,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
 	ft_init(&data, envp);
 	while (data.error == 0)
 	{

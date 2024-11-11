@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 14:07:46 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:59:40 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_data
  */
 //char		*ft_pathfinder(t_data *lst, int pos);
 void		ft_do_cmd(t_data *lst);
+int			ft_executer(t_data *data);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
@@ -92,12 +93,6 @@ void		ft_freeanderror(t_data *lst);
 void		ft_check_redirs(t_cmd *cmd);
 void		ft_puterrorstr(char *str);
 void		ft_free(char **str);
-
-/* ------------------------ pipex/ft_here_doc ------------------------ */
-
-void		ft_here_doc(int *pipefd, char **argv);
-int			ft_openfile(char **argv, int argc);
-int			ft_check_heredoc(char **argv);
 
 /* ------------------------ pipex/last_cmd ------------------------ */
 
@@ -121,8 +116,8 @@ void		ft_env(t_env *env);
 
 /* ------------------------ built-ins/export ------------------------ */
 
-void		ft_export(char *str, t_cmd *cmd);
-t_env		*ft_add_to_env(char *str, t_env *lst, int i);
+void		ft_export(char *str, t_data *data);
+t_env		*ft_add_to_env(char *str, t_env *lst);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
@@ -136,7 +131,7 @@ void		ft_cd(t_data *data, char **str);
 
 t_cmd		*ft_lstlast_cmd(t_cmd *lst);
 t_env		*ft_lstlast_tenv(t_env *lst);
-t_env		*ft_lstnew_tenv(char *name, char *value, int i);
+t_env		*ft_lstnew_tenv(char *name, char *value);
 t_env		*ft_lst_env(char **envp, t_env *lst);
 void		ft_lstadd_back_tenv(t_env **lst, t_env	*new);
 

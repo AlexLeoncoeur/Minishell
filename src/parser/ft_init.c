@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 13:41:35 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:01:56 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ static void	shell_lvl(t_data *data)
 	lvl = ft_itoa(i);
 	aux = ft_strdup("SHLVL=");
 	str = ft_strjoin(aux, lvl);
-	ft_export(str, data->cmd);
+	ft_export(str, data);
 	free(lvl);
 	free(aux);
 	free(str);
+	printf("pipo\n");
 	ft_cd(data, NULL);
 }
 
@@ -40,7 +41,7 @@ static void	update_name(t_data *data)
 	aux = ft_strdup("SHELL=");
 	name = ft_strdup("minishell");
 	str = ft_strjoin(aux, name);
-	ft_export(str, data->cmd);
+	ft_export(str, data);
 	free(str);
 	free(name);
 	free(aux);
@@ -48,16 +49,22 @@ static void	update_name(t_data *data)
 
 int	ft_init(t_data *data, char **envp)
 {
+	int	i;
+
+	i = 0;
+	data->env = NULL;
+	data->env_export = NULL;
 	data->cmd = NULL;
 	data->input = 0;
 	data->heredoc = 0;
 	data->error = 0;
-	data->envp = NULL;
+	data->envp = envp;
 	ft_init_signals();
-	while (*envp)
+	while (envp[i])
 	{
 		data->env = ft_lst_env(data->envp, data->env);
 		data->env_export = ft_lst_env(data->envp, data->env_export);
+		i++;
 	}
 	shell_lvl(data);
 	update_name(data);

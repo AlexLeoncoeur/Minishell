@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:07:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 11:56:05 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:30:34 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_lstadd_back_tenv(t_env **lst, t_env	*new)
 	}
 }
 
-t_env	*ft_lstnew_tenv(char *name, char *value, int i)
+t_env	*ft_lstnew_tenv(char *name, char *value)
 {
 	t_env	*newlist;
 
@@ -71,9 +71,9 @@ t_env	*ft_lst_env(char **envp, t_env *lst)
 		return (NULL);
 	while (envp[i])
 	{
-		lst = ft_add_to_env(envp[i], lst, i);
+		lst = ft_add_to_env(envp[i], lst);
 		i++;
 	}
-	lst = ft_add_to_env("OLDPWD", lst, i);
+	lst = ft_add_to_env("OLDPWD", lst);
 	return (lst);
 }

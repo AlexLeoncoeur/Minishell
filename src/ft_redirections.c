@@ -6,11 +6,11 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:36:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/08 12:33:23 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:21:40 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 void	ft_in_redir(t_data *data, t_redir *redir)
 {

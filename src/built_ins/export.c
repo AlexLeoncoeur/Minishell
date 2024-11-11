@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 13:23:31 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:58:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_search(t_env **lst, char *str)
 	return (1);
 }
 
-t_env	*ft_add_to_env(char *str, t_env *lst, int i)
+t_env	*ft_add_to_env(char *str, t_env *lst)
 {
 	char	*name;
 	char	*value;
@@ -55,30 +55,31 @@ t_env	*ft_add_to_env(char *str, t_env *lst, int i)
 		value = ft_substr(str, ((ft_strlen(str) - ft_strlen(cut)) + 1),
 				ft_strlen(cut) - 1);
 	if (!lst)
-		lst = ft_lstnew_tenv(name, value, i);
+		lst = ft_lstnew_tenv(name, value);
 	else
 	{
-		ft_lstadd_back_tenv(&lst, ft_lstnew_tenv(name, value, i));
+		ft_lstadd_back_tenv(&lst, ft_lstnew_tenv(name, value));
 	}
 	return (lst);
 }
 
-void	ft_export(char *str, t_cmd *cmd)
+void	ft_export(char *str, t_data *data)
 {
 	t_env	*aux;
 
 	if (str && ft_isdigit(str[0]) == 1)
 		return (printf("minishell: export: `%s`: not a valid identifier\n",
 				str), (void)0);
-	if (str && ft_isdigit(str[0]) == 0 && ft_search(cmd, str) == 0)
+	if (str && ft_isdigit(str[0]) == 0 && ft_search(&data->env, str) == 1
+		&& ft_search(&data->env_export, str) == 1)
 	{
-		cmd->data->env = ft_add_to_env(str, cmd->data->env, -1);
-		cmd->data->env_export = ft_add_to_env(str, cmd->data->env_export, -1);
+		data->env = ft_add_to_env(str, data->env);
+		data->env_export = ft_add_to_env(str, data->env_export);
 	}
 	if (!str)
-		cmd->data->env_export = ft_sort(cmd->data->env_export);
+		data->env_export = ft_sort(data->env_export);
 	if (!str)
-		aux = cmd->data->env_export;
+		aux = data->env_export;
 	while (!str && aux)
 	{
 		printf("declare -x %s", aux->name);

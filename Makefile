@@ -13,7 +13,7 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = env_lst.c check_built_ins.c sort.c finish.c ft_redirections.c ft_heredoc.c\
+CFILES = env_lst.c check_built_ins.c sort.c finish.c ft_redirections.c ft_heredoc.c minishell.c\
 
 PARSER_FILES = ft_add_cmd.c ft_cleanup.c ft_init.c ft_main_parser.c ft_minisplit.c ft_parse_env.c ft_pipesplit.c ft_quotes.c ft_read_string.c ft_signal.c parser_utils.c 
 
@@ -58,20 +58,18 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 
 CC = clang
 NAME = minishell
-NAMETEST = parsertest
-BONUS_NAME = 
 CFLAGS = -Wall -Werror -Wextra
 
 all: libft $(NAME)
-$(NAME): @ echo "$(MAGENTA)DEBUG MODE:\n Compiling project: $(RESET)" $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
-	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
-	@ echo "$(YELLOW)Compilation finished!$(RESET)"
-
-debug: libft $(NAME)
 $(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
-	@ $(CC) $(CFLAGS) -fsanitize=address -g $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -o $(NAME)
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
+	@ echo "$(YELLOW)Compilation finished!$(RESET)"
+
+debug: libft 
+	@ echo "$(MAGENTA)DEBUG MODE:\n Compiling project: $(RESET)" $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
+	@ echo
+	@ $(CC) $(CFLAGS) -fsanitize=address -g $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
 libft:
@@ -98,4 +96,4 @@ re: fclean all
 compiling:
 	@ echo "$(MAGENTA)Compiling Project: $(RESET)"
 
-.PHONY: all clean fclean re bonus compiling
+.PHONY: all clean fclean re bonus compiling debug
