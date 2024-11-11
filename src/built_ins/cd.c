@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 11:54:51 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:25:01 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@ static void	ft_change_pwd_env(t_env **lst, char *name, char *new_route)
 
 void	ft_cd(t_data *data, char **str)
 {
+	char	*home;
 	char	*pwd_env;
 	char	*pwd_export;
 	char	*oldpwd_env;
 	char	*oldpwd_export;
 
-	if (str[1])
+	home = getenv("HOME");
+	if (str && str[1])
 		ft_puterrorstr("minishell: cd: too many arguments\n");
 	oldpwd_env = getcwd(NULL, 0);
 	oldpwd_export = getcwd(NULL, 0);
-	if (chdir(str[0]) < 0)
+	if (str && chdir(str[0]) < 0)
+		perror("minishell: cd");
+	if (!str && chdir(home) < 0)
 		perror("minishell: cd");
 	pwd_env = getcwd(NULL, 0);
 	pwd_export = getcwd(NULL, 0);

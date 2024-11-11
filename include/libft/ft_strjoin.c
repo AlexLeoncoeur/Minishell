@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:44:06 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/04 17:05:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:43:07 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ char	*ft_strjoin(char *s1, char const *s2)
 		j++;
 	}
 	aux[i + j] = '\0';
-	//free(s1)
 	return (aux);
 }
+	//free(s1)
 
 /* #include <stdio.h>
 

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 12:58:58 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:14:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 		if (cmd->argv)
 			ft_cd(cmd->data, cmd->argv);
 		else
-			ft_cd(cmd->data, (char **)getenv("HOME"));
+			ft_cd(cmd->data, NULL);
 	}
 	else
 		*builtin_done = 1;

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/11 13:01:56 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:41:30 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	shell_lvl(t_data *data)
 	char	*aux;
 	int		i;
 
-	lvl = ft_get_env(data, "SHLVL")->value;
+	lvl = getenv("SHLVL");
 	i = ft_atoi(lvl) + 1;
 	lvl = ft_itoa(i);
 	aux = ft_strdup("SHLVL=");
@@ -28,7 +28,6 @@ static void	shell_lvl(t_data *data)
 	free(lvl);
 	free(aux);
 	free(str);
-	printf("pipo\n");
 	ft_cd(data, NULL);
 }
 
