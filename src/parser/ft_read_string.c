@@ -12,6 +12,22 @@
 
 #include "../../include/minishell.h"
 
+static char	*ft_custom_strtrim(char const *s1, char const *set)
+{
+	size_t		len;
+	char		*str;
+
+	if (!s1 || !set)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	len = ft_strlen(s1);
+	while (len > 0 && ft_strchr(set, s1[len]))
+		len--;
+	str = ft_substr((char *) s1, 0, len + 1);
+	return (str);
+}
+
 static char	*ft_join_and_free(char *s1, char *s2)
 {
 	char	*tmp;
@@ -40,7 +56,7 @@ static char	*get_string(t_data *data)
 	char	*pwd;
 
 	if (!ft_check_env(data, &home, &pwd))
-		return ("minishell$ ");
+		return (ft_strdup("minishell$ "));
 	aux = ft_get_env(data, "USER")->value;
 	string = ft_join_and_free(aux, ":");
 	if (ft_strncmp(home, pwd, ft_strlen(home)) == 0)
@@ -78,7 +94,7 @@ int	ft_read_string(t_data *data)
 		ft_exit(NULL, data);
 		return (free(string), free(aux), 0);
 	}
-	data->input = ft_strtrim(aux, " \t");
+	data->input = ft_custom_strtrim(aux, " \t");
 	free(aux);
 	if (!data->input)
 		return (0);

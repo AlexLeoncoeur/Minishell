@@ -49,7 +49,7 @@ static t_redir	*add_redir(char **argv)
 	redirs = NULL;
 	while (*argv)
 	{
-		aux = ft_strtrim(argv[0], " ");
+		aux = ft_strtrim(*argv, " ");
 		if (ft_strnstr(aux, ">>", 2))
 			redirs = add_back(redirs, new_redir(OUTPUT_APPEND,
 						ft_strtrim(argv[0], " ")));
@@ -79,7 +79,7 @@ static char	**get_argv(char **argv)
 		&& !ft_strnstr(argv[i], "<<", 2) && !ft_strnstr(argv[i], "<", 1)
 		&& !ft_strnstr(argv[i], ">", 1))
 		i++;
-	aux = malloc(sizeof(char **) * i + 1);
+	aux = malloc(sizeof(char **) * (i + 1));
 	if (!aux)
 		return (NULL);
 	j = 0;

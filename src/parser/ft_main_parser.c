@@ -12,17 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static	int	ft_check_alpha(char *str)
-{
-	while (str)
-	{
-		if (!ft_isalpha(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
 t_cmd	*ft_new_cmd(t_data *data)
 {
 	t_cmd	*cmd;
@@ -46,7 +35,7 @@ t_cmd	*ft_parser(t_data *data)
 	t_cmd	*cmd;
 
 	i = 0;
-	if ((!ft_check_alpha(data->input)) == 0 && *data->input != '.'
+	if (!ft_isalpha(*data->input) && *data->input != '.'
 		&& *data->input != '/'
 		&& *data->input != '"' && *data->input != '\'')
 		return (NULL);
@@ -57,8 +46,7 @@ t_cmd	*ft_parser(t_data *data)
 		argv = ft_minisplit(pipes[i]);
 		ft_parse_env(data, argv);
 		ft_dequote(argv);
-		if (argv[0][0] != '\n')
-			ft_add_cmd(data, cmd, argv);
+		ft_add_cmd(data, cmd, argv);
 		ft_clean_array(argv);
 		i++;
 	}
