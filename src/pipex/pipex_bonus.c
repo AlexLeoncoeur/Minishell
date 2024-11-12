@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 12:49:30 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:14:45 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*ft_definitive_path(char **d_paths, char *command)
 	return (free(endl), NULL);
 }
 
-static char	*ft_pathfinder(t_data *lst, char *command)
+char	*ft_pathfinder(t_data *lst, char *command)
 {
 	char	**d_paths;
 	char	*path;
@@ -70,7 +70,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	if (*builtin_done == 1)
 	{
 		path = ft_pathfinder(cmd->data, cmd->path);
-		if (execve(cmd->path, cmd->argv, cmd->data->envp) < 0)
+		if (execve(cmd->path, cmd->argv, NULL) < 0)
 		{
 			perror("minishell: executer");
 			free(cmd->path);

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:54:45 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:13:27 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ static char	**get_argv(char **argv)
 	return (aux);
 }
 
-void	ft_add_cmd(t_cmd *cmd, char **argv)
+void	ft_add_cmd(t_data *data, t_cmd *cmd, char **argv)
 {
 	if (cmd->argv != NULL)
 	{
 		while (cmd->next)
 			cmd = cmd->next;
-		cmd = ft_new_cmd();
+		cmd = ft_new_cmd(data);
 		cmd = cmd->next;
 	}
 	cmd->argv = get_argv(argv);

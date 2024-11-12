@@ -6,11 +6,16 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/11 11:53:01 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:09:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+//void	ft_void(void)
+//{
+//	system("leaks -q minishell");
+//}
 
 static void	ft_delete_heredoc(void)
 {
@@ -20,6 +25,8 @@ static void	ft_delete_heredoc(void)
 	if (fd > 0)
 		unlink(".heredoc_tmp");
 }
+
+//atexit(ft_void);
 
 int	main(int argc, char **argv, char **envp)
 {

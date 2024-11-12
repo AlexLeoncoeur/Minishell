@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 12:59:40 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:13:55 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 //char		*ft_pathfinder(t_data *lst, int pos);
 void		ft_do_cmd(t_data *lst);
 int			ft_executer(t_data *data);
+char		*ft_pathfinder(t_data *lst, char *command);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
@@ -184,7 +185,7 @@ t_cmd		*ft_parser(t_data *data);
  * 
  * @return t_cmd* 
  */
-t_cmd		*ft_new_cmd(void);
+t_cmd		*ft_new_cmd(t_data *data);
 
 /**
  * @brief Gets enviromental variable
@@ -263,7 +264,7 @@ void		ft_redirections(t_data *data, pid_t pid);
  * @param cmd 
  * @param argv 
  */
-void		ft_add_cmd(t_cmd *cmd, char **argv);
+void		ft_add_cmd(t_data *data, t_cmd *cmd, char **argv);
 
 /**
  * @brief Main function to manage heredoc
