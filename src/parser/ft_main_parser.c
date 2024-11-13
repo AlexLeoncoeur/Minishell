@@ -12,14 +12,14 @@
 
 #include "../../include/minishell.h"
 
-t_cmd	*ft_new_cmd(t_data *data)
+t_cmd	*ft_new_cmd(void)
 {
 	t_cmd	*cmd;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->data = data;
+	cmd->data = NULL;
 	cmd->argv = NULL;
 	cmd->path = NULL;
 	cmd->redir = NULL;
@@ -40,7 +40,7 @@ t_cmd	*ft_parser(t_data *data)
 		&& *data->input != '"' && *data->input != '\'')
 		return (NULL);
 	pipes = ft_pipesplit(data->input);
-	cmd = ft_new_cmd(data);
+	cmd = ft_new_cmd();
 	while (pipes[i])
 	{
 		argv = ft_minisplit(pipes[i]);

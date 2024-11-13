@@ -185,7 +185,7 @@ t_cmd		*ft_parser(t_data *data);
  * 
  * @return t_cmd* 
  */
-t_cmd		*ft_new_cmd(t_data *data);
+t_cmd		*ft_new_cmd(void);
 
 /**
  * @brief Gets enviromental variable
@@ -314,5 +314,10 @@ void		ft_init_signals(void);
  * @param i 
  */
 void		ft_set_flag(int i);
+
+/**
+ * Copied my own bc Alex's kept exploding on me
+ */
+char		*ft_custom_strtrim(char const *s1, char const *set);
 
 #endif

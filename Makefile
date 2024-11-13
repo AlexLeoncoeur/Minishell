@@ -13,7 +13,7 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = env_lst.c check_built_ins.c sort.c finish.c ft_redirections.c ft_heredoc.c minishell.c\
+CFILES = env_lst.c check_built_ins.c sort.c finish.c ft_redirections.c ft_heredoc.c main.c\
 
 PARSER_FILES = ft_add_cmd.c ft_cleanup.c ft_init.c ft_main_parser.c ft_mini_split.c ft_parse_env.c ft_split_pipes.c ft_quotes.c ft_read_string.c ft_signal.c parser_utils.c 
 
@@ -36,22 +36,22 @@ PIPEX_OFILES = $(addprefix $(OBJ_DIR)pipex/, $(PIPEX_CFILES:.c=.o))
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
 	@ echo "$(BLUE)Compiling File: $(RESET)$(notdir $<)"
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)parser/%.o: $(PARSER_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/parser/
 	@ echo "$(BLUE)Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)pipex/%.o: $(PIPEX_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/pipex/
 	@ echo "$(BLUE)Compiling File: $(CYAN)pipex/$(RESET)$(notdir $<)"
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/built_ins/
 	@ echo "$(BLUE)Compiling File: $(CYAN)built_ins/$(RESET)$(notdir $<)"
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 
 #---------- FLAGS & COMPILATION ----------#
@@ -66,10 +66,10 @@ $(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
-debug: libft 
+debug: libft all
 	@ echo "$(MAGENTA)DEBUG MODE:\n Compiling project: $(RESET)" $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
-	@ $(CC) $(CFLAGS) -fsanitize=address -g $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g -fsanitize=address
 	@ echo "$(YELLOW)Compilation finished!$(RESET)"
 
 libft:

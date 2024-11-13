@@ -49,19 +49,19 @@ static t_redir	*add_redir(char **argv)
 	redirs = NULL;
 	while (*argv)
 	{
-		aux = ft_strtrim(*argv, " ");
+		aux = ft_custom_strtrim(*argv, " ");
 		if (ft_strnstr(aux, ">>", 2))
 			redirs = add_back(redirs, new_redir(OUTPUT_APPEND,
-						ft_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[0], " ")));
 		else if (ft_strnstr(aux, "<<", 2))
 			redirs = add_back(redirs, new_redir(HEREDOC,
-						ft_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[0], " ")));
 		else if (ft_strnstr(aux, "<", 1))
 			redirs = add_back(redirs, new_redir(INPUT_REDIRECT,
-						ft_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[0], " ")));
 		else if (ft_strnstr(aux, ">", 1))
 			redirs = add_back(redirs, new_redir(OUTPUT_REDIRECT,
-						ft_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[0], " ")));
 		argv++;
 		free(aux);
 	}
@@ -85,7 +85,7 @@ static char	**get_argv(char **argv)
 	j = 0;
 	while (j < i)
 	{
-		aux[j] = ft_strtrim(argv[j], " ");
+		aux[j] = ft_custom_strtrim(argv[j], " ");
 		j++;
 	}
 	aux[i] = 0;
@@ -94,14 +94,17 @@ static char	**get_argv(char **argv)
 
 void	ft_add_cmd(t_data *data, t_cmd *cmd, char **argv)
 {
+	if (!cmd)
+		return ;
 	if (cmd->argv != NULL)
 	{
 		while (cmd->next)
 			cmd = cmd->next;
-		cmd = ft_new_cmd(data);
-		cmd = cmd->next;
+		cmd = ft_new_cmd();
 	}
+	cmd->data = data;
 	cmd->argv = get_argv(argv);
-	cmd->path = ft_strtrim(argv[0], " ");
+	cmd->path = ft_custom_strtrim(argv[0], " ");
 	cmd->redir = add_redir(argv);
+	cmd->data->cmd = cmd;
 }

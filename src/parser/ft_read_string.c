@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static char	*ft_custom_strtrim(char const *s1, char const *set)
+char	*ft_custom_strtrim(char const *s1, char const *set)
 {
 	size_t		len;
 	char		*str;
