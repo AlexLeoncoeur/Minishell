@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 14:25:01 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:52:59 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ft_cd(t_data *data, char **str)
 
 	home = getenv("HOME");
 	if (str && str[1])
-		ft_puterrorstr("minishell: cd: too many arguments\n");
+	{
+		data->error = 1;
+		return (printf("minishell: cd: too many arguments\n"), (void)0);
+	}
 	oldpwd_env = getcwd(NULL, 0);
 	oldpwd_export = getcwd(NULL, 0);
 	if (str && chdir(str[0]) < 0)
@@ -55,4 +58,5 @@ void	ft_cd(t_data *data, char **str)
 	ft_change_pwd_env(&data->env_export, "PWD", pwd_export);
 	ft_change_pwd_env(&data->env, "OLDPWD", oldpwd_env);
 	ft_change_pwd_env(&data->env_export, "OLDPWD", oldpwd_export);
+	data->error = 0;
 }

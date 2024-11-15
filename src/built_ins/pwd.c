@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 12:00:18 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:38:18 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	ft_pwd(t_data *data)
 		data = NULL;
 	path = getcwd(NULL, 0);
 	if (!path)
+	{
+		data->error = 1;
 		perror("Error");
-	//data->error = 0; //errno
+	}
 	path = ft_strjoin(path, "\n");
 	ft_putstr(path);
+	data->error = 0;
 	free(path);
 }

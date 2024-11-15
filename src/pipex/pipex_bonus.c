@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 11:46:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:49:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	free(path);
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
-		ft_puterrorstr("Error: Command not found\n");
+		return (printf("Error: Command not found\n"), lst->error = 127, NULL);
 	return (path);
 }
 
@@ -75,6 +75,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 		if (execve(cmd->path, &cmd->argv[1], NULL) < 0)
 		{
 			perror("minishell: executer");
+			cmd->data->error = errno;
 			free(cmd->path);
 			ft_free(cmd->argv);
 			exit(1);
@@ -101,6 +102,7 @@ void	ft_do_cmd(t_data *lst)
 			ft_execute_cmd(aux, pipefd, &lst->builtin_done);
 		else if (waitpid(-1, NULL, 0) == -1)
 		{
+			lst->error = 1;
 			perror("Error");
 			exit(1);
 		}

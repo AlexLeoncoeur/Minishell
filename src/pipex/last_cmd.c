@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 10:59:51 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:49:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 			if (execve(path, &lst->argv[1], NULL) < 0)
 			{
 				perror("minishell: executer");
+				lst->data->error = errno;
 				free(lst->path);
 				ft_free(lst->argv);
 				exit(1);

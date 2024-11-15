@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/12 13:13:55 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:47:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <limits.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <errno.h>
 
 # define INPUT_REDIRECT 	1
 # define OUTPUT_REDIRECT	2
@@ -101,7 +102,7 @@ void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
-void		ft_echo(char **matrix);
+void		ft_echo(char **matrix, int *error);
 
 /* ------------------------ built-ins/pwd ------------------------ */
 
@@ -113,7 +114,7 @@ void		ft_exit(char **argv, t_data *data);
 
 /* ------------------------ built-ins/env ------------------------ */
 
-void		ft_env(t_env *env);
+void		ft_env(t_env *env, int *error);
 
 /* ------------------------ built-ins/export ------------------------ */
 

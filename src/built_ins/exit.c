@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 11:50:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:51:14 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	ft_exit(char **argv, t_data *data)
 		ft_write_exit_error(1);
 	else if (argv[0] && ft_isdigit(*argv[0]) == 1)
 		error = ft_atoi(argv[0]);
-	//si un cmd sale bien entonces error = 0
-	//ft_free_data(data);
 	exit(error);
 }
 //hay que inicializar data->error a 0. Quizas al iniciar error en esta

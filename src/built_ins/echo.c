@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 11:40:17 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:31:52 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_flag_skip(char *str, int *flag)
 	return (0);
 }
 
-void	ft_echo(char **matrix)
+void	ft_echo(char **matrix, int *error)
 {
 	int	flag;
 	int	i;
@@ -50,4 +50,5 @@ void	ft_echo(char **matrix)
 	}
 	if (flag == 0)
 		ft_putchar('\n');
+	*error = 0;
 }
