@@ -44,7 +44,7 @@ static char	*str_replace_env(t_data *data, char *str)
 		quote = ft_check_quote(str[i], quote);
 		if (str[i] == '$' && quote != '\'')
 		{
-			if (str[i] + 1 == '?')
+			if (str[i + 1] == '?')
 			{
 				str_new = ft_itoa(data->error);
 				break ;
