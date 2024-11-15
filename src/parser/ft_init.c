@@ -48,9 +48,6 @@ static void	update_name(t_data *data)
 
 int	ft_init(t_data *data, char **envp)
 {
-	int	i;
-
-	i = 0;
 	data->env = NULL;
 	data->env_export = NULL;
 	data->cmd = NULL;
