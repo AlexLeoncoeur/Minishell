@@ -46,11 +46,11 @@ t_env	*ft_get_env(t_data *data, char *name)
 		return ((t_env *)0);
 	while (current->next)
 	{
-		if (ft_strcmp(name, current->name))
+		if (!ft_strcmp(name, current->name))
 			return (current);
 		current = current->next;
 	}
-	if (ft_strcmp(name, current->name))
+	if (!ft_strcmp(name, current->name))
 		return (current);
 	return ((t_env *)0);
 }
