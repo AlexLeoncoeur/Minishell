@@ -48,9 +48,6 @@ static void	update_name(t_data *data)
 
 int	ft_init(t_data *data, char **envp)
 {
-	int	i;
-
-	i = 0;
 	data->env = NULL;
 	data->env_export = NULL;
 	data->cmd = NULL;
@@ -59,12 +56,8 @@ int	ft_init(t_data *data, char **envp)
 	data->error = 0;
 	data->envp = envp;
 	ft_init_signals();
-	while (envp[i])
-	{
-		data->env = ft_lst_env(data->envp, data->env);
-		data->env_export = ft_lst_env(data->envp, data->env_export);
-		i++;
-	}
+	data->env = ft_lst_env(data->envp, data->env);
+	data->env_export = ft_lst_env(data->envp, data->env_export);
 	shell_lvl(data);
 	update_name(data);
 	return (1);

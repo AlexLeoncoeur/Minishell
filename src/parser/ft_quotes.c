@@ -99,8 +99,8 @@ static char	*copy_str(char *str, int *range)
 char	**ft_dequote(char **argv)
 {
 	int		i;
-	int		end;
 	int		*range;
+	int		end;
 	char	*str;
 
 	i = 0;
