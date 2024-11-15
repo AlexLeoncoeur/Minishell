@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 12:49:34 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:47:15 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	if (*builtin_done == 1)
 	{
 		path = ft_pathfinder(cmd->data, cmd->path);
-		if (execve(cmd->path, &cmd->argv[1], NULL) < 0)
+		if (execve(cmd->path, cmd->argv, NULL) < 0)
 		{
 			perror("minishell: executer");
 			cmd->data->error = errno;

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 12:53:33 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:54:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 		ft_pwd(cmd->data);
 	else if (ft_strncmp(cmd->path, "export\0", 7) == 0)
 	{
-		if (cmd->argv)
+		if (cmd->argv[i])
 			while (cmd->argv[i])
 				ft_export(cmd->argv[i++], cmd->data);
 		else

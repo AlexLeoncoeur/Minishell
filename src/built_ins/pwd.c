@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 12:38:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:19:06 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	ft_pwd(t_data *data)
 {
 	char	*path;
 
-	if (data)
-		data = NULL;
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
