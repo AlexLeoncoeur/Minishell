@@ -121,6 +121,7 @@ int	ft_executer(t_data *data)
 	{
 		ft_check_redirs(data->cmd);
 		ft_do_last_cmd(data->cmd, &data->builtin_done);
+		usleep(100);
 	}
 	else
 	{
@@ -129,7 +130,9 @@ int	ft_executer(t_data *data)
 		if (ft_lstlast_cmd(data->cmd)->redir)
 			ft_check_redirs(ft_lstlast_cmd(data->cmd));
 		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
+		usleep(100);
 	}
+	usleep(100);
 	return (0);
 }
 
