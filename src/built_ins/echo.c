@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/19 14:09:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:40:17 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_echo(char **matrix)
 	while (matrix[i])
 	{
 		ft_putstr(matrix[i]);
-		ft_putchar(' ');
+		if (matrix[i + 1])
+			ft_putchar(' ');
 		i++;
 	}
 	if (flag == 0)

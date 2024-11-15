@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_built_ins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/12 11:10:34 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:10:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (ft_strncmp(cmd->path, "unset\0", 6) == 0)
 	{
 		if (cmd->argv)
@@ -31,8 +31,8 @@ static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 	}
 	else if (ft_strncmp(cmd->path, "cd\0", 3) == 0)
 	{
-		if (cmd->argv)
-			ft_cd(cmd->data, cmd->argv);
+		if (cmd->argv[1])
+			ft_cd(cmd->data, &cmd->argv[1]);
 		else
 			ft_cd(cmd->data, NULL);
 	}
@@ -44,14 +44,14 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 {
 	int	i;
 
-	i = 2;
+	i = 1;
 	*builtin_done = 0;
 	if (ft_strncmp(cmd->path, "env\0", 4) == 0)
 		ft_env(cmd->data->env);
 	else if (ft_strncmp(cmd->path, "exit\0", 5) == 0)
-		ft_exit(cmd->argv, NULL);
+		ft_exit(&cmd->argv[1], NULL);
 	else if (ft_strncmp(cmd->path, "echo\0", 5) == 0)
-		ft_echo(cmd->argv);
+		ft_echo(&cmd->argv[1]);
 	else if (ft_strncmp(cmd->path, "pwd\0", 4) == 0)
 		ft_pwd(cmd->data);
 	else if (ft_strncmp(cmd->path, "export\0", 7) == 0)

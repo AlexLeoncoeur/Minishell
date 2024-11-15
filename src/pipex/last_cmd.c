@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/12 13:14:50 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/15 10:59:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 		if (*builtin_done == 1)
 		{
 			path = ft_pathfinder(lst->data, lst->path);
-			if (execve(path, lst->argv, NULL) < 0)
+			if (execve(path, &lst->argv[1], NULL) < 0)
 			{
 				perror("minishell: executer");
 				free(lst->path);
