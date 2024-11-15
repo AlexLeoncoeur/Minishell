@@ -16,8 +16,6 @@ void	ft_pwd(t_data *data)
 {
 	char	*path;
 
-	if (data)
-		data = NULL;
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
