@@ -64,15 +64,15 @@ static char	*get_string(t_data *data)
 	else
 	{
 		string = ft_join_and_free(aux, pwd);
-		aux = ft_join_and_free(string, "$ ");
+		aux = ft_join_and_free(string, DEFAULT"$ ");
 		return (aux);
 	}
 	if (ft_strcmp(home, pwd))
-		return (ft_join_and_free(aux, "$ "));
+		return (ft_join_and_free(aux, DEFAULT"$ "));
 	else
 	{
 		string = ft_join_and_free(aux, pwd + ft_strlen(home));
-		return (ft_join_and_free(string, "$ "));
+		return (ft_join_and_free(string, DEFAULT"$ "));
 	}
 }
 

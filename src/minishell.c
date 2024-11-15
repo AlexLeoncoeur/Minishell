@@ -32,20 +32,23 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	ft_init(&data, envp);
 	(void)argc;
 	(void)argv;
-	ft_init(&data, envp);
 	while (data.error == 0)
 	{
 		if (ft_read_string(&data))
 		{
-			data.cmd = ft_parser(&data);
-			if (data.cmd)
-			{
-				ft_set_flag(1);
-				ft_executer(&data);
-				ft_delete_heredoc();
-				ft_clean_cmd(&data);
+			if (*data.input)
+			{	
+				data.cmd = ft_parser(&data);
+				if (data.cmd)
+				{
+					ft_set_flag(1);
+					ft_executer(&data);
+					ft_delete_heredoc();
+					ft_clean_cmd(&data);
+				}
 			}
 		}
 		ft_set_flag(0);
