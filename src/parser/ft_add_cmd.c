@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/19 10:47:54 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:01:01 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ static t_redir	*add_redir(char **argv)
 		aux = ft_custom_strtrim(*argv, " ");
 		if (ft_strnstr(aux, ">>", 2))
 			redirs = add_back(redirs, new_redir(OUTPUT_APPEND,
-						ft_custom_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[1], " ")));
 		else if (ft_strnstr(aux, "<<", 2))
 			redirs = add_back(redirs, new_redir(HEREDOC,
-						ft_custom_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[1], " ")));
 		else if (ft_strnstr(aux, "<", 1))
 			redirs = add_back(redirs, new_redir(INPUT_REDIRECT,
-						ft_custom_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[1], " ")));
 		else if (ft_strnstr(aux, ">", 1))
 			redirs = add_back(redirs, new_redir(OUTPUT_REDIRECT,
-						ft_custom_strtrim(argv[0], " ")));
+						ft_custom_strtrim(argv[1], " ")));
 		argv++;
 		free(aux);
 	}
