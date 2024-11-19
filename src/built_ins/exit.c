@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 12:51:14 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:51:15 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exit(char **argv, t_data *data)
 	error = 0;
 	while (error % 256)
 		error /= 256;
-	if (!argv[0] && data)
+	if (!argv && data)
 		error = data->error;
 	else if (argv[0] && ft_isdigit(*argv[0]) == 0)
 		ft_write_exit_error(2);
