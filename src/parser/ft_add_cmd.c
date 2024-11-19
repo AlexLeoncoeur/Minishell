@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/12 13:13:27 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:47:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,11 @@ void	ft_add_cmd(t_data *data, t_cmd *cmd, char **argv)
 		return ;
 	if (cmd->argv != NULL)
 	{
-		while (cmd->next)
-			cmd = cmd->next;
-		cmd = ft_new_cmd();
+		cmd->next = ft_new_cmd();
+		cmd = cmd->next;
 	}
 	cmd->data = data;
 	cmd->argv = get_argv(argv);
 	cmd->path = ft_custom_strtrim(argv[0], " ");
 	cmd->redir = add_redir(argv);
-	cmd->data->cmd = cmd;
 }

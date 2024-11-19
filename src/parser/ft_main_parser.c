@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/12 13:14:09 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:49:49 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cmd	*ft_parser(t_data *data)
 		ft_dequote(argv);
 		ft_add_cmd(data, cmd, argv);
 		ft_clean_array(argv);
+		data->cmd = cmd;
 		i++;
 	}
 	ft_clean_array(pipes);

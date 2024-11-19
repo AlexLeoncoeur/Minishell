@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/12 11:04:01 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:14:43 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static char	*ft_join_and_free(char *s1, char *s2)
 	char	*tmp;
 
 	tmp = ft_strjoin(s1, s2);
-	//Puede ser necesario cambiar tmp por s1
 	return (tmp);
 }
 
