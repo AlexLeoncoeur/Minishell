@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 15:27:34 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:02:24 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	(void)path;
 }
 
-void	ft_do_cmd(t_data *lst)
+int	ft_do_cmd(t_data *lst)
 {
 	int		pipefd[2];
 	int		child;
@@ -104,16 +104,19 @@ void	ft_do_cmd(t_data *lst)
 		{
 			lst->error = 1;
 			perror("Error");
-			exit(1);
 		}
 		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
+		if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
+			dup2(pipefd[0], STDIN_FILENO);
 		aux = aux->next;
 	}
+	return (pipefd[0]);
 }
 
 int	ft_executer(t_data *data)
 {
+	int	fd;
+
 	if (data->cmd && !data->cmd->next)
 	{
 		if (data->cmd->redir)
@@ -124,16 +127,16 @@ int	ft_executer(t_data *data)
 	{
 		ft_check_redirs(data->cmd);
 		ft_do_last_cmd(data->cmd, &data->builtin_done);
-		usleep(100);
 	}
 	else if (data->cmd && data->cmd->next)
 	{
-		ft_do_cmd(data);
+		fd = ft_do_cmd(data);
 		dup2(1, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir)
 			ft_check_redirs(ft_lstlast_cmd(data->cmd));
 		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
-		usleep(100);
+		close(fd);
+		dup2(0, STDIN_FILENO);
 	}
 	usleep(100);
 	return (0);

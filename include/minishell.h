@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 10:44:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:42:49 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_data
  * @return char* 
  */
 //char		*ft_pathfinder(t_data *lst, int pos);
-void		ft_do_cmd(t_data *lst);
+int			ft_do_cmd(t_data *lst);
 int			ft_executer(t_data *data);
 char		*ft_pathfinder(t_data *lst, char *command);
 
