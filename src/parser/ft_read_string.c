@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/19 10:14:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:56:44 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ int	ft_read_string(t_data *data)
 	char	*string;
 	char	*aux;
 
-	string = get_string(data);
 	if (data->input)
 	{
 		free(data->input);
 		data->input = NULL;
 	}
+	string = get_string(data);
 	aux = readline(string);
-	if (!aux)
+	while (!aux)
 	{
 		printf("\n");
 		ft_exit(NULL, data);
