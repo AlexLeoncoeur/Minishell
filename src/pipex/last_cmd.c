@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 17:49:53 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:28:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 				exit(1);
 			}
 		}
+		exit(0); //Liberar memoria
 	}
 	if (waitpid(-1, NULL, 0) == -1)
 		perror("Error");

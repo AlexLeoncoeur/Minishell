@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 18:02:24 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:27:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 			exit(1);
 		}
 	}
+	exit(0);
 	(void)path;
 }
 
@@ -139,6 +140,7 @@ int	ft_executer(t_data *data)
 		dup2(0, STDIN_FILENO);
 	}
 	usleep(100);
+	printf("pipo\n");
 	return (0);
 }
 

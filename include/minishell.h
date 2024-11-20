@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 17:42:49 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:09:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <signal.h>
 
 # define INPUT_REDIRECT 	1
 # define OUTPUT_REDIRECT	2
