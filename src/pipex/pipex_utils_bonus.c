@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/08 12:44:45 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:42:01 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ft_check_redirs(t_cmd *cmd)
 {
 	if (!cmd->redir)
 		return ;
-	if (cmd->redir->type == INPUT_REDIRECT)
+	if (cmd->redir->type == INPUT_REDIRECT
+		|| cmd->redir->type == HEREDOC)
 		ft_in_redir(cmd->data, cmd->redir);
 	else if (cmd->redir->type == OUTPUT_REDIRECT
 		|| cmd->redir->type == OUTPUT_APPEND)

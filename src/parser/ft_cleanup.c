@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/07 11:56:54 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:23:48 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_clean_cmd(t_data *data)
 		{
 			raux = aux->redir;
 			aux->redir = aux->redir->next;
-			free(raux->file);
+			if (raux->type != HEREDOC)
+				free(raux->file);
 			free(raux);
 		}
 		free(aux);

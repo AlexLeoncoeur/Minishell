@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/19 10:49:49 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:33:14 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ t_cmd	*ft_parser(t_data *data)
 	t_cmd	*cmd;
 
 	i = 0;
-	if (!ft_isalpha(*data->input) && *data->input != '.'
-		&& *data->input != '/'
-		&& *data->input != '"' && *data->input != '\'')
+	if (!ft_isalpha(*data->input) && *data->input != '.' && *data->input != '/'
+		&& *data->input != '"' && *data->input != '\'' && *data->input != '<')
 		return (NULL);
 	pipes = ft_pipesplit(data->input);
 	cmd = ft_new_cmd();

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/19 12:01:01 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:05:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ static t_redir	*new_redir(int type, char *file)
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->file = file;
 	redir->type = type;
+	if (redir->type == HEREDOC)
+		redir->file = (".heredoc_tmp");
+	else
+		redir->file = file;
 	redir->next = NULL;
 	return (redir);
 }
@@ -75,9 +78,7 @@ static char	**get_argv(char **argv)
 	char	**aux;
 
 	i = 0;
-	while (argv[i] && !ft_strnstr(argv[i], ">>", 2)
-		&& !ft_strnstr(argv[i], "<<", 2) && !ft_strnstr(argv[i], "<", 1)
-		&& !ft_strnstr(argv[i], ">", 1))
+	while (argv[i])
 		i++;
 	aux = malloc(sizeof(char **) * (i + 1));
 	if (!aux)
