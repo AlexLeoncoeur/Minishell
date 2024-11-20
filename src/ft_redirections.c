@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:36:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/20 13:07:20 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:21:15 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_out_redir(t_redir *redir)
 		if (fd < 1)
 			return (perror("open"));
 		redir->redirfd = fd;
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDIN_FILENO);
 	}
 	if (redir->type == OUTPUT_APPEND)
 	{
@@ -46,6 +46,6 @@ void	ft_out_redir(t_redir *redir)
 		if (fd < 1)
 			return (perror("open"));
 		redir->redirfd = fd;
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDIN_FILENO);
 	}
 }
