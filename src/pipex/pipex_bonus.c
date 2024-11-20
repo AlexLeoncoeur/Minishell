@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:27:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:30:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 
 	i = 0;
 	if (ft_strncmp(command, "./", 2) == 0)
-		return (command);
+		return (&command[2]); //join de pwd y command para la ruta absoluta
 	while (ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (lst->envp[i] == NULL)
@@ -123,11 +123,10 @@ int	ft_executer(t_data *data)
 		if (data->cmd->redir)
 			ft_check_redirs(data->cmd);
 		ft_check_built_ins(data->cmd, &data->builtin_done);
-	}
-	if (data->cmd && !data->cmd->next && data->builtin_done == 1)
-	{
-		ft_check_redirs(data->cmd);
-		ft_do_last_cmd(data->cmd, &data->builtin_done);
+		if (data->builtin_done == 1)
+			ft_do_last_cmd(data->cmd, &data->builtin_done);
+		if (data->cmd->redir)
+			close(data->cmd->redir->redirfd);
 	}
 	else if (data->cmd && data->cmd->next)
 	{
@@ -140,7 +139,6 @@ int	ft_executer(t_data *data)
 		dup2(0, STDIN_FILENO);
 	}
 	usleep(100);
-	printf("pipo\n");
 	return (0);
 }
 

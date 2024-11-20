@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:09:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:16:54 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_env		t_env;
 typedef struct s_redir
 {
 	int				type;
+	int				redirfd;
 	char			*file;
 	struct s_redir	*next;
 }	t_redir;
