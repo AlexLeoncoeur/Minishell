@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/20 13:06:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 10:57:31 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,9 @@ int	ft_do_cmd(t_data *lst)
 int	ft_executer(t_data *data)
 {
 	int	fd;
+	int	stdfd;
 
+	stdfd = dup(STDIN_FILENO);
 	if (data->cmd && !data->cmd->next)
 	{
 		if (data->cmd->redir)
@@ -131,15 +133,12 @@ int	ft_executer(t_data *data)
 	else if (data->cmd && data->cmd->next)
 	{
 		fd = ft_do_cmd(data);
-		dup2(1, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir)
 			ft_check_redirs(ft_lstlast_cmd(data->cmd));
 		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
 		close(fd);
-		dup2(0, STDIN_FILENO);
 	}
-	usleep(100);
-	return (0);
+	return (dup2(stdfd, STDIN_FILENO), 0);
 }
 
 /*testing*/
