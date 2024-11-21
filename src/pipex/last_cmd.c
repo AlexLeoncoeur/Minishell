@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 11:07:24 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:54:33 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 			{
 				perror("minishell: executer");
 				lst->data->error = errno;
-				free(lst->path);
-				ft_free(lst->argv);
+				ft_clean_cmd(lst->data);
 				exit(1);
 			}
 		}
-		exit(0); //Liberar memoria
+		ft_clean_cmd(lst->data);
+		exit(0);
 	}
 	if (waitpid(-1, NULL, 0) == -1)
 		perror("Error");
