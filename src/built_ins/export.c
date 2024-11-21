@@ -6,11 +6,19 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/15 17:15:55 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:02:21 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	ft_free_search(char *name, char *value)
+{
+	if (name)
+		free(name);
+	if (value)
+		free(value);
+}
 
 static int	ft_search(t_env **lst, char *str)
 {
@@ -34,11 +42,11 @@ static int	ft_search(t_env **lst, char *str)
 			free(node->value);
 			node->value = NULL;
 			node->value = value;
-			return (0);
+			return (free(name), 0);
 		}
 		node = node->next;
 	}
-	return (1);
+	return (ft_free_search(name, value), 1);
 }
 
 t_env	*ft_add_to_env(char *str, t_env *lst)

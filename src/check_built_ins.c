@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 11:57:26 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:14:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_check_built_ins(t_cmd *cmd, int *builtin_done)
 	if (ft_strncmp(cmd->path, "env\0", 4) == 0)
 		ft_env(cmd->data->env, &cmd->data->error);
 	else if (ft_strncmp(cmd->path, "exit\0", 5) == 0)
-		ft_exit(&cmd->argv[1], NULL);
+		ft_exit(&cmd->argv[1], cmd->data);
 	else if (ft_strncmp(cmd->path, "echo\0", 5) == 0)
 		ft_echo(&cmd->argv[1], &cmd->data->error);
 	else if (ft_strncmp(cmd->path, "pwd\0", 4) == 0)

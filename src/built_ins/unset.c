@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:10:33 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/10/20 14:00:47 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:25:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_delete_node(t_env *prev_node)
+void	ft_delete_node(t_env *prev_node)
 {
 	t_env	*node_to_delete;
 

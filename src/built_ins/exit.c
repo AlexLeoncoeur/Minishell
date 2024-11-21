@@ -6,11 +6,24 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/19 11:51:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:46:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	ft_free_env(t_env *env)
+{
+	while (env->next)
+		ft_delete_node(env);
+	if (env->name)
+		free(env->name);
+	if (env->value)
+		free(env->value);
+	env->name = NULL;
+	env->value = NULL;
+	free(env);
+}
 
 static void	ft_write_exit_error(int error)
 {
@@ -35,11 +48,8 @@ void	ft_exit(char **argv, t_data *data)
 		ft_write_exit_error(1);
 	else if (argv[0] && ft_isdigit(*argv[0]) == 1)
 		error = ft_atoi(argv[0]);
+	ft_free_env(data->env);
+	ft_free_env(data->env_export);
+	ft_clean_cmd(data);
 	exit(error);
 }
-//hay que inicializar data->error a 0. Quizas al iniciar error en esta
-//	funcion no pase nada realmente.
-//Antes de poder ejecutar esta funcion hay que limpiar todo lo que hayamos
-//	estado usando: t_cmd_list->cmd(de toda la lista), t_data->cmd, cerrar fd.
-//Como deberiamos manejar un exit durante la ejecucion de un hijo. Ignorar si
-//	exit no es el unico comando recibido.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 12:29:22 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:25:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ t_env		*ft_add_to_env(char *str, t_env *lst);
 /* ------------------------ built-ins/unset ------------------------ */
 
 void		ft_unset(t_env **lst, char *name);
+void		ft_delete_node(t_env *prev_node);
 
 /* ------------------------ built-ins/cd ------------------------ */
 

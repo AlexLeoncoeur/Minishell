@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 14:53:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:12:18 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,11 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 		{
 			perror("minishell: executer");
 			cmd->data->error = errno;
-			free(cmd->path);
-			ft_free(cmd->argv);
-			exit(1);
+			free(path);
+			ft_exit(NULL, cmd->data);
 		}
 	}
-	exit(0);
+	ft_exit(NULL, cmd->data);
 	(void)path;
 }
 
