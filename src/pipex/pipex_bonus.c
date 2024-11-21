@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 11:06:54 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:18:19 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ int	ft_executer(t_data *data)
 		ft_check_built_ins(data->cmd, &data->builtin_done);
 		if (data->builtin_done == 1)
 			ft_do_last_cmd(data->cmd, &data->builtin_done);
-		if (data->cmd->redir)
-			close(data->cmd->redir->redirfd);
 	}
 	else if (data->cmd && data->cmd->next)
 	{
