@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:28:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:07:24 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 		if (*builtin_done == 1)
 		{
 			path = ft_pathfinder(lst->data, lst->path);
-			if (execve(path, lst->argv, NULL) < 0)
+			if (execve(path, lst->argv, lst->data->envp) < 0)
 			{
 				perror("minishell: executer");
 				lst->data->error = errno;
