@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 12:54:45 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:53:46 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,11 @@ int	ft_do_cmd(t_data *lst)
 int	ft_executer(t_data *data)
 {
 	int	fd;
-	int	stdfd;
+	int	std_in_fd;
+	int	std_out_fd;
 
-	stdfd = dup(STDIN_FILENO);
+	std_in_fd = dup(STDIN_FILENO);
+	std_out_fd = dup(STDOUT_FILENO);
 	if (data->cmd && !data->cmd->next)
 	{
 		if (data->cmd->redir)
@@ -131,12 +133,14 @@ int	ft_executer(t_data *data)
 	else if (data->cmd && data->cmd->next)
 	{
 		fd = ft_do_cmd(data);
+		dup2(std_out_fd, STDOUT_FILENO);
 		if (ft_lstlast_cmd(data->cmd)->redir)
 			ft_check_redirs(ft_lstlast_cmd(data->cmd));
 		ft_do_last_cmd(ft_lstlast_cmd(data->cmd), &data->builtin_done);
 		close(fd);
 	}
-	return (dup2(stdfd, STDIN_FILENO), 0);
+	dup2(std_out_fd, STDOUT_FILENO);
+	return (dup2(std_in_fd, STDIN_FILENO), 0);
 }
 
 /*testing*/
