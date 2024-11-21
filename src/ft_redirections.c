@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:36:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/21 11:12:27 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:29:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	ft_out_redir(t_redir *redir)
 		fd = open(redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd < 1)
 			return (perror("open"));
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, STDOUT_FILENO);
 	}
 	if (redir->type == OUTPUT_APPEND)
 	{
 		fd = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 1)
 			return (perror("open"));
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, STDOUT_FILENO);
 	}
 }

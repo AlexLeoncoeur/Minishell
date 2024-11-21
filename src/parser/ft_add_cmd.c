@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/20 11:05:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:05:18 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static char	**get_argv(char **argv)
 	char	**aux;
 
 	i = 0;
+	j = 0;
 	while (argv[i])
 		i++;
 	aux = malloc(sizeof(char **) * (i + 1));

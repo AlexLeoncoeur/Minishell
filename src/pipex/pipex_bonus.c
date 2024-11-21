@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 11:53:10 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:35:42 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int	ft_do_cmd(t_data *lst)
 			perror("Error");
 		}
 		close(pipefd[1]);
-		if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
-			dup2(pipefd[0], STDIN_FILENO);
+		dup2(pipefd[0], STDIN_FILENO);
+		//if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
 		aux = aux->next;
 	}
 	return (pipefd[0]);

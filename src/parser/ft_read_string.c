@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/20 12:56:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:46:08 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ static char	*get_string(t_data *data)
 		return (ft_strdup("minishell$ "));
 	aux = ft_get_env(data, "USER")->value;
 	string = ft_join_and_free(aux, ":");
-	if (ft_strncmp(home, pwd, ft_strlen(home)) == 0)
-		aux = ft_join_and_free(aux, "~");
+	if (!ft_strncmp(home, pwd, ft_strlen(home)))
+		aux = ft_join_and_free(string, "~");
 	else
 	{
 		string = ft_join_and_free(aux, pwd);
 		aux = ft_join_and_free(string, DEFAULT"$ ");
 		return (aux);
 	}
-	if (ft_strcmp(home, pwd))
+	if (!ft_strcmp(home, pwd))
 		return (ft_join_and_free(aux, DEFAULT"$ "));
 	else
 	{
