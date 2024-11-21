@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 12:35:42 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:54:45 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int	ft_do_cmd(t_data *lst)
 			perror("Error");
 		}
 		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		//if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
+		if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
+			dup2(pipefd[0], STDIN_FILENO);
 		aux = aux->next;
 	}
 	return (pipefd[0]);
