@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 10:57:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:54:17 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	shell_lvl(t_data *data)
 	free(lvl);
 	free(aux);
 	free(str);
-	ft_cd(data, NULL);
 }
 
 static void	update_name(t_data *data)
