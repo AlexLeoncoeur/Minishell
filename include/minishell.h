@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 17:25:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:28:19 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,5 +322,12 @@ void		ft_set_flag(int i);
  * Copied my own bc Alex's kept exploding on me
  */
 char		*ft_custom_strtrim(char const *s1, char const *set);
+
+/**
+ * @brief Needed for removing redirs from argv after checking if the exist
+ * 
+ * @param argv 
+ */
+void		ft_remove_redirs(char **argv);
 
 #endif
