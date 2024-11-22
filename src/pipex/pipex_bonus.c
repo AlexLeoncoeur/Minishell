@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 17:12:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:38:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 		if (execve(path, cmd->argv, cmd->data->envp) < 0)
 		{
 			perror("minishell: executer");
-			cmd->data->error = errno;
 			free(path);
 			ft_exit(NULL, cmd->data);
 		}
@@ -100,11 +99,7 @@ int	ft_do_cmd(t_data *lst)
 			perror("Error");
 		else if (child == 0)
 			ft_execute_cmd(aux, pipefd, &lst->builtin_done);
-		if (waitpid(-1, NULL, 0) == -1)
-		{
-			lst->error = 1;
-			perror("Error");
-		}
+		ft_waitpid(&lst->error);
 		close(pipefd[1]);
 		if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
 			dup2(pipefd[0], STDIN_FILENO);

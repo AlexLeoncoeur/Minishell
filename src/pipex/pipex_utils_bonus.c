@@ -6,11 +6,27 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 17:10:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:30:49 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_waitpid(int *error)
+{
+	int	status;
+	int	out_status;
+
+	out_status = 0;
+	wait(&status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+		out_status = WEXITSTATUS(status);
+	else if (WIFEXITED(status) && WIFSIGNALED(status != 0))
+		out_status = WTERMSIG(status);
+	else
+		out_status = 0;
+	*error = out_status;
+}
 
 void	ft_check_redirs(t_cmd *cmd)
 {

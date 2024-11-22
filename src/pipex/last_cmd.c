@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 17:12:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:36:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 			if (execve(path, lst->argv, lst->data->envp) < 0)
 			{
 				perror("minishell: executer");
-				lst->data->error = errno;
 				ft_exit(NULL, lst->data);
 			}
 		}
 		ft_exit(NULL, lst->data);
 	}
-	if (waitpid(-1, NULL, 0) == -1)
-		perror("Error");
+	ft_waitpid(&lst->data->error);
 }

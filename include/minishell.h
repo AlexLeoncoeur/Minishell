@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 16:49:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:34:50 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_pathfinder(t_data *lst, char *command);
 
 /* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
-//t_data	*ft_define_lst(int argc, char **argv, char **envp);
+void		ft_waitpid(int *error);
 void		ft_freeanderror(t_data *lst);
 void		ft_check_redirs(t_cmd *cmd);
 void		ft_puterrorstr(char *str);
