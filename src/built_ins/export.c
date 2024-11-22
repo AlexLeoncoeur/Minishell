@@ -6,11 +6,25 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/21 18:02:21 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:01:56 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+const char	*ft_search(t_env **lst, char *name)
+{
+	t_env	*node;
+
+	node = *lst;
+	while (node)
+	{
+		if (ft_strncmp(node->name, name, ft_strlen(node->name)) == 0)
+			return (node->value);
+		node = node->next;
+	}
+	return (NULL);
+}
 
 static void	ft_free_search(char *name, char *value)
 {
@@ -20,7 +34,7 @@ static void	ft_free_search(char *name, char *value)
 		free(value);
 }
 
-static int	ft_search(t_env **lst, char *str)
+static int	ft_search_replace(t_env **lst, char *str)
 {
 	t_env	*node;
 	char	*name;
@@ -78,10 +92,11 @@ void	ft_export(char *str, t_data *data)
 	if (str && ft_isdigit(str[0]) == 1)
 		return (printf("minishell: export: `%s`: not a valid identifier\n",
 				str), data->error = 1, (void)0);
-	if (str && ft_isdigit(str[0]) == 0 && ft_search(&data->env, str) == 1)
+	if (str && ft_isdigit(str[0]) == 0
+		&& ft_search_replace(&data->env, str) == 1)
 		data->env = ft_add_to_env(str, data->env);
 	if (str && ft_isdigit(str[0]) == 0
-		&& ft_search(&data->env_export, str) == 1)
+		&& ft_search_replace(&data->env_export, str) == 1)
 		data->env_export = ft_add_to_env(str, data->env_export);
 	if (!str)
 		data->env_export = ft_sort(data->env_export);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 13:28:19 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 16:49:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void		ft_env(t_env *env, int *error);
 
 /* ------------------------ built-ins/export ------------------------ */
 
+const char	*ft_search(t_env **lst, char *name);
 void		ft_export(char *str, t_data *data);
 t_env		*ft_add_to_env(char *str, t_env *lst);
 
@@ -151,9 +152,7 @@ int			ft_tenv_lstsize(t_env *lst);
 /* ---------------------- finish.c ---------------------- */
 
 void		ft_free_data(t_data *data);
-
 void		ft_in_redir(t_data *data, t_redir *redir);
-
 void		ft_out_redir(t_redir *redir);
 
 /* ---------------------- Parser/Lexer ---------------------- */
