@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/20 12:34:37 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:18:00 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//void	ft_void(void)
-//{
-//	system("leaks -q minishell");
-//}
+// void	ft_void(void)
+// {
+// 	system("leaks -q minishell");
+// }
 
 static void	ft_delete_heredoc(void)
 {

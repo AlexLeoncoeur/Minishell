@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/12 12:31:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:46:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static char	*str_replace_env(t_data *data, char *str)
 				str_new = ft_itoa(data->error);
 				break ;
 			}
-		aux = ft_substr(&str[i + 1], 0, ft_env_name_len(&str[i + 1]));
-		str_new = multi_join(ft_get_env(data, aux), str, i);
-		free(aux);
-		break ;
+			aux = ft_substr(&str[i + 1], 0, ft_env_name_len(&str[i + 1]));
+			str_new = multi_join(ft_get_env(data, aux), str, i);
+			free(aux);
+			break ;
 		}
 	}
 	return (free(str), str_new);

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:44:06 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 14:43:07 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:57:37 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 	aux[i + j] = '\0';
 	return (aux);
 }
-	//free(s1)
 
 /* #include <stdio.h>
 

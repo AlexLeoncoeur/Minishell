@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/21 11:38:04 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:57:46 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,24 @@ t_cmd	*ft_parser(t_data *data)
 	int		i;
 	t_cmd	*cmd;
 
-	i = 0;
+	i = -1;
 	if (!ft_isalpha(*data->input) && *data->input != '.' && *data->input != '/'
 		&& *data->input != '"' && *data->input != '\'' && *data->input != '<')
 		return (NULL);
 	pipes = ft_pipesplit(data->input);
+	if (!pipes)
+		return (NULL);
 	cmd = ft_new_cmd();
-	while (pipes[i])
+	while (pipes[++i])
 	{
 		argv = ft_minisplit(pipes[i]);
+		if (!argv)
+			return (NULL);
 		ft_parse_env(data, argv);
 		ft_dequote(argv);
 		ft_add_cmd(data, cmd, argv);
 		ft_clean_array(argv);
 		data->cmd = cmd;
-		i++;
 	}
-	ft_clean_array(pipes);
-	return (cmd);
+	return (ft_clean_array(pipes), cmd);
 }

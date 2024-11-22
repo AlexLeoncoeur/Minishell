@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/21 11:43:56 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:40:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	**ft_minisplit(char *str)
 	int		args;
 
 	args = count_args(str);
+	if (!args)
+		return (NULL);
 	res = malloc(sizeof(char *) * args + 1);
 	if (!res)
 		return (NULL);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipesplit.c                                     :+:      :+:    :+:   */
+/*   ft_split_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:39:43 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/06 10:57:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:56:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static int	count_args(char *str)
 			i++;
 		if (quote == str[i])
 			quote = 0;
-		if (str[i] == '|')
+		if (str[i] == '|' && str[i + 1])
 			args++;
+		else if (str[i] == '|' && !str[i + 1])
+			return (0);
 		if (str[i])
 			i++;
 	}
@@ -67,9 +69,9 @@ char	**ft_pipesplit(char *str)
 	int		args;
 
 	args = count_args(str);
-	result = malloc(sizeof(char *) * (args + 1));
-	if (!result)
+	if (!args)
 		return (NULL);
+	result = malloc(sizeof(char *) * (args + 1));
 	result[args] = 0;
 	i = 0;
 	while (*str)

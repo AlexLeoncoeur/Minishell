@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/21 17:49:47 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:16:12 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char	*ft_join_and_free(char *s1, char *s2)
 	char	*tmp;
 
 	tmp = ft_strjoin(s1, s2);
+	if (s1)
+		free(s1);
 	return (tmp);
 }
 
@@ -57,7 +59,7 @@ static char	*get_string(t_data *data)
 	if (!ft_check_env(data, &home, &pwd))
 		return (ft_strdup("minishell$ "));
 	aux = ft_get_env(data, "USER")->value;
-	string = ft_join_and_free(aux, ":");
+	string = ft_strjoin(aux, ":");
 	if (!ft_strncmp(home, pwd, ft_strlen(home)))
 		aux = ft_join_and_free(string, "~");
 	else
@@ -95,10 +97,10 @@ int	ft_read_string(t_data *data)
 	}
 	data->input = ft_custom_strtrim(aux, " \t");
 	free(aux);
+	free(string);
 	if (!data->input)
 		return (0);
 	else if (*(data->input))
 		add_history(data->input);
-	free(string);
 	return (1);
 }
