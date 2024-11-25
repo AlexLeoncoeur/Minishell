@@ -64,13 +64,12 @@ all: libft $(NAME)
 $(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 	@ echo
 	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
-	@ echo "$(YELLOW)Compilation finished!$(RESET)"
+	@ echo "$(YELLOW)COMPILATION FINISHED!$(RESET)"
 
-debug: libft all
-	@ echo "$(MAGENTA)DEBUG MODE:\n Compiling project: $(RESET)" $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
+debug: all
 	@ echo
 	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g -fsanitize=address
-	@ echo "$(YELLOW)Compilation finished!$(RESET)"
+	@ echo "$(RED)DEBUG MODE ACTIVATED!$(RESET)"
 
 libft:
 	@ make --silent -C include/libft/ bonus
@@ -82,11 +81,11 @@ $(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
 #---------- CLEAN ----------#
 
 clean:
-	@ echo "$(RED)Cleaning Project ... $(RESET)"
+	@ echo "$(RED)CLEANING PROJECT ... $(RESET)"
 	@ rm -f $(OFILES) $(ORDER_OFILES) $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
 	@ rm -rf $(OBJ_DIR)order_cmd/ $(OBJ_DIR) $(BONUS_OBJ_DIR)order_cmd/ $(BONUS_OBJ_DIR)
 	@ make --silent -C "include/libft/" fclean
-	@ echo "$(YELLOW)Project Cleaned!\n $(RESET)"
+	@ echo "$(YELLOW)PROJECT CLEANED!\n $(RESET)"
 
 fclean: clean
 	@ rm -f $(NAME) $(BONUS_NAME)
@@ -94,6 +93,6 @@ fclean: clean
 re: fclean all
 
 compiling:
-	@ echo "$(MAGENTA)Compiling Project: $(RESET)"
+	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"
 
 .PHONY: all clean fclean re bonus compiling debug
