@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 17:01:56 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:12:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_search_replace(t_env **lst, char *str)
 	node = *lst;
 	while (node)
 	{
-		if (ft_strncmp(node->name, name, ft_strlen(node->name)) == 0)
+		if (ft_strncmp(node->name, name, ft_strlen(node->name) + 1) == 0)
 		{
 			free(node->value);
 			node->value = NULL;

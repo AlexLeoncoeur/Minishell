@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/25 11:45:34 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:04:33 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 
 	i = 0;
 	if (ft_strncmp(command, "./", 2) == 0)
-		return (&command[2]); //join de pwd y command para la ruta absoluta
+		return (&command[2]);
 	while (ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (lst->envp[i] == NULL)
