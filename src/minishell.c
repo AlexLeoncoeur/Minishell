@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 11:18:00 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:00:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_set_flag(0);
 	}
-	return (free(data.input), 0);
+	return (free(data.input), data.error);
 }

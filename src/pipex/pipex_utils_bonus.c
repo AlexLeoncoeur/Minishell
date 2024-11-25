@@ -6,13 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 17:30:49 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:57:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_waitpid(int *error)
+void	ft_wait(int *error)
 {
 	int	status;
 	int	out_status;
@@ -21,7 +21,7 @@ void	ft_waitpid(int *error)
 	wait(&status);
 	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 		out_status = WEXITSTATUS(status);
-	else if (WIFEXITED(status) && WIFSIGNALED(status != 0))
+	else if (WIFEXITED(status) && WIFSIGNALED(status) != 0)
 		out_status = WTERMSIG(status);
 	else
 		out_status = 0;

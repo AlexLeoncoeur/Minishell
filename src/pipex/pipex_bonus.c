@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 17:38:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:45:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_do_cmd(t_data *lst)
 			perror("Error");
 		else if (child == 0)
 			ft_execute_cmd(aux, pipefd, &lst->builtin_done);
-		ft_waitpid(&lst->error);
+		ft_wait(&lst->error);
 		close(pipefd[1]);
 		if (!aux->next->redir || aux->next->redir->type != INPUT_REDIRECT)
 			dup2(pipefd[0], STDIN_FILENO);

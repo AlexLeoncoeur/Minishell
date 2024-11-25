@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:08:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 17:36:57 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:44:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,5 @@ void	ft_exit(char **argv, t_data *data)
 	ft_free_env(data->env);
 	ft_free_env(data->env_export);
 	ft_clean_cmd(data);
-	printf("%d\n", data->error);
-	printf("%d\n", error);
 	exit(error);
 }
