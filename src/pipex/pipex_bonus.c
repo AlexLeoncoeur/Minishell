@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/25 15:04:33 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:23:22 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	free(path);
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
-		return (lst->error = 127, NULL);
+	{
+		printf("minishell: executer: command not found\n");
+		lst->error = 127;
+		ft_exit(NULL, lst);
+	}
 	return (path);
 }
 
