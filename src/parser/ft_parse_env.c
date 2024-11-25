@@ -54,7 +54,7 @@ char	*ft_str_replace_env(t_data *data, char *str)
 	char	quote;
 	int		i;
 
-	if (!*str)
+	if (!str)
 		return (NULL);
 	i = -1;
 	str_new = 0;
@@ -70,6 +70,8 @@ char	*ft_str_replace_env(t_data *data, char *str)
 			break ;
 		}
 	}
+	if (!str_new)
+		return (str);
 	free(str);
 	return (str_new);
 }
