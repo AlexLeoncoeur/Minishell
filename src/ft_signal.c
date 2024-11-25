@@ -14,6 +14,12 @@
 
 static int	g_signal_flag = 0;
 
+static void handler_quit(int signal)
+{
+	(void) signal;
+	ft_set_flag(2);
+}
+
 static void	handler_int(int signal)
 {
 	(void) signal;
@@ -32,5 +38,5 @@ void	ft_set_flag(int i)
 void	ft_init_signals(void)
 {
 	signal(SIGINT, handler_int);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, handler_quit);
 }

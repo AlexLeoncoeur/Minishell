@@ -20,10 +20,7 @@ static t_redir	*new_redir(int type, char *file)
 	if (!redir)
 		return (NULL);
 	redir->type = type;
-	if (redir->type == HEREDOC)
-		redir->file = (".heredoc_tmp");
-	else
-		redir->file = file;
+	redir->file = file;
 	redir->next = NULL;
 	return (redir);
 }
@@ -79,7 +76,9 @@ static char	**get_argv(char **argv)
 
 	i = 0;
 	j = 0;
-	while (argv[i])
+	while (argv[i] && ft_strncmp(argv[i], "<<", 2)
+		&& ft_strncmp(argv[i], ">>", 2) && ft_strncmp(argv[i], "<", 1)
+		&& ft_strncmp(argv[i], ">", 1))
 		i++;
 	aux = malloc(sizeof(char **) * (i + 1));
 	if (!aux)
@@ -107,5 +106,4 @@ void	ft_add_cmd(t_data *data, t_cmd *cmd, char **argv)
 	cmd->argv = get_argv(argv);
 	cmd->path = ft_custom_strtrim(argv[0], " ");
 	cmd->redir = add_redir(argv);
-	ft_remove_redirs(cmd->argv);
 }

@@ -36,17 +36,17 @@ t_cmd	*ft_parser(t_data *data)
 
 	i = -1;
 	if (!ft_isalpha(*data->input) && *data->input != '.' && *data->input != '/'
-		&& *data->input != '"' && *data->input != '\'' && *data->input != '<')
-		return (NULL);
+		&& *data->input != '"' && *data->input != '\'' && *data->input != '|')
+		return (printf("minishell: parser: bad input\n"), NULL);
 	pipes = ft_pipesplit(data->input);
 	if (!pipes)
-		return (NULL);
+		return (printf("minishell: syntax error\n"), NULL);
 	cmd = ft_new_cmd();
 	while (pipes[++i])
 	{
 		argv = ft_minisplit(pipes[i]);
 		if (!argv)
-			return (NULL);
+			return (printf("minishell: syntax error\n"), NULL);
 		ft_parse_env(data, argv);
 		ft_dequote(argv);
 		ft_add_cmd(data, cmd, argv);

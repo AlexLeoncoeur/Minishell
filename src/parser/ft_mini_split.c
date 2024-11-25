@@ -27,7 +27,8 @@ static int	count_args(char *str)
 			quote = str[i];
 		else if (quote == str[i])
 			quote = 0;
-		if (str[i] != ' ' && !quote)
+		if (str[i] != ' ' && str[i + 1] != '\''
+			&& str[i + 1] != '"' && !quote)
 		{
 			while (str[i] && str[i] != ' ' && str[i] != quote)
 				i++;

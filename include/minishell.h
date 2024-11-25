@@ -323,10 +323,12 @@ void		ft_set_flag(int i);
 char		*ft_custom_strtrim(char const *s1, char const *set);
 
 /**
- * @brief Needed for removing redirs from argv after checking if the exist
+ * @brief Expands enviroment variables
  * 
- * @param argv 
+ * @param data
+ * @param str
+ * @return char *
  */
-void		ft_remove_redirs(char **argv);
+char		*ft_str_replace_env(t_data *data, char *str);
 
 #endif

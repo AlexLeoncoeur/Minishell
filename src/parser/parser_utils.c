@@ -37,50 +37,14 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (aux[i] - tmp[i]);
 }
 
-t_env	*ft_get_env(t_data *data, char *name)
-{
-	t_env	*current;
-
-	current = data->env;
-	if (!current)
-		return ((t_env *)0);
-	while (current->next)
-	{
-		if (!ft_strcmp(name, current->name))
-			return (current);
-		current = current->next;
-	}
-	if (!ft_strcmp(name, current->name))
-		return (current);
-	return ((t_env *)0);
-}
-
 char	ft_check_quote(char c, char quote)
 {
 	if (c == '\'' && !quote)
 		return ('\'');
-	else if (c == '\'')
-		return (0);
 	else if (c == '"' && !quote)
 		return ('"');
-	else if (c == '"')
+	else if (c == quote )
 		return (0);
 	else
 		return (quote);
-}
-
-void	ft_remove_redirs(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i])
-	{
-		if (*argv[i] == '<' || *argv[i] == '>')
-		{
-			argv[i] = 0;
-			break ;
-		}
-		i++;
-	}
 }

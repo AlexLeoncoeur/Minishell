@@ -12,40 +12,47 @@
 
 #include "../include/minishell.h"
 
-// static char	*heredoc_join(char *s1, char *s2, bool free_s1)
-// {
-// 	char	*ret;
-// 	char	*aux;
+static char	*heredoc_join(char *s1, char *s2, bool free_s1)
+{
+	char	*ret;
+	char	*aux;
 
-// 	aux = ft_strjoin(s1, s2);
-// 	ret = ft_strjoin(aux, "\n");
-// 	free(aux);
-// 	free(s2);
-// 	if (free_s1)
-// 		free(s1);
-// 	return (ret);
-// }
+	aux = ft_strjoin(s1, s2);
+	ret = ft_strjoin(aux, "\n");
+	free(aux);
+	free(s2);
+	if (free_s1)
+		free(s1);
+	return (ret);
+}
 
 static void	read_heredoc(t_data *data)
 {
 	int		fd;
-	char	*delim;
 	char	*aux;
 
 	data->heredoc = 0;
-	delim = data->cmd->argv[1];
+	aux = 0;
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 1)
 		return ;
-	aux = readline("> ");
-	while (aux && ft_strcmp(aux, delim) != 0)
+	while (1)
 	{
-		ft_putstr_fd(aux, fd);
-		free(aux);
 		aux = readline("> ");
+		if (!aux || !ft_strcmp(aux, data->cmd->redir->file))
+			break ;
+		if (!data->heredoc)
+			data->heredoc = heredoc_join("", aux, false);
+		else
+			data->heredoc = heredoc_join(data->heredoc, aux, true);
 	}
+	data->heredoc = ft_str_replace_env(data, data->heredoc);
+	ft_putstr_fd(data->heredoc, fd);
 	close(fd);
-	free(aux);
+	data->cmd->redir->type = INPUT_REDIRECT;
+	free(data->cmd->redir->file);
+	data->cmd->redir->file = ft_strdup(".heredoc_tmp");
+	free(data->heredoc);
 }
 
 int	ft_heredoc(t_data *data, t_redir *redir)

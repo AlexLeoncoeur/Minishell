@@ -32,12 +32,16 @@ void	ft_check_redirs(t_cmd *cmd)
 {
 	if (!cmd->redir)
 		return ;
-	if (cmd->redir->type == INPUT_REDIRECT
-		|| cmd->redir->type == HEREDOC)
-		ft_in_redir(cmd->data, cmd->redir);
-	else if (cmd->redir->type == OUTPUT_REDIRECT
-		|| cmd->redir->type == OUTPUT_APPEND)
-		ft_out_redir(cmd->redir);
+	while (cmd->redir)
+	{
+		if (cmd->redir->type == INPUT_REDIRECT
+			|| cmd->redir->type == HEREDOC)
+			ft_in_redir(cmd->data, cmd->redir);
+		else if (cmd->redir->type == OUTPUT_REDIRECT
+			|| cmd->redir->type == OUTPUT_APPEND)
+			ft_out_redir(cmd->redir);
+		cmd->redir = cmd->redir->next;
+	}
 }
 
 void	ft_puterrorstr(char *str)
