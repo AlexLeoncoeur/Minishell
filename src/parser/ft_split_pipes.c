@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:39:43 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/25 12:21:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:29:55 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	**ft_pipesplit(char *str)
 	if (!args)
 		return (NULL);
 	result = malloc(sizeof(char *) * (args + 1));
+	if (!result)
+		return (NULL);
 	result[args] = 0;
 	i = 0;
 	while (*str)

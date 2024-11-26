@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 10:47:09 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:56:15 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_clean_cmd(t_data *data)
 		aux = data->cmd;
 		data->cmd = data->cmd->next;
 		free(aux->path);
-		ft_clean_array(aux->argv);
+		ft_cl_ar(aux->argv);
 		while (aux->redir)
 		{
 			raux = aux->redir;
@@ -35,7 +35,7 @@ void	ft_clean_cmd(t_data *data)
 	}
 }
 
-void	ft_clean_array(char **array)
+void	ft_cl_ar(char **array)
 {
 	int	i;
 

@@ -6,22 +6,44 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 11:44:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:21:10 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// static int	aux_if(char *str, int *i)
+// {
+// 	if ((!ft_strncmp(&str[*i], "<<", 2)
+// 			|| !ft_strncmp(&str[*i], ">>", 2)
+// 			|| !ft_strncmp(&str[*i], "<", 1)
+// 			|| !ft_strncmp(&str[*i], ">", 1))
+// 		&& (ft_isprint(str[*i - 1]) && str[*i - 1] != ' '
+// 			&& str[*i - 1] != '<' && str[*i - 1] != '>'))
+// 		return (1);
+// 	return (0);
+// }
+
 static int	count_args_if(char *str, char quote, int *i, int args)
 {
-	if (str[*i] != ' ' && str[*i + 1] != '\''
-		&& str[*i + 1] != '"' && !quote)
+	if (str[*i] != ' ' && str[*i + 1] != '\'' && str[*i + 1] != '"' && !quote)
 	{
 		while (str[*i] && str[*i] != ' ' && str[*i] != quote)
 		{
-			if ((str[*i] == '<' && str[*i + 1] == '<')
-				|| (str[*i] == '>' && str[*i + 1] == '>'))
+			// if (aux_if(str, i) == 1)
+			// 	break ;
+			if (!ft_strncmp(&str[*i], "<<", 2)
+				|| !ft_strncmp(&str[*i], ">>", 2))
+			{
+				*i += 2;
 				break ;
+			}
+			else if (!ft_strncmp(&str[*i], "<", 1)
+				|| !ft_strncmp(&str[*i], ">", 1))
+			{
+				*i += 1;
+				break ;
+			}
 			*i += 1;
 		}
 		args++;

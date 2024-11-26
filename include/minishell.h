@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 12:25:54 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:46:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ size_t		ft_env_name_len(char *name);
  * 
  * @param array 
  */
-void		ft_clean_array(char **array);
+void		ft_cl_ar(char **array);
 
 /**
  * @brief Cleans cmd struct
