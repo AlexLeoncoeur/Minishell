@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/25 15:12:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:57:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_free_search(char *name, char *value)
 		free(value);
 }
 
-static int	ft_search_replace(t_env **lst, char *str)
+int	ft_search_replace(t_env **lst, char *str)
 {
 	t_env	*node;
 	char	*name;
@@ -89,15 +89,12 @@ void	ft_export(char *str, t_data *data)
 {
 	t_env	*aux;
 
-	if (str && ft_isdigit(str[0]) == 1)
-		return (printf("minishell: export: `%s`: not a valid identifier\n",
-				str), data->error = 1, (void)0);
-	if (str && ft_isdigit(str[0]) == 0
-		&& ft_search_replace(&data->env, str) == 1)
-		data->env = ft_add_to_env(str, data->env);
-	if (str && ft_isdigit(str[0]) == 0
-		&& ft_search_replace(&data->env_export, str) == 1)
-		data->env_export = ft_add_to_env(str, data->env_export);
+	if (str && str[0] == '\\')
+		str++;
+	if (str && (ft_isdigit(str[0]) == 1 || str[0] == '?'))
+		return (printf("minishell: export: `%s': not a valid identifier\n",
+			str), data->error = 1, (void)0);
+	ft_check_and_add(data, str);
 	if (!str)
 		data->env_export = ft_sort(data->env_export);
 	if (!str)

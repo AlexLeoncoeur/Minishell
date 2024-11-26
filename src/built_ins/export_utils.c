@@ -1,0 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 15:38:07 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/11/26 15:58:05 by aarenas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+void	ft_check_and_add(t_data *data, char *str)
+{
+	if (str && ft_isdigit(str[0]) == 0
+		&& ft_search_replace(&data->env, str) == 1)
+	{
+		data->env = ft_add_to_env(str, data->env);
+		data->env_export = ft_add_to_env(str, data->env_export);
+	}
+}

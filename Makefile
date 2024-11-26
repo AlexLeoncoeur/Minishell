@@ -17,7 +17,7 @@ CFILES = env_lst.c check_built_ins.c sort.c finish.c ft_redirections.c ft_heredo
 
 PARSER_FILES = ft_add_cmd.c ft_cleanup.c ft_init.c ft_main_parser.c ft_mini_split.c ft_parse_env.c ft_split_pipes.c ft_quotes.c ft_read_string.c parser_utils.c 
 
-BUILT_IN_CFILES = echo.c pwd.c exit.c env.c export.c unset.c cd.c
+BUILT_IN_CFILES = echo.c pwd.c exit.c env.c export.c export_utils.c unset.c cd.c
 PIPEX_CFILES = pipex_bonus.c pipex_utils_bonus.c last_cmd.c
 
 # DIRECTORIES 

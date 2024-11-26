@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 12:25:41 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:14:07 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
 	{
-		printf("minishell: executer: command not found\n");
+		printf("minishell: executer: %s: command not found\n", command);
 		lst->error = 127;
 		ft_exit(NULL, lst);
 	}
