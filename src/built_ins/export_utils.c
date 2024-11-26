@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:38:07 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 16:32:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 17:13:36 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_str_is_alphanum(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] && str[i] != '=')
 		if (ft_isalnum(str[i++]) == 0)
 			return (0);
 	return (1);
