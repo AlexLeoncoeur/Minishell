@@ -12,26 +12,12 @@
 
 #include "../../include/minishell.h"
 
-// static int	aux_if(char *str, int *i)
-// {
-// 	if ((!ft_strncmp(&str[*i], "<<", 2)
-// 			|| !ft_strncmp(&str[*i], ">>", 2)
-// 			|| !ft_strncmp(&str[*i], "<", 1)
-// 			|| !ft_strncmp(&str[*i], ">", 1))
-// 		&& (ft_isprint(str[*i - 1]) && str[*i - 1] != ' '
-// 			&& str[*i - 1] != '<' && str[*i - 1] != '>'))
-// 		return (1);
-// 	return (0);
-// }
-
 static int	count_args_if(char *str, char quote, int *i, int args)
 {
 	if (str[*i] != ' ' && str[*i + 1] != '\'' && str[*i + 1] != '"' && !quote)
 	{
 		while (str[*i] && str[*i] != ' ' && str[*i] != quote)
 		{
-			// if (aux_if(str, i) == 1)
-			// 	break ;
 			if (!ft_strncmp(&str[*i], "<<", 2)
 				|| !ft_strncmp(&str[*i], ">>", 2))
 			{
@@ -73,6 +59,21 @@ static int	count_args(char *str)
 	return (args);
 }
 
+static void aux_next_cut(char *str, int *i, char quote)
+{
+	while (str[*i] && str[*i] != ' ' && str[*i] != quote)
+	{
+		if (!ft_strncmp(&str[*i], "<<", 2) || !ft_strncmp(&str[*i], ">>", 2))
+		{
+			*i += 1;
+			break ;
+		}
+		else if (!ft_strncmp(&str[*i], "<", 1) || !ft_strncmp(&str[*i], ">", 1))
+			break ;
+		*i += 1;
+	}
+}
+
 static int	get_next_cut(char *str)
 {
 	int		i;
@@ -90,8 +91,7 @@ static int	get_next_cut(char *str)
 			quote = 0;
 		if (str[i] != ' ' && !quote)
 		{
-			while (str[i] && str[i] != ' ' && str[i] != quote)
-				i++;
+			aux_next_cut(str, &i, quote);
 			return (i);
 		}
 		else
