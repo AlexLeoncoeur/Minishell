@@ -99,6 +99,8 @@ void	ft_add_cmd(t_data *data, t_cmd *cmd, char **argv)
 		return ;
 	if (cmd->argv != NULL)
 	{
+		while (cmd->next)
+			cmd = cmd->next;
 		cmd->next = ft_new_cmd();
 		cmd = cmd->next;
 	}

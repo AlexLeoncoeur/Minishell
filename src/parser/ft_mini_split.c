@@ -14,28 +14,23 @@
 
 static int	count_args_if(char *str, char quote, int *i, int args)
 {
-	if (str[*i] != ' ' && str[*i + 1] != '\'' && str[*i + 1] != '"' && !quote)
+	while (str[*i] && str[*i] != ' ' && str[*i] != quote)
 	{
-		while (str[*i] && str[*i] != ' ' && str[*i] != quote)
+		if (!ft_strncmp(&str[*i], "<<", 2)
+			|| !ft_strncmp(&str[*i], ">>", 2))
 		{
-			if (!ft_strncmp(&str[*i], "<<", 2)
-				|| !ft_strncmp(&str[*i], ">>", 2))
-			{
-				*i += 2;
-				break ;
-			}
-			else if (!ft_strncmp(&str[*i], "<", 1)
-				|| !ft_strncmp(&str[*i], ">", 1))
-			{
-				*i += 1;
-				break ;
-			}
-			*i += 1;
+			*i += 2;
+			break ;
 		}
-		args++;
-	}
-	else
+		else if (!ft_strncmp(&str[*i], "<", 1)
+			|| !ft_strncmp(&str[*i], ">", 1))
+		{
+			*i += 1;
+			break ;
+		}
 		*i += 1;
+	}
+	args++;
 	return (args);
 }
 
@@ -54,7 +49,10 @@ static int	count_args(char *str)
 			quote = str[i];
 		else if (quote == str[i])
 			quote = 0;
-		args = count_args_if(str, quote, &i, args);
+		if (str[i] != ' ' && !quote)
+			args = count_args_if(str, quote, &i, args);
+		else
+			i++;
 	}
 	return (args);
 }
