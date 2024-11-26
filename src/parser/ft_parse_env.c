@@ -47,10 +47,33 @@ static char	*multi_join(t_env *env, char *str, int i)
 	return (free(aux), new_str);
 }
 
+static char *aux_rep_env(t_data *data, char *str, int i)
+{
+	char	*tmp;
+	char	*aux;
+
+	if (!str)
+		return (NULL);
+	tmp = 0;
+	aux = 0;
+	if (str[i + 1] == '?')
+	{
+		tmp = ft_itoa(data->error);
+		return (tmp);
+	}
+	if (str[i + 1] == ' ' || !str[i + 1])
+		return (ft_strdup("$"));
+	if(str[i + 1] == '1' && (str[i + 2] == ' ' || !str[i + 2]))
+		return (ft_strdup("minishell"));
+	aux = ft_substr(&str[i + 1], 0, ft_env_name_len(&str[i + 1]));
+	tmp = multi_join(ft_get_env(data, aux), str, i);
+	free(aux);
+	return (tmp);
+}
+
 char	*ft_str_replace_env(t_data *data, char *str)
 {
 	char	*str_new;
-	char	*aux;
 	char	quote;
 	int		i;
 
@@ -58,22 +81,19 @@ char	*ft_str_replace_env(t_data *data, char *str)
 		return (NULL);
 	i = -1;
 	str_new = 0;
-	aux = 0;
+	quote = 0;
 	while (str[++i])
 	{
 		quote = ft_check_quote(str[i], quote);
 		if (str[i] == '$' && quote != '\'')
 		{
-			aux = ft_substr(&str[i + 1], 0, ft_env_name_len(&str[i + 1]));
-			str_new = multi_join(ft_get_env(data, aux), str, i);
-			free(aux);
+			str_new = aux_rep_env(data, str, i);
 			break ;
 		}
 	}
 	if (!str_new)
-		return (str);
-	free(str);
-	return (str_new);
+		return (ft_strjoin(ft_strdup("$"), str));
+	return (free(str), str_new);
 }
 
 void	ft_parse_env(t_data *data, char **argv)
