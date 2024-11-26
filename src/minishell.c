@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/25 15:07:21 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:23:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init(&data, envp);
 	(void)argc;
 	(void)argv;
-	while (data.error == 0)
+	while (1)
 	{
 		if (ft_read_string(&data))
 		{
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 				if (data.cmd)
 				{
 					ft_set_flag(1);
+					signal(SIGQUIT, backslash_control);
 					ft_executer(&data);
 					ft_delete_heredoc();
 					ft_clean_cmd(&data);

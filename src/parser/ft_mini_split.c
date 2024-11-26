@@ -6,11 +6,30 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 13:34:34 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:44:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	count_args_if(char *str, char quote, int *i, int args)
+{
+	if (str[*i] != ' ' && str[*i + 1] != '\''
+		&& str[*i + 1] != '"' && !quote)
+	{
+		while (str[*i] && str[*i] != ' ' && str[*i] != quote)
+		{
+			if ((str[*i] == '<' && str[*i + 1] == '<')
+				|| (str[*i] == '>' && str[*i + 1] == '>'))
+				break ;
+			*i += 1;
+		}
+		args++;
+	}
+	else
+		*i += 1;
+	return (args);
+}
 
 static int	count_args(char *str)
 {
@@ -27,15 +46,7 @@ static int	count_args(char *str)
 			quote = str[i];
 		else if (quote == str[i])
 			quote = 0;
-		if (str[i] != ' ' && str[i + 1] != '\''
-			&& str[i + 1] != '"' && !quote)
-		{
-			while (str[i] && str[i] != ' ' && str[i] != quote)
-				i++;
-			args++;
-		}
-		else
-			i++;
+		args = count_args_if(str, quote, &i, args);
 	}
 	return (args);
 }

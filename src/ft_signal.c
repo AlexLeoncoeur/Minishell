@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:51:38 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/21 12:17:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:24:25 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static int	g_signal_flag = 0;
 
-static void handler_quit(int signal)
+void	ft_set_flag(int i)
 {
-	(void) signal;
-	ft_set_flag(2);
+	g_signal_flag = i;
 }
 
 static void	handler_int(int signal)
@@ -30,13 +29,15 @@ static void	handler_int(int signal)
 		rl_redisplay();
 }
 
-void	ft_set_flag(int i)
+void	backslash_control(int signal)
 {
-	g_signal_flag = i;
+	(void) signal;
+	if (g_signal_flag == 1)
+		ft_putendl_fd("Quit (Core dumped)", 2);
 }
 
 void	ft_init_signals(void)
 {
 	signal(SIGINT, handler_int);
-	signal(SIGQUIT, handler_quit);
+	signal(SIGQUIT, SIG_IGN);
 }

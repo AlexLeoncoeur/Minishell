@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/20 11:27:27 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:50:13 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	read_heredoc(t_data *data)
 	int		fd;
 	char	*aux;
 
-	data->heredoc = 0;
 	aux = 0;
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 1)
@@ -53,6 +52,7 @@ static void	read_heredoc(t_data *data)
 	free(data->cmd->redir->file);
 	data->cmd->redir->file = ft_strdup(".heredoc_tmp");
 	free(data->heredoc);
+	free(aux);
 }
 
 int	ft_heredoc(t_data *data, t_redir *redir)
@@ -60,7 +60,10 @@ int	ft_heredoc(t_data *data, t_redir *redir)
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
+		{
+			data->heredoc = 0;
 			read_heredoc(data);
+		}
 		redir = redir->next;
 	}
 	return (1);

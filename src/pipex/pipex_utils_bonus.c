@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:52:49 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/25 11:57:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:45:23 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,20 @@ void	ft_wait(int *error)
 
 void	ft_check_redirs(t_cmd *cmd)
 {
+	t_redir	*aux;
+
 	if (!cmd->redir)
 		return ;
-	while (cmd->redir)
+	aux = cmd->redir;
+	while (aux)
 	{
-		if (cmd->redir->type == INPUT_REDIRECT
-			|| cmd->redir->type == HEREDOC)
-			ft_in_redir(cmd->data, cmd->redir);
-		else if (cmd->redir->type == OUTPUT_REDIRECT
-			|| cmd->redir->type == OUTPUT_APPEND)
-			ft_out_redir(cmd->redir);
-		cmd->redir = cmd->redir->next;
+		if (aux->type == INPUT_REDIRECT
+			|| aux->type == HEREDOC)
+			ft_in_redir(cmd->data, aux);
+		else if (aux->type == OUTPUT_REDIRECT
+			|| aux->type == OUTPUT_APPEND)
+			ft_out_redir(aux);
+		aux = aux->next;
 	}
 }
 

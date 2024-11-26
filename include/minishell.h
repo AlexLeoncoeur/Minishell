@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/25 11:45:34 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:25:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,5 +330,12 @@ char		*ft_custom_strtrim(char const *s1, char const *set);
  * @return char *
  */
 char		*ft_str_replace_env(t_data *data, char *str);
+
+/**
+ * @brief Checks if ctr+\ has been pressed in command mode
+ * 
+ * @param data 
+ */
+void		backslash_control(int signal);
 
 #endif
