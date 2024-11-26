@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:04:12 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 12:56:15 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:27:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	ft_clean_cmd(t_data *data)
 		}
 		free(aux);
 	}
+	if (ft_get_flag() == 3)
+		data->error = 130;
+	else if (ft_get_flag() == 4)
+		data->error = 131;
 }
 
 void	ft_cl_ar(char **array)

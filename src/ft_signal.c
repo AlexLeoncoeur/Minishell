@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:51:38 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 12:24:25 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:23:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	handler_int(int signal)
 	rl_replace_line("", 0);
 	if (g_signal_flag == 0)
 		rl_redisplay();
+	ft_set_flag(3);
 }
 
 void	backslash_control(int signal)
@@ -34,6 +35,12 @@ void	backslash_control(int signal)
 	(void) signal;
 	if (g_signal_flag == 1)
 		ft_putendl_fd("Quit (Core dumped)", 2);
+	ft_set_flag(4);
+}
+
+int	ft_get_flag(void)
+{
+	return (g_signal_flag);
 }
 
 void	ft_init_signals(void)

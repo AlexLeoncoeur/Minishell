@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 16:29:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:13:49 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ int	ft_init(t_data *data, char **envp)
 	data->input = 0;
 	data->heredoc = 0;
 	data->error = 0;
-	data->envp = envp;
+	data->envp = 0;
+	data->origin_envp = envp;
 	ft_init_signals();
-	data->env = ft_lst_env(data->envp, data->env);
-	data->env_export = ft_lst_env(data->envp, data->env_export);
+	data->env = ft_lst_env(data->origin_envp, data->env);
+	data->env_export = ft_lst_env(data->origin_envp, data->env_export);
 	shell_lvl(data);
 	update_name(data);
 	return (1);
