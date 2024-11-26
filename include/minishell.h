@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 15:58:11 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:24:49 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,13 @@ void		ft_env(t_env *env, int *error);
 
 t_env		*ft_add_to_env(char *str, t_env *lst);
 int			ft_search_replace(t_env **lst, char *str);
-void		ft_check_and_add(t_data *data, char *str);
 const char	*ft_search(t_env **lst, char *name);
 void		ft_export(char *str, t_data *data);
+
+/* ------------------------ built-ins/export_utils ------------------------ */
+
+void		ft_check_and_add(t_data *data, char *str);
+int			ft_str_is_alphanum(char *str);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
