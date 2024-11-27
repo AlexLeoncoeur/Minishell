@@ -35,22 +35,22 @@ PIPEX_OFILES = $(addprefix $(OBJ_DIR)pipex/, $(PIPEX_CFILES:.c=.o))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
-	@ echo "$(BLUE)Compiling File: $(RESET)$(notdir $<)"
+	@ echo "$(BLUE)-Compiling File: $(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)parser/%.o: $(PARSER_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/parser/
-	@ echo "$(BLUE)Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
+	@ echo "$(BLUE)-Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)pipex/%.o: $(PIPEX_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/pipex/
-	@ echo "$(BLUE)Compiling File: $(CYAN)pipex/$(RESET)$(notdir $<)"
+	@ echo "$(BLUE)-Compiling File: $(CYAN)pipex/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/built_ins/
-	@ echo "$(BLUE)Compiling File: $(CYAN)built_ins/$(RESET)$(notdir $<)"
+	@ echo "$(BLUE)-Compiling File: $(CYAN)built_ins/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 
@@ -92,7 +92,10 @@ fclean: clean
 
 re: fclean all
 
+rebug: re debug
+	@ ./minishell
+
 compiling:
 	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"
 
-.PHONY: all clean fclean re bonus compiling debug
+.PHONY: all clean fclean re bonus compiling debug rebug
