@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 02:00:41 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:01:29 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_str_replace_env(t_data *data, char *str)
 	if (!str)
 		return (NULL);
 	i = -1;
-	str_new = 0;
+	str_new = NULL;
 	quote = 0;
 	while (str[++i])
 	{
@@ -102,12 +102,12 @@ void	ft_parse_env(t_data *data, char **argv)
 	int		j;
 	char	quotes;
 
-	i = -1;
+	i = 0;
 	quotes = 0;
-	while (argv[++i])
+	while (argv[i])
 	{
-		j = -1;
-		while (*argv[i] && argv[i][++j])
+		j = 0;
+		while (argv[i] && argv[i][j])
 		{
 			if ((argv[i][j] == '"' || argv[i][j] == '\'') && !quotes)
 				quotes = argv[i][j];
@@ -117,6 +117,8 @@ void	ft_parse_env(t_data *data, char **argv)
 				argv[i] = ft_str_replace_env(data, argv[i]);
 			if (!argv[i][j])
 				break ;
+			j++;
 		}
+		i++;
 	}
 }

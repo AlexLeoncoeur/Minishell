@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 01:32:18 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:13:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	count_args_if(char *str, int *i, int args, char *quote)
 {
-	while (str[*i] && str[*i] != ' ')
+	while (str[*i] && str[*i] != ' ' && !*quote)
 	{
 		if (str[*i] && (str[*i] == '\'' || str[*i] == '"') && !*quote)
 		{
@@ -61,8 +61,6 @@ static int	count_args(char *str)
 		else
 			i++;
 	}
-	if (str[i - 1] == '"' || str[i - 1] == '\'')
-		args++;
 	return (args);
 }
 
