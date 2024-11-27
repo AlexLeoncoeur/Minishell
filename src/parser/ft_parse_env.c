@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 13:19:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 02:00:41 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*multi_join(t_env *env, char *str, int i)
 	return (free(aux), new_str);
 }
 
-static char *aux_rep_env(t_data *data, char *str, int i)
+static char	*aux_rep_env(t_data *data, char *str, int i)
 {
 	char	*tmp;
 	char	*aux;
@@ -63,7 +63,7 @@ static char *aux_rep_env(t_data *data, char *str, int i)
 	}
 	if (str[i + 1] == ' ' || !str[i + 1])
 		return (ft_strdup("$"));
-	if(str[i + 1] == '1' && (str[i + 2] == ' ' || !str[i + 2]))
+	if (str[i + 1] == '1' && (str[i + 2] == ' ' || !str[i + 2]))
 		return (ft_strdup("minishell"));
 	aux = ft_substr(&str[i + 1], 0, ft_env_name_len(&str[i + 1]));
 	tmp = multi_join(ft_get_env(data, aux), str, i);
@@ -101,15 +101,13 @@ void	ft_parse_env(t_data *data, char **argv)
 	int		i;
 	int		j;
 	char	quotes;
-	char	*aux;
 
 	i = -1;
 	quotes = 0;
 	while (argv[++i])
 	{
 		j = -1;
-		aux = argv[i];
-		while (argv[i][++j])
+		while (*argv[i] && argv[i][++j])
 		{
 			if ((argv[i][j] == '"' || argv[i][j] == '\'') && !quotes)
 				quotes = argv[i][j];
@@ -121,5 +119,4 @@ void	ft_parse_env(t_data *data, char **argv)
 				break ;
 		}
 	}
-	(void) aux;
 }

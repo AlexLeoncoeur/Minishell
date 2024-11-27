@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 23:15:16 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 01:34:21 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	ft_export(char *str, t_data *data)
 {
 	t_env	*aux;
 
-	if (str && (ft_isdigit(str[0]) == 1 || (ft_isalpha(str[0]) == 0	&& str[0] != '_') || ft_str_is_alphanum(&str[1]) == 0))
+	if (str && (ft_isdigit(str[0]) == 1 || (ft_isalpha(str[0]) == 0
+				&& str[0] != '_') || ft_str_is_alphanum(&str[1]) == 0))
 		return (printf("minishell: export: `%s': not a valid identifier\n",
 				str), data->error = 1, (void)0);
 	ft_check_and_add(data, str);

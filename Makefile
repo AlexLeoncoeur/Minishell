@@ -68,7 +68,7 @@ $(NAME): compiling $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES)
 
 debug: all
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g -fsanitize=address
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(PIPEX_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g 
 	@ echo "$(RED)DEBUG MODE ACTIVATED!$(RESET)"
 
 libft:

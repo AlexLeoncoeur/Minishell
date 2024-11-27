@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 13:31:06 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 01:33:59 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	ft_check_quote(char c, char quote)
 		return ('\'');
 	else if (c == '"' && !quote)
 		return ('"');
-	else if (c == quote )
+	else if (c == quote)
 		return (0);
 	else
 		return (quote);

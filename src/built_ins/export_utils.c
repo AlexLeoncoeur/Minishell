@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:38:07 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 23:16:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 01:32:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_check_and_add(t_data *data, char *str)
 static int	custom_lstsize(t_env *env)
 {
 	int	i;
-	
+
 	i = 0;
 	while (env->next)
 	{
