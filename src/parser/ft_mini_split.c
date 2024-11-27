@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 12:13:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:57:11 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	count_args(char *str)
 		else
 			i++;
 	}
+	if ((str[i - 1] == '"' || str[i - 1] == '\''))
+		args++;
 	return (args);
 }
 
