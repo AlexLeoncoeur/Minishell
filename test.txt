@@ -1,16 +1,8 @@
 # Test for minishell
 
 # Echo
-    - echo
-    - echo hola
-    - echo ""
-    - echo "" hola
-    - echo -n hola
-    - echo -n -n hola
-    - echo -n -nh -n hola
-    - echo -nnnnnnnnn hola
-    - echo $?hcudshfuewrf ew  wr 4ew""""
-    - echo ""uhjkhnkj"hjbmb"'''' defdjhfkjb "iujiouhj"f'f'f'f'f''f'f'f'f'f'f'
+    *- echo "" hola
+    Problema si despues de ? hay texto- echo $?hcudshfuewrf ew  wr 4ew""""
     - echo ""uhjkhnkj"hjbmb"'''' defdjhfkjb "iujiouhj"f'f'a'j'o''i'w'q''q
     - echo ""aaaaaaaa"bbbbb"'''' ccccccccc "dddddddd"e'e'e
     - echo "ho   $USER"  'la   $LESS'   $USER$TERM

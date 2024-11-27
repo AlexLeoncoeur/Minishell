@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 12:57:11 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:57:49 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	count_args_if(char *str, int *i, int args, char *quote)
 {
-	while (str[*i] && str[*i] != ' ' && !*quote)
+	while (str[*i] && str[*i] != ' ')
 	{
 		if (str[*i] && (str[*i] == '\'' || str[*i] == '"') && !*quote)
 		{
@@ -61,8 +61,6 @@ static int	count_args(char *str)
 		else
 			i++;
 	}
-	if ((str[i - 1] == '"' || str[i - 1] == '\''))
-		args++;
 	return (args);
 }
 
@@ -70,7 +68,7 @@ static void	aux_next_cut(char *str, int *i, char *quote)
 {
 	while (str[*i])
 	{
-		if (str[*i] && (str[*i] == '\'' || str[*i] == '"') && !*quote)
+		if (str[*i] && (str[*i] == '\'' || str[*i] == '"'))
 			*quote = str[*i];
 		else if (*quote == str[*i])
 			*quote = 0;
