@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   built_in_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:38:07 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 01:32:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:43:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	ft_aux_cd_if(t_data *data)
+{
+	char	*back_dir;
+
+	back_dir = ft_manage_go_back(data);
+	if (chdir(back_dir) < 0)
+	{
+		free(back_dir);
+		perror("minishell: cd");
+		return (1);
+	}
+	free(back_dir);
+	return (0);
+}
 
 int	ft_str_is_alphanum(char *str)
 {
@@ -27,10 +42,10 @@ void	ft_check_and_add(t_data *data, char *str)
 {
 	if (str && ft_isdigit(str[0]) == 0
 		&& ft_search_replace(&data->env, str) == 1)
-	{
 		data->env = ft_add_to_env(str, data->env);
-		//data->env_export = ft_add_to_env(str, data->env_export);
-	}
+	if (str && ft_isdigit(str[0]) == 0
+		&& ft_search_replace(&data->env_export, str) == 1)
+		data->env_export = ft_add_to_env(str, data->env_export);
 }
 
 static int	custom_lstsize(t_env *env)

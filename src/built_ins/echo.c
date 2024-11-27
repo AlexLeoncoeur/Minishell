@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:33:35 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 00:19:36 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:50:35 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_echo(char **matrix, int *error)
 	while (matrix[i])
 	{
 		ft_putstr(matrix[i]);
-		// if (matrix[i + 1])
-		// 	ft_putchar(' ');
+		if (matrix[i + 1])
+			ft_putchar(' ');
 		i++;
 	}
 	if (flag == 0)

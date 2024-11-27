@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 23:23:59 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:46:37 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void		ft_parse_list(t_data *data);
 
 void		ft_check_and_add(t_data *data, char *str);
 int			ft_str_is_alphanum(char *str);
+int			ft_aux_cd_if(t_data *data);
+char		*ft_manage_go_back(t_data *data);
 
 /* ------------------------ built-ins/unset ------------------------ */
 

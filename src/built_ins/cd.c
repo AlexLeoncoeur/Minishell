@@ -6,11 +6,48 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:08 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/22 17:03:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:45:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char	*ft_strchr_destroy(const char *s, int c)
+{
+	unsigned char	aux;
+	int				i;
+	char			*tmp;
+
+	aux = (char)c;
+	tmp = (char *)s;
+	i = ft_strlen(tmp);
+	while (tmp[i] != '\0')
+	{
+		if (tmp[i] == aux)
+		{
+			tmp[i] = '\0';
+			return (&tmp[0]);
+		}
+		i--;
+	}
+	if (aux == '\0' || c == 1024)
+	{
+		return (&tmp[i]);
+	}
+	else
+		return (NULL);
+}
+
+char	*ft_manage_go_back(t_data *data)
+{
+	char	*obj_dir;
+	char	*new_obj_dir;
+
+	obj_dir = ft_strdup(ft_search(&data->env_export, "PWD"));
+	new_obj_dir = ft_strchr_destroy(obj_dir, '/');
+	free(obj_dir);
+	return (new_obj_dir);
+}
 
 static void	ft_change_pwd_env(t_env **lst, char *name, char *new_route)
 {
@@ -62,9 +99,14 @@ void	ft_cd(t_data *data, char **str)
 		&& chdir(ft_search(&data->env, "OLDPWD=")) < 0)
 		perror("minishell: cd");
 	oldpwd_env = getcwd(NULL, 0);
-	if (str && ft_strncmp(str[0], "-", 1) != 0 && chdir(str[0]) < 0)
+	if (str && ft_strncmp(str[0], "..", 2) == 0)
+	{
+		if (ft_aux_cd_if(data) == 1)
+			return ;
+	}
+	else if (str && ft_strncmp(str[0], "-", 1) != 0 && chdir(str[0]) < 0)
 		perror("minishell: cd");
-	if (!str && chdir(home) < 0)
+	else if (!str && chdir(home) < 0)
 		perror("minishell: cd");
 	ft_manage_pwd_change(data, oldpwd_env);
 	data->error = 0;

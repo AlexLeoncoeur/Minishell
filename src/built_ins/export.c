@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 01:34:21 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:02:21 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	ft_export(char *str, t_data *data)
 		return (printf("minishell: export: `%s': not a valid identifier\n",
 				str), data->error = 1, (void)0);
 	ft_check_and_add(data, str);
-	// if (!str)
-	// 	data->env_export = ft_sort(data->env_export);
+	if (!str)
+		data->env_export = ft_sort(data->env_export);
 	if (!str)
 		aux = data->env;
 	while (!str && aux)
