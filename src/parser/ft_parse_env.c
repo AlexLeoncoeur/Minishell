@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 12:01:29 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 20:02:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,19 @@ static char	*multi_join(t_env *env, char *str, int i)
 static char	*aux_rep_env(t_data *data, char *str, int i)
 {
 	char	*tmp;
+	char	*qmark;
 	char	*aux;
 
 	if (!str)
 		return (NULL);
 	tmp = 0;
 	aux = 0;
+	qmark = 0;
 	if (str[i + 1] == '?')
 	{
-		tmp = ft_itoa(data->error);
-		return (tmp);
+		aux = ft_itoa(data->error);
+		qmark = ft_strjoin(aux, &str[i + 2]);
+		return (free(aux), qmark);
 	}
 	if (str[i + 1] == ' ' || !str[i + 1])
 		return (ft_strdup("$"));
@@ -80,7 +83,7 @@ char	*ft_str_replace_env(t_data *data, char *str)
 	if (!str)
 		return (NULL);
 	i = -1;
-	str_new = NULL;
+	str_new = 0;
 	quote = 0;
 	while (str[++i])
 	{
@@ -102,12 +105,12 @@ void	ft_parse_env(t_data *data, char **argv)
 	int		j;
 	char	quotes;
 
-	i = 0;
+	i = -1;
 	quotes = 0;
-	while (argv[i])
+	while (argv[++i])
 	{
-		j = 0;
-		while (argv[i] && argv[i][j])
+		j = -1;
+		while (*argv[i] && argv[i][++j])
 		{
 			if ((argv[i][j] == '"' || argv[i][j] == '\'') && !quotes)
 				quotes = argv[i][j];
@@ -117,8 +120,6 @@ void	ft_parse_env(t_data *data, char **argv)
 				argv[i] = ft_str_replace_env(data, argv[i]);
 			if (!argv[i][j])
 				break ;
-			j++;
 		}
-		i++;
 	}
 }

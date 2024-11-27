@@ -1,6 +1,6 @@
 # Test for minishell
 
-# Echo
+# Echo ALL DONE
     *- echo "" hola
     Problema si despues de ? hay texto- echo $?hcudshfuewrf ew  wr 4ew""""
     - echo ""uhjkhnkj"hjbmb"'''' defdjhfkjb "iujiouhj"f'f'a'j'o''i'w'q''q
@@ -19,7 +19,7 @@
     - echo '$HOME "$LESS 'pa $TERM' na" $USER'
     - echo '$'"HOME"
 
-# Export
+# Export ALL DONE
     - export a=b
     - export b=wawa
     - export b=lala
@@ -42,7 +42,7 @@
     - export ""
     - export a b=$LESS $USER $HOME=la $COLORTERM=pa c=d
 
-# cd
+# cd CD .. ROTO y da leaks/ 
     - directorio existe
     - directorio no existe
     - file existe
@@ -53,26 +53,26 @@
     - cd $HOME si $HOME no existe
     - cd directorio con distintos permisos
 
-# Env
+# Env ALL DONE
     - env
     - env lalal
     - env directorio
 
-# pwd
+# pwd ??
     - con y sin argumentos
 
-# unset
+# unset ALL DONE CREO
     - con y sin argumentos
     - varios argumentos
 
-# exit 
+# exit ALL DONE
     - exit
     - exit 0
     - exit 1
     - exit 42
     - exit lalal
 
-# pipe
+# pipe DOBLE PIPE CON O SIN ESPACIOS CASCA
     - ls | wc
     - ls|wc
     - sort colors.txt | uniq | sort -r | wc
@@ -83,7 +83,7 @@
     - |
     - | ls | wc
 
-# redirecciones
+# redirecciones REDIR PEGADA NO HACE, NO ESTA IMPLEMENTADA / MUCHAS REDIRS DEBERIAN DAR SYNTAX ERROR la hacen bien / HEREDOC DA LEAKS Y NO SE PUEDEN ABRIR DOS
     - </<</>/>>
     - echo hola >>>>>>> file
     - echo hola <<<<<<< file
@@ -105,7 +105,7 @@
     - cat << EOF | ls
     - echo hola | cat | cat | cat | cat | cat | cat | cat
 
-# general
+# general ALL DONE
     - enter en input -> vacio
     - solo espacios
     - comillas sin cerrar

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 01:33:59 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:11:49 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ char	ft_check_quote(char c, char quote)
 		return (0);
 	else
 		return (quote);
+}
+
+char	*ft_minitrim(t_data *data, char	*str)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim(str, " ");
+	data->atmp = tmp;
+	return (tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 12:46:37 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:12:08 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	int			builtin_done;
 	int			argc;
 	char		**origin_envp;
+	char		*atmp;
 }	t_data;
 
 /* ------------------------ pipex/pipex_bonus ------------------------ */
@@ -222,7 +223,7 @@ char		**ft_pipesplit(char *str);
  * @param str 
  * @return char** 
  */
-char		**ft_minisplit(char *str);
+char		**ft_minisplit(t_data *data, char *str);
 
 /**
  * @brief Parses env var
@@ -354,5 +355,14 @@ void		backslash_control(int signal);
  * @return int 
  */
 int			ft_get_flag(void);
+
+/**
+ * @brief Extra trim for minisplit because lines
+ * 
+ * @param data 
+ * @param str 
+ * @return char* 
+ */
+char		*ft_minitrim(t_data *data, char	*str);
 
 #endif

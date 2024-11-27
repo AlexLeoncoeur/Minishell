@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 13:02:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:09:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_cmd	*ft_parser(t_data *data)
 	cmd = ft_new_cmd();
 	while (pipes[++i])
 	{
-		argv = ft_minisplit(pipes[i]);
+		argv = ft_minisplit(data, pipes[i]);
 		if (!argv)
 			return (ft_cl_ar(pipes), free(cmd),
 				printf("minishell: syntax error\n"), NULL);
