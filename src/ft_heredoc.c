@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 13:36:29 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:23:19 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 	while (1)
 	{
 		aux = readline("> ");
-		if (!aux || !ft_strcmp(aux, data->cmd->redir->file))
+		if (!aux || !ft_strcmp(aux, redir->file))
 			break ;
 		if (!data->heredoc)
 			data->heredoc = heredoc_join("", aux, false);
@@ -49,7 +49,7 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 	ft_putstr_fd(data->heredoc, fd);
 	close(fd);
 	redir->type = INPUT_REDIRECT;
-	free(data->cmd->redir->file);
+	free(redir->file);
 	redir->file = ft_strdup(".heredoc_tmp");
 	free(data->heredoc);
 	free(aux);
@@ -57,9 +57,6 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 
 int	ft_heredoc(t_data *data, t_redir *redir)
 {
-	t_redir	*aux;
-
-	aux = data->cmd->redir;
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
@@ -67,9 +64,8 @@ int	ft_heredoc(t_data *data, t_redir *redir)
 			data->heredoc = 0;
 			read_heredoc(data, redir);
 		}
-		redir = redir->next;
 		data->cmd->redir = redir;
+		redir = redir->next;
 	}
-	data->cmd->redir = aux;
 	return (1);
 }

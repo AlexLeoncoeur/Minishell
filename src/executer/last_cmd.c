@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 13:04:05 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:25:33 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_do_last_cmd(t_cmd *lst, int *builtin_done)
 		ft_check_built_ins(lst, builtin_done);
 		if (*builtin_done == 1)
 		{
-			if (!ft_strncmp(lst->path, "/", 1) || !ft_strncmp(lst->path, "./", ft_strlen(lst->path)))
+			if (!ft_strncmp(lst->path, "/", 1))
 				path = lst->path;
 			else
 				path = ft_pathfinder(lst->data, lst->path);
