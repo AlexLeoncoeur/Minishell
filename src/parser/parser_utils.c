@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:35:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 09:47:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:06:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,32 @@ char	*ft_minitrim(t_data *data, char	*str)
 	tmp = ft_strtrim(str, " ");
 	data->atmp = tmp;
 	return (tmp);
+}
+
+int	ft_parser_check_redirs(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '>' && str[i + 1] == '>')
+		{
+			i++;
+			if (str[i + 1] == '>' || str[i + 1] == '<')
+				return (0);
+		}
+		else if (str[i] == '<' && str[i + 1] == '<')
+		{
+			i++;
+			if (str[i + 1] == '<' || str[i + 1] == '>')
+				return (0);
+		}
+		else if ((str[i] == '>' && str[i + 1] == '<')
+			|| (str[i] == '<' && str[i + 1] == '>'))
+			return (0);
+		else
+			i++;
+	}
+	return (1);
 }

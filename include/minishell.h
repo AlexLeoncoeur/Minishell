@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 11:14:45 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:48:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,5 +368,14 @@ int			ft_get_flag(void);
  * @return char* 
  */
 char		*ft_minitrim(t_data *data, char	*str);
+
+/**
+ * @brief Checks corrects redirs and breaks if <> or >>>>>> or anything 
+ * 			like that is in input
+ * 
+ * @param str 
+ * @return int 
+ */
+int			ft_parser_check_redirs(char *str);
 
 #endif

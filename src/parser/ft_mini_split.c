@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 09:47:17 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:08:16 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	count_args(char *str)
 	i = 0;
 	args = 0;
 	quote = 0;
-	while (str[i])
+	while (str[i] && ft_parser_check_redirs(str))
 	{
 		if (str[i] == '\'' || str[i] == '"')
 			count_args_aux(str, &i, &quote);
@@ -101,7 +101,7 @@ char	**ft_minisplit(t_data *data, char *str)
 	tmp = ft_minitrim(data, str);
 	args = count_args(tmp);
 	if (!args)
-		return (NULL);
+		return (free(tmp), NULL);
 	res = malloc(sizeof(char *) * args + 1);
 	if (!res)
 		return (NULL);

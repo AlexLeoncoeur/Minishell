@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 12:06:41 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:47:49 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	if (!*envp)
+		return (printf("minishell: envp: enviroment must not be emty\n"), 1);
 	ft_init(&data, envp);
-	(void)argc;
-	(void)argv;
 	while (1)
 	{
 		if (ft_read_string(&data))
 		{
-			if (*data.input)
+			if (*data.input && envp)
 			{
 				data.cmd = ft_parser(&data);
 				if (data.cmd)
@@ -54,5 +54,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_set_flag(0);
 	}
-	return (free(data.input), data.error);
+	return ((void)argv, (void)argc, free(data.input), data.error);
 }

@@ -1,23 +1,9 @@
-# Test for minishell
+FALTA RUTA RELATIVA EN COMANDOS
+SI HACES UNSET PATH NO DEBERIA HACER COMANDOS COMO LS O WC Y LOS HACE
+cat | cat | ls esta mal pero muuy mal
 
-# redirecciones REDIR PEGADA NO HACE, NO ESTA IMPLEMENTADA / MUCHAS REDIRS DEBERIAN DAR SYNTAX ERROR la hacen bien / HEREDOC DA LEAKS Y NO SE PUEDEN ABRIR DOS
-    - </<</>/>>
-    - echo hola >>>>>>> file
-    - echo hola <<<<<<< file
-    - echo hola>file
-    - echo hola </<</>/>>   </<</>/>> file
-    - echo hola </<</>/>>   | file
-    - echo hola > file </<</>/>>
-    - echo hola > file
-    - echo hola > file > file2 > file3
-    - echo hola > file > file2 > file3 | ls
-    - wc < colors.txt
-    - wc < colors.txt > file
-    - cat colors.txt | wc
-    - echo hola > file << EOF
-    - cat << EOF > file
-    - << EOF
-    - cat << hola << que << tal
-    - cat << hola << que << tal -> aplicarle señales a heredoc
-    - cat << EOF | ls
-    - echo hola | cat | cat | cat | cat | cat | cat | cat
+
+
+LOS HEREDOC CON IN REDIRS NO SE GUSTAN ENTRE ELLOS, HEREDOC CON OUT REDIR SE MUERE Y C+D da seg, HEREDOC CON C+C deberia cortar todos y no lo hace
+
+para ctr+c que ciere heredocs al empezar heredoc se pone g_signal a 9 y si hay ctr+c checkea si es 9 y close de heredocs

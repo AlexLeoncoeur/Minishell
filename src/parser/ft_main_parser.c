@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:33:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 09:47:29 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:53:48 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static int	parser_if(t_data *data)
 {
 	if (!ft_isalpha(*data->input) && *data->input != '.' && *data->input != '/'
-		&& *data->input != '"' && *data->input != '\'' && *data->input != '|')
+		&& *data->input != '"' && *data->input != '\'' && *data->input != '|'
+		&& *data->input != '$')
 		return (0);
 	return (1);
 }

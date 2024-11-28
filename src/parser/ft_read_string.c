@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:08:04 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 11:16:12 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:31:32 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	*get_string(t_data *data)
 		aux = ft_join_and_free(string, "~");
 	else
 	{
-		string = ft_join_and_free(aux, pwd);
+		string = ft_join_and_free(string, pwd);
 		aux = ft_join_and_free(string, DEFAULT"$ ");
 		return (aux);
 	}

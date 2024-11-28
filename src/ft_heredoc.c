@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 10:54:42 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:36:29 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	read_heredoc(t_data *data, t_redir *redir)
 	char	*aux;
 
 	aux = 0;
-	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 1)
 		return ;
 	while (1)

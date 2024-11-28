@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/26 15:14:07 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:02:17 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	ft_check_built_ins(cmd, builtin_done);
 	if (*builtin_done == 1)
 	{
-		path = ft_pathfinder(cmd->data, cmd->path);
+		if (!ft_strncmp(cmd->path, "/", 1) || !ft_strncmp(cmd->path, "./", ft_strlen(cmd->path)))
+			path = cmd->path;
+		else
+			path = ft_pathfinder(cmd->data, cmd->path);
 		if (execve(path, cmd->argv, cmd->data->envp) < 0)
 		{
 			perror("minishell: executer");
