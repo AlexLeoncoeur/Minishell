@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 11:01:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 10:50:02 by aarenas-         ###   ########.fr       */
+/*   Created: 2024/11/28 11:06:26 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/11/28 11:19:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_pwd(t_data *data)
+int	ft_how_to_go_back(char *str)
 {
-	char	*path;
-	char	*tmp;
-
-	tmp = getcwd(NULL, 0);
-	if (!tmp)
-	{
-		data->error = 1;
-		perror("Error");
-	}
-	path = ft_strjoin(tmp, "\n");
-	ft_putstr(path);
-	data->error = 0;
-	free(tmp);
-	free(path);
+	if (ft_strncmp(str, "..\0", 3) == 0
+		|| ft_strncmp(str, "../\0", 4) == 0)
+		return (1);
+	return (0);
 }

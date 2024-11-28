@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:31:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 19:22:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:14:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ft_export(char *str, t_data *data)
 	if (!str)
 		data->env_export = ft_sort(data->env_export);
 	if (!str)
-		aux = data->env;
+		aux = data->env_export;
 	while (!str && aux)
 	{
 		printf("declare -x %s", aux->name);

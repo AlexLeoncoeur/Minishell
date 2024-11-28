@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 21:12:08 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:14:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ const char	*ft_search(t_env **lst, char *name);
 void		ft_export(char *str, t_data *data);
 void		ft_parse_list(t_data *data);
 
-/* ------------------------ built-ins/export_utils ------------------------ */
+/* ------------------------ built-ins/built_in_utils ------------------------ */
 
 void		ft_check_and_add(t_data *data, char *str);
 int			ft_str_is_alphanum(char *str);
@@ -142,6 +142,10 @@ void		ft_delete_node(t_env *prev_node);
 /* ------------------------ built-ins/cd ------------------------ */
 
 void		ft_cd(t_data *data, char **str);
+
+/* ------------------------ built-ins/cd ------------------------ */
+
+int			ft_how_to_go_back(char *str);
 
 /* ------------------------ env_lst.c ------------------------ */
 
