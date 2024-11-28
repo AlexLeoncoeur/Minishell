@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:07:34 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 16:23:19 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:34:58 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	ft_heredoc(t_data *data, t_redir *redir)
 			data->heredoc = 0;
 			read_heredoc(data, redir);
 		}
-		data->cmd->redir = redir;
 		redir = redir->next;
 	}
 	return (1);

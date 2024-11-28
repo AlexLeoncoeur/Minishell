@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 13:48:51 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:30:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,5 +377,18 @@ char		*ft_minitrim(t_data *data, char	*str);
  * @return int 
  */
 int			ft_parser_check_redirs(char *str);
+
+/**
+ * @brief Handler for SIGINT
+ * 
+ * @param signal 
+ */
+void		ft_handler_int(int signal);
+
+/**
+ * @brief Guess what this does
+ * 
+ */
+void		ft_delete_heredoc(void);
 
 #endif
