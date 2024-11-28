@@ -1,3 +1,0 @@
-LOS HEREDOC CON IN REDIRS NO SE GUSTAN ENTRE ELLOS, HEREDOC CON OUT REDIR SE MUERE Y C+D da seg, HEREDOC CON C+C deberia cortar todos y no lo hace
-
-para ctr+c que ciere heredocs al empezar heredoc se pone g_signal a 9 y si hay ctr+c checkea si es 9 y close de heredocs

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:38:07 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 10:46:21 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:59:52 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	ft_aux_cd_if(t_data *data)
 {
 	char	*back_dir;
 
-	back_dir = ft_manage_go_back(data);
+	if (ft_strncmp(ft_search(&data->env, "PWD="), "/home\0", 6) == 0)
+		back_dir = ft_strdup("/\0");
+	else
+		back_dir = ft_manage_go_back(data);
 	if (chdir(back_dir) < 0)
 	{
 		free(back_dir);
