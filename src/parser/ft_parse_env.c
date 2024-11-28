@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:31:52 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 20:02:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:04:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*ft_str_replace_env(t_data *data, char *str)
 		}
 	}
 	if (!str_new)
-		return (ft_strjoin(ft_strdup("$"), str));
+		return (str);
 	return (free(str), str_new);
 }
 

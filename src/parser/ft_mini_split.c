@@ -6,19 +6,19 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:16:15 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 21:11:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 09:47:17 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void keep_running(char *str, int *i)
+static void	keep_running(char *str, int *i)
 {
 	while (str[*i] && str[*i] == ' ')
 		*i += 1;
 }
 
-static void count_args_aux(char *str, int *i, char *quote)
+static void	count_args_aux(char *str, int *i, char *quote)
 {
 	*quote = str[*i];
 	*i += 1;
@@ -27,7 +27,7 @@ static void count_args_aux(char *str, int *i, char *quote)
 		*i += 1;
 		*quote = 0;
 	}
-	while (str[*i] && str[*i] != *quote && *quote)	
+	while (str[*i] && str[*i] != *quote && *quote)
 		*i += 1;
 	if ((str[*i] == '\'' || str[*i] == '"') && *quote)
 		*i += 1;

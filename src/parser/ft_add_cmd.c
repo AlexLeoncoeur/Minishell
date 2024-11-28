@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:47:36 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/22 13:27:12 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:32:46 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static t_redir	*new_redir(int type, char *file)
 {
 	t_redir	*redir;
 
+	redir = 0;
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);

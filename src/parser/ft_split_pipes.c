@@ -6,19 +6,23 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:39:43 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 01:05:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:08:32 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	pchec(char *str, int *i)
+static int	pipecheck(char *str, int *i)
 {
-	while (str[*i] && str[*i] == ' ')
+	int	j;
+
+	j = *i;
+	j++;
+	while (str[j] && str[j] == ' ')
 	{
-		*i += 1;
-		if (str[*i] == ' ' && !str[*i + 1])
+		if (str[j] == ' ' && str[j + 1] == '|')
 			return (0);
+		j += 1;
 	}
 	return (1);
 }
@@ -40,11 +44,11 @@ static int	count_args(char *str)
 			i++;
 		if (quote == str[i])
 			quote = 0;
-		if ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '|'
-			&& !str[i + 1]) || (str[i] == '|' && pchec(str, &i)))
-			return (0);
 		if (str[i] == '|' && str[i + 1])
 			args++;
+		if ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '|'
+				&& !str[i + 1]) || (str[i] == '|' && !pipecheck(str, &i)))
+			return (0);
 		if (str[i])
 			i++;
 	}
