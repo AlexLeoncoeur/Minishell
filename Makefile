@@ -24,7 +24,7 @@ PIPEX_CFILES = executer.c executer_utils.c last_cmd.c
 SRC_DIR = src/
 PARSER_DIR = src/parser/
 BUILT_IN_SRC_DIR = src/built_ins/
-PIPEX_SRC_DIR = src/pipex/
+PIPEX_SRC_DIR = src/executer/
 OBJ_DIR = objs/
 
 # OBJECTS

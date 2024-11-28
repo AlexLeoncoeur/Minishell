@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 01:39:43 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/27 22:02:31 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 01:05:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ static int	count_args(char *str)
 			i++;
 		if (quote == str[i])
 			quote = 0;
-		// if (str[i] == '|' && str[i + 1] == '|')
-		// 	i++;
+		if ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '|'
+			&& !str[i + 1]) || (str[i] == '|' && pchec(str, &i)))
+			return (0);
 		if (str[i] == '|' && str[i + 1])
 			args++;
-		if ((str[i] == '|' && !str[i + 1]) || (str[i] == '|' && pchec(str, &i)))
-			return (0);
 		if (str[i])
 			i++;
 	}
