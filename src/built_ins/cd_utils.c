@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 12:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 12:37:27 by jcallejo         ###   ########.fr       */
+/*   Created: 2024/11/28 11:06:26 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/11/28 11:19:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-int	ft_isdigit(char c)
+int	ft_how_to_go_back(char *str)
 {
-	if (c >= '0' && c <= '9')
+	if (ft_strncmp(str, "..\0", 3) == 0
+		|| ft_strncmp(str, "../\0", 4) == 0)
 		return (1);
-	else
-		return (0);
+	return (0);
 }

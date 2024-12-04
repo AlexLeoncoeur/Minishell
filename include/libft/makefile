@@ -31,7 +31,7 @@ $(NAME): compiling $(OFILES)
 	@ ar rcs $(NAME) $(OFILES)
 
 clean:
-	@ echo "$(RED)Cleaning Libft ... $(RESET)"
+	@ echo "$(RED)CLEANING LIBFT ... $(RESET)"
 	@ rm -f $(OFILES)
 
 fclean: clean
@@ -43,6 +43,6 @@ bonus: all $(BONUS_OFILES)
 	@ ar rcs $(NAME) $(BONUS_OFILES)
 
 compiling:
-	@ echo "$(GREEN)Compiling Libft ...$(RESET)"
+	@ echo "$(GREEN)COMPILING LIBFT ...$(RESET)"
 
 .PHONY: all clean fclean re bonus

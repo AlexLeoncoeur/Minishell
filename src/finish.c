@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 12:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/11 12:37:27 by jcallejo         ###   ########.fr       */
+/*   Created: 2024/10/17 10:28:18 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/11/08 11:54:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-int	ft_isdigit(char c)
+static void	ft_free_tenv(t_env **lst)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	t_env	*aux;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		if ((*lst)->name)
+			free((*lst)->name);
+		if ((*lst)->value)
+			free((*lst)->value);
+		(*lst)->name = NULL;
+		(*lst)->value = NULL;
+		aux = *lst;
+		*lst = (*lst)->next;
+		free(aux);
+	}
+}
+
+void	ft_free_data(t_data *data)
+{
+	ft_free_tenv(&data->env);
+	ft_free_tenv(&data->env_export);
 }

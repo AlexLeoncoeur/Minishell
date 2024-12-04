@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   last_cmd.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 11:07:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/09/17 11:34:23 by aarenas-         ###   ########.fr       */
+/*   Created: 2024/09/27 14:36:20 by aarenas-          #+#    #+#             */
+/*   Updated: 2024/11/15 12:32:33 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_do_last_cmd(t_arg_list *lst, int fd)
+void	ft_env(t_env *env, int *error)
 {
-	int	child;
-	int	cmd;
+	t_env	*aux;
 
-	cmd = lst->argc - 2;
-	child = fork();
-	if (child == 0)
+	aux = env;
+	while (aux)
 	{
-		if (execve(ft_pathfinder(lst, cmd), lst->flags, lst->envp) < 0)
-		{
-			ft_free(lst->flags);
-			free(lst);
-			close(fd);
-			perror("Error");
-			exit (1);
-		}
+		if (aux->value)
+			printf("%s=\"%s\"\n", aux->name, aux->value);
+		aux = aux->next;
 	}
-	else if (child == -1)
-		perror("Error");
+	*error = 0;
 }
