@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:51:38 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/26 23:23:28 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:11:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_set_flag(int i)
 	g_signal_flag = i;
 }
 
-static void	handler_int(int signal)
+void	ft_handler_int(int signal)
 {
 	(void) signal;
 	ft_putendl_fd("", STDOUT_FILENO);
@@ -45,6 +45,6 @@ int	ft_get_flag(void)
 
 void	ft_init_signals(void)
 {
-	signal(SIGINT, handler_int);
+	signal(SIGINT, ft_handler_int);
 	signal(SIGQUIT, SIG_IGN);
 }

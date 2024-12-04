@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:04:51 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/11/28 12:47:49 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:43:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 	system("leaks -q minishell");
 // }
 
-static void	ft_delete_heredoc(void)
+void	ft_delete_heredoc(void)
 {
 	int	fd;
 
