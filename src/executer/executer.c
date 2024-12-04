@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/04 12:37:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:42:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	int		i;
 
 	i = 0;
+	dprintf(2, "%s\n", command);
 	if (ft_strncmp(command, "./", 2) == 0)
 		return (&command[2]);
 	while (lst->envp[i] && ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
@@ -53,11 +54,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	free(path);
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
-	{
-		dprintf(2, "minishell: executer: %s: command not found\n", command);
-		lst->error = 127;
-		ft_exit(NULL, lst);
-	}
+		return (ft_do_executable(lst, command));
 	return (path);
 }
 
@@ -75,10 +72,7 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	ft_check_built_ins(cmd, builtin_done);
 	if (*builtin_done == 1)
 	{
-		if (!ft_strncmp(cmd->path, "/", 1))
-			path = cmd->path;
-		else
-			path = ft_pathfinder(cmd->data, cmd->path);
+		path = ft_pathfinder(cmd->data, cmd->path);
 		if (execve(path, cmd->argv, cmd->data->envp) < 0)
 		{
 			perror("minishell: executer");

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/04 12:33:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:06:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		ft_free(char **str);
 /* ------------------------ pipex/last_cmd ------------------------ */
 
 void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
+char		*ft_do_executable(t_data *data, char *command);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
@@ -136,7 +137,7 @@ char		*ft_manage_go_back(t_data *data);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
-void		ft_unset(t_env **lst, char *name);
+void		ft_unset(t_env **lst, char *name, t_data *data);
 void		ft_delete_node(t_env *prev_node);
 
 /* ------------------------ built-ins/cd ------------------------ */
