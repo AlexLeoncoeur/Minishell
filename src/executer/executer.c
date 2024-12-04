@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 16:25:23 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:26:01 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	i = 0;
 	if (ft_strncmp(command, "./", 2) == 0)
 		return (&command[2]);
-	while (ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
+	while (lst->envp[i] && ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (lst->envp[i] == NULL)
 		return (NULL);
@@ -54,7 +54,7 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
 	{
-		printf("minishell: executer: %s: command not found\n", command);
+		dprintf(2, "minishell: executer: %s: command not found\n", command);
 		lst->error = 127;
 		ft_exit(NULL, lst);
 	}

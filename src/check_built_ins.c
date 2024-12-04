@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_built_ins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:14:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/27 19:13:05 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:08:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	ft_check_cd_unset(t_cmd *cmd, int *builtin_done)
 		{
 			while (cmd->argv[i])
 			{
-				ft_unset(&cmd->data->env, cmd->argv[i]);
-				ft_unset(&cmd->data->env_export, cmd->argv[i]);
+				ft_unset(&cmd->data->env, cmd->argv[i], cmd->data);
+				ft_unset(&cmd->data->env_export, cmd->argv[i], cmd->data);
 				i++;
 			}
 			cmd->data->error = 0;

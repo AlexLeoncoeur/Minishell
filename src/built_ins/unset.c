@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:10:33 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/11/28 11:31:27 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:08:17 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,15 @@ void	ft_delete_node(t_env *prev_node)
 	node_to_delete = NULL;
 }
 
-void	ft_unset(t_env **lst, char *name)
+void	ft_unset(t_env **lst, char *name, t_data *data)
 {
 	t_env	*node;
 	t_env	*delete;
-	int		i;
 
-	i = 0;
 	node = *lst;
 	while (node->next)
 	{
-		if (i == 0 && ft_strncmp(node->name, name, ft_strlen(node->name)) == 0)
+		if (ft_strncmp(node->name, name, ft_strlen(node->name)) == 0)
 		{
 			delete = *lst;
 			*lst = (*lst)->next;
@@ -59,4 +57,5 @@ void	ft_unset(t_env **lst, char *name)
 		}
 		node = node->next;
 	}
+	ft_parse_list(data);
 }
