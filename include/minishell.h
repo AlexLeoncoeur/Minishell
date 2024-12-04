@@ -6,11 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/12/04 12:08:31 by aarenas-         ###   ########.fr       */
-=======
-/*   Updated: 2024/11/28 18:30:06 by jcallejo         ###   ########.fr       */
->>>>>>> ee290881c7ee90235f6d48a2d922ff054039977f
+/*   Updated: 2024/12/04 12:33:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +77,7 @@ typedef struct s_data
 	char		*atmp;
 }	t_data;
 
-/* ------------------------ executer/executer ------------------------ */
+/* ------------------------ pipex/pipex_bonus ------------------------ */
 
 /**
  * @brief pipo
@@ -95,7 +91,7 @@ int			ft_do_cmd(t_data *lst);
 int			ft_executer(t_data *data);
 char		*ft_pathfinder(t_data *lst, char *command);
 
-/* ------------------------ executer/executer_utils ------------------------ */
+/* ------------------------ pipex/pipex_utils_bonus ------------------------ */
 
 void		ft_wait(int *error);
 void		ft_freeanderror(t_data *lst);
@@ -103,7 +99,7 @@ void		ft_check_redirs(t_cmd *cmd);
 void		ft_puterrorstr(char *str);
 void		ft_free(char **str);
 
-/* ------------------------ executer/last_cmd ------------------------ */
+/* ------------------------ pipex/last_cmd ------------------------ */
 
 void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
 
@@ -140,7 +136,7 @@ char		*ft_manage_go_back(t_data *data);
 
 /* ------------------------ built-ins/unset ------------------------ */
 
-void		ft_unset(t_env **lst, char *name, t_data *data);
+void		ft_unset(t_env **lst, char *name);
 void		ft_delete_node(t_env *prev_node);
 
 /* ------------------------ built-ins/cd ------------------------ */
@@ -381,18 +377,5 @@ char		*ft_minitrim(t_data *data, char	*str);
  * @return int 
  */
 int			ft_parser_check_redirs(char *str);
-
-/**
- * @brief Handler for SIGINT
- * 
- * @param signal 
- */
-void		ft_handler_int(int signal);
-
-/**
- * @brief Guess what this does
- * 
- */
-void		ft_delete_heredoc(void);
 
 #endif
