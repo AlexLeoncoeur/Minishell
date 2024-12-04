@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/04 13:06:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:59:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_data
 	char		*atmp;
 }	t_data;
 
-/* ------------------------ pipex/pipex_bonus ------------------------ */
+/* ------------------------ executer/executer ------------------------ */
 
 /**
  * @brief pipo
@@ -91,7 +91,7 @@ int			ft_do_cmd(t_data *lst);
 int			ft_executer(t_data *data);
 char		*ft_pathfinder(t_data *lst, char *command);
 
-/* ------------------------ pipex/pipex_utils_bonus ------------------------ */
+/* ------------------------ executer/executer_utils ------------------------ */
 
 void		ft_wait(int *error);
 void		ft_freeanderror(t_data *lst);
@@ -99,10 +99,9 @@ void		ft_check_redirs(t_cmd *cmd);
 void		ft_puterrorstr(char *str);
 void		ft_free(char **str);
 
-/* ------------------------ pipex/last_cmd ------------------------ */
+/* ------------------------ executer/last_cmd ------------------------ */
 
 void		ft_do_last_cmd(t_cmd *lst, int *builtin_done);
-char		*ft_do_executable(t_data *data, char *command);
 
 /* ------------------------ built-ins/echo ------------------------ */
 
@@ -378,5 +377,18 @@ char		*ft_minitrim(t_data *data, char	*str);
  * @return int 
  */
 int			ft_parser_check_redirs(char *str);
+
+/**
+ * @brief Handler for SIGINT
+ * 
+ * @param signal 
+ */
+void		ft_handler_int(int signal);
+
+/**
+ * @brief Guess what this does
+ * 
+ */
+void		ft_delete_heredoc(void);
 
 #endif

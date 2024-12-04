@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:39:13 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/04 13:42:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:59:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	int		i;
 
 	i = 0;
-	dprintf(2, "%s\n", command);
 	if (ft_strncmp(command, "./", 2) == 0)
 		return (&command[2]);
 	while (lst->envp[i] && ft_strncmp(lst->envp[i], "PATH=", 5) != 0)
@@ -54,7 +53,11 @@ char	*ft_pathfinder(t_data *lst, char *command)
 	free(path);
 	path = ft_definitive_path(d_paths, command);
 	if (!path)
-		return (ft_do_executable(lst, command));
+	{
+		dprintf(2, "minishell: executer: %s: command not found\n", command);
+		lst->error = 127;
+		ft_exit(NULL, lst);
+	}
 	return (path);
 }
 
@@ -72,7 +75,10 @@ static void	ft_execute_cmd(t_cmd *cmd, int *pipefd, int *builtin_done)
 	ft_check_built_ins(cmd, builtin_done);
 	if (*builtin_done == 1)
 	{
-		path = ft_pathfinder(cmd->data, cmd->path);
+		if (!ft_strncmp(cmd->path, "/", 1))
+			path = cmd->path;
+		else
+			path = ft_pathfinder(cmd->data, cmd->path);
 		if (execve(path, cmd->argv, cmd->data->envp) < 0)
 		{
 			perror("minishell: executer");
@@ -137,48 +143,3 @@ int	ft_executer(t_data *data)
 	signal(SIGQUIT, SIG_IGN);
 	return (dup2(std_out_fd, STDOUT_FILENO), dup2(std_in_fd, STDIN_FILENO), 0);
 }
-
-/*testing*/
-
-/* static t_cmd	*ft_test_cmd(t_data *data)
-{
-	t_cmd	*prueba;
-	char	*arg;
-
-	prueba = malloc(sizeof(t_cmd));
-	arg = ft_strdup("..");
-	prueba->argv = malloc(sizeof(char *) * 2);
-	prueba->argv[1] = NULL;
-	prueba->argv[0] = arg;
-	prueba->envp = data->envp;
-	prueba->redir = -1;
-	prueba->next = malloc(sizeof(t_cmd));
-	prueba->env = NULL;
-	prueba->env_export = NULL;
-	prueba->data = data;
-	prueba->next->argv = NULL;
-	prueba->next->argv[1] = NULL;
-	prueba->next->argv[0] = arg;
-	prueba->next->envp = data->envp;
-	prueba->next->redir = -1;
-	prueba->next->next = NULL;
-	prueba->next->env = NULL;
-	prueba->next->env_export = NULL;
-	prueba->data = data;
-	return (prueba);
-} */
-
-	/* t_data	*data;
-	//t_data	*lst;
-
-	//lst = ft_define_lst(argc, argv, envp);
-	data = malloc(sizeof(t_data));
-	data->argc = argc;
-	data->argv = argv;
-	data->envp = envp;
-	data->cmd = ft_test_cmd(data);
-	data->cmd->path = "cd";
-	data->builtin_done = 0;
-	data->cmd->next->cmd = "pwd";
-	//data->cmd->next->cmd = ft_pathfinder(data, "exit");
-	//data->cmd->next->argv[0] = data->cmd->next->cmd; */
